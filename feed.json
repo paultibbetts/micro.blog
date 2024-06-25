@@ -7,6 +7,42 @@
 	"items": [
 		
 			{
+				"id": "http://paultibbetts.micro.blog/2024/06/20/finished-the-west.html",
+				
+				"content_html": "<p>Hiked the West Highland Way.</p>\n<p>96 miles from Milngavie to Fort William.</p>\n<!-- raw HTML omitted -->\n",
+				"content_text": "Hiked the West Highland Way. \n\n96 miles from Milngavie to Fort William. \n\n<img src=\"uploads/2024/d360100b84.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"date_published": "2024-06-20T22:38:30+01:00",
+				"url": "https://micro.paultibbetts.uk/2024/06/20/finished-the-west.html",
+				"tags": ["West Highland Way","hiking"]
+			},
+			{
+				"id": "http://paultibbetts.micro.blog/2024/06/20/rested-showered-and.html",
+				
+				"content_html": "<p>Rested, showered and caffeinated.</p>\n<p>Ready for day 7.</p>\n<p>25km to Fort William.</p>\n",
+				"content_text": "Rested, showered and caffeinated. \n\nReady for day 7. \n\n25km to Fort William. \n",
+				"date_published": "2024-06-20T08:59:59+01:00",
+				"url": "https://micro.paultibbetts.uk/2024/06/20/rested-showered-and.html",
+				"tags": ["West Highland Way"]
+			},
+			{
+				"id": "http://paultibbetts.micro.blog/2024/06/19/made-it-to.html",
+				
+				"content_html": "<p>Made it to Kinlochleven.</p>\n<p>Should have eaten more than just Skittles and Scottish Tablet for lunch.</p>\n<p>Tired.</p>\n",
+				"content_text": "Made it to Kinlochleven. \n\nShould have eaten more than just Skittles and Scottish Tablet for lunch. \n\nTired. \n",
+				"date_published": "2024-06-19T21:03:44+01:00",
+				"url": "https://micro.paultibbetts.uk/2024/06/19/made-it-to.html",
+				"tags": ["West Highland Way"]
+			},
+			{
+				"id": "http://paultibbetts.micro.blog/2024/06/19/day-involves-breakfast.html",
+				
+				"content_html": "<p>Day 6 involves breakfast at Glencoe mountain resort, Kingshouse Inn, and dealing with a low phone battery.</p>\n",
+				"content_text": "Day 6 involves breakfast at Glencoe mountain resort, Kingshouse Inn, and dealing with a low phone battery. \n",
+				"date_published": "2024-06-19T12:23:25+01:00",
+				"url": "https://micro.paultibbetts.uk/2024/06/19/day-involves-breakfast.html",
+				"tags": ["West Highland Way"]
+			},
+			{
 				"id": "http://paultibbetts.micro.blog/2024/06/18/misty-mountain-wild.html",
 				
 				"content_html": "<p>Misty mountain wild camp.</p>\n<!-- raw HTML omitted -->\n",
@@ -26,11 +62,10 @@
 			{
 				"id": "http://paultibbetts.micro.blog/2024/06/18/day-summaries-have.html",
 				
-				"content_html": "<p>Day summaries have been postponedd until after the trip. They take too long to write on a phone and I have walking to do.</p>\n",
-				"content_text": "Day summaries have been postponedd until after the trip. They take too long to write on a phone and I have walking to do. \n",
+				"content_html": "<p>Day summaries have been postponed until after the trip. They take too long to write on a phone and I have walking to do.</p>\n",
+				"content_text": "Day summaries have been postponed until after the trip. They take too long to write on a phone and I have walking to do. \n",
 				"date_published": "2024-06-18T09:54:24+01:00",
-				"url": "https://micro.paultibbetts.uk/2024/06/18/day-summaries-have.html",
-				"tags": ["West Highland Way"]
+				"url": "https://micro.paultibbetts.uk/2024/06/18/day-summaries-have.html"
 			},
 			{
 				"id": "http://paultibbetts.micro.blog/2024/06/17/haggis-neeps-and.html",
@@ -54,7 +89,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/16/made-it-to.html",
 				
 				"content_html": "<p>Made it to Beinglas in time for dinner.</p>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n",
-				"content_text": "Made it to Beinglas in time for dinner. \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/b0af1b0622.jpg\" width=\"600\" height=\"600\" alt=\"\"><img src=\"https://micro.paultibbetts.uk/uploads/2024/b4c093bd25.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "Made it to Beinglas in time for dinner. \n\n<img src=\"uploads/2024/b0af1b0622.jpg\" width=\"600\" height=\"600\" alt=\"\"><img src=\"uploads/2024/b4c093bd25.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-16T21:38:19+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/16/made-it-to.html",
 				"tags": ["West Highland Way","camping"]
@@ -63,7 +98,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/16/loch-lomond.html",
 				
 				"content_html": "<p>Loch Lomond</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Loch Lomond\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/165039c1f7.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "Loch Lomond\n\n<img src=\"uploads/2024/165039c1f7.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-16T17:26:46+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/16/loch-lomond.html",
 				"tags": ["West Highland Way"]
@@ -72,7 +107,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/16/youre-not-allowed.html",
 				
 				"content_html": "<p>You’re not allowed to camp at this perfect little camp spot and then sit on the perfectly located bench beside it because it’s on this side of the sign.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "You’re not allowed to camp at this perfect little camp spot and then sit on the perfectly located bench beside it because it’s on this side of the sign.\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/f13e93df27.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "You’re not allowed to camp at this perfect little camp spot and then sit on the perfectly located bench beside it because it’s on this side of the sign.\n\n<img src=\"uploads/2024/f13e93df27.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-16T12:09:36+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/16/youre-not-allowed.html",
 				"tags": ["West Highland Way","camping"]
@@ -81,7 +116,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/16/breakfast-banana-from.html",
 				
 				"content_html": "<p>Breakfast banana from Bocsa Bean in Rowardennan.</p>\n<p>And a coffee of course.</p>\n<p>I was impressed that the whole trailer’s powered by the electric car parked next to it and only uses 2% of the battery.</p>\n<p>🥾</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Breakfast banana from Bocsa Bean in Rowardennan. \n\nAnd a coffee of course. \n\nI was impressed that the whole trailer’s powered by the electric car parked next to it and only uses 2% of the battery. \n\n🥾\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/070b23ef38.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "Breakfast banana from Bocsa Bean in Rowardennan. \n\nAnd a coffee of course. \n\nI was impressed that the whole trailer’s powered by the electric car parked next to it and only uses 2% of the battery. \n\n🥾\n\n<img src=\"uploads/2024/070b23ef38.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-16T11:50:43+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/16/breakfast-banana-from.html",
 				"tags": ["West Highland Way","hiking"]
@@ -99,7 +134,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/16/morning-day-summary.html",
 				
 				"content_html": "<p>Morning.</p>\n<p>Day 2 summary needs to wait until I find WiFi.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Morning. \n\nDay 2 summary needs to wait until I find WiFi. \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/f3f38bfb77.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "Morning. \n\nDay 2 summary needs to wait until I find WiFi. \n\n<img src=\"uploads/2024/f3f38bfb77.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-16T09:33:00+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/16/morning-day-summary.html",
 				"tags": ["West Highland Way","camping"]
@@ -108,7 +143,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/15/a-long-and.html",
 				
 				"content_html": "<p>A long and undulating second day.</p>\n<p>Cheers!</p>\n<p>⛺️</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "A long and undulating second day. \n\nCheers!\n\n⛺️\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/4881a71063.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "A long and undulating second day. \n\nCheers!\n\n⛺️\n\n<img src=\"uploads/2024/4881a71063.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-06-15T21:25:23+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/15/a-long-and.html",
 				"tags": ["West Highland Way","camping"]
@@ -126,7 +161,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/15/loch-lomond-from.html",
 				
 				"content_html": "<p>Loch Lomond from Conic Hill.</p>\n<p>Half way through today’s route.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Loch Lomond from Conic Hill. \n\nHalf way through today’s route. \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/56507e694a.jpg\" width=\"600\" height=\"480\" alt=\"\">\n",
+				"content_text": "Loch Lomond from Conic Hill. \n\nHalf way through today’s route. \n\n<img src=\"uploads/2024/56507e694a.jpg\" width=\"600\" height=\"480\" alt=\"\">\n",
 				"date_published": "2024-06-15T13:11:05+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/15/loch-lomond-from.html",
 				"tags": ["West Highland Way","hiking"]
@@ -135,7 +170,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/15/these-aloe-vera.html",
 				
 				"content_html": "<p>These Aloe Vera ear plugs blocked out most of the snoring and noisy sleeping pads at the camp site last night.</p>\n<p>Nothing could stop the 4:30 alarm from the birds though.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "These Aloe Vera ear plugs blocked out most of the snoring and noisy sleeping pads at the camp site last night. \n\nNothing could stop the 4:30 alarm from the birds though. \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/93d047b1d2.jpg\" width=\"600\" height=\"600\" alt=\"ear plugs\">\n",
+				"content_text": "These Aloe Vera ear plugs blocked out most of the snoring and noisy sleeping pads at the camp site last night. \n\nNothing could stop the 4:30 alarm from the birds though. \n\n<img src=\"uploads/2024/93d047b1d2.jpg\" width=\"600\" height=\"600\" alt=\"ear plugs\">\n",
 				"date_published": "2024-06-15T09:36:04+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/15/these-aloe-vera.html",
 				"tags": ["West Highland Way","camping"]
@@ -153,7 +188,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/14/well-this-is.html",
 				
 				"content_html": "<p>Well this is a first.</p>\n<p>Night 1 of the West Highland Way for me is a stay at <a href=\"https://drymencamping.co.uk/\">Drymen Camping</a>, eating pizza in my tent.</p>\n<p>🍕⛺️</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Well this is a first. \n\nNight 1 of the West Highland Way for me is a stay at [Drymen Camping](https://drymencamping.co.uk/), eating pizza in my tent. \n\n🍕⛺️\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/2e7cf345f5.jpg\" width=\"600\" height=\"450\" alt=\"Eating pizza inside my tent. \">\n",
+				"content_text": "Well this is a first. \n\nNight 1 of the West Highland Way for me is a stay at [Drymen Camping](https://drymencamping.co.uk/), eating pizza in my tent. \n\n🍕⛺️\n\n<img src=\"uploads/2024/2e7cf345f5.jpg\" width=\"600\" height=\"450\" alt=\"Eating pizza inside my tent. \">\n",
 				"date_published": "2024-06-14T19:41:02+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/14/well-this-is.html"
 			},
@@ -161,7 +196,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/14/off-to-a.html",
 				
 				"content_html": "<p>Off to a very damp start.</p>\n<p>3rd time doing the rain jacket on and then off again dance.</p>\n<p>92 miles to go.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Off to a very damp start. \n\n3rd time doing the rain jacket on and then off again dance. \n\n92 miles to go.\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/cdd1348a80.jpg\" width=\"600\" height=\"600\" alt=\"A sign saying Fort William (the end of the route) is 92 miles away. \">\n",
+				"content_text": "Off to a very damp start. \n\n3rd time doing the rain jacket on and then off again dance. \n\n92 miles to go.\n\n<img src=\"uploads/2024/cdd1348a80.jpg\" width=\"600\" height=\"600\" alt=\"A sign saying Fort William (the end of the route) is 92 miles away. \">\n",
 				"date_published": "2024-06-14T14:16:50+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/14/off-to-a.html",
 				"tags": ["West Highland Way"]
@@ -170,7 +205,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/14/im-walking-the.html",
 				
 				"content_html": "<p>I’m walking The West Highland Way.</p>\n<p>Almost 100 miles, should take about a week, so this is now a hiking and camping micro blog.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "I’m walking The West Highland Way. \n\nAlmost 100 miles, should take about a week, so this is now a hiking and camping micro blog.  \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/edfc9e7f45.jpg\" width=\"600\" height=\"600\" alt=\"The starting point of The West Highland Way in Milngavie, Scotland. \">\n",
+				"content_text": "I’m walking The West Highland Way. \n\nAlmost 100 miles, should take about a week, so this is now a hiking and camping micro blog.  \n\n<img src=\"uploads/2024/edfc9e7f45.jpg\" width=\"600\" height=\"600\" alt=\"The starting point of The West Highland Way in Milngavie, Scotland. \">\n",
 				"date_published": "2024-06-14T13:18:57+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/14/im-walking-the.html",
 				"tags": ["West Highland Way"]
@@ -187,7 +222,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/03/at-least-i.html",
 				
 				"content_html": "<p>At least I can see the way down.</p>\n<p>⛰️ Moel Siabod</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "At least I can see the way down. \n\n⛰️ Moel Siabod \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/1efa299ceb.jpg\" width=\"600\" height=\"329\" alt=\"Hiking path down a hill, clouds cover the top third of the image and the valleys below and some other hills can be seen in the distance\">\n",
+				"content_text": "At least I can see the way down. \n\n⛰️ Moel Siabod \n\n<img src=\"uploads/2024/1efa299ceb.jpg\" width=\"600\" height=\"329\" alt=\"Hiking path down a hill, clouds cover the top third of the image and the valleys below and some other hills can be seen in the distance\">\n",
 				"date_published": "2024-06-03T11:30:11+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/03/at-least-i.html"
 			},
@@ -195,7 +230,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/06/03/i-climbed-metres.html",
 				
 				"content_html": "<p>I climbed 872 metres for these views.</p>\n<p>⛰️Moel Siabod</p>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n",
-				"content_text": "I climbed 872 metres for these views. \n\n⛰️Moel Siabod\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/6d19cd7dc1.jpg\" width=\"600\" height=\"600\" alt=\"Visibility of only a few metres because I’m in a cloud \"><img src=\"https://micro.paultibbetts.uk/uploads/2024/917a0a48c1.jpg\" width=\"600\" height=\"600\" alt=\"Moel Siabod trig point\">\n",
+				"content_text": "I climbed 872 metres for these views. \n\n⛰️Moel Siabod\n\n<img src=\"uploads/2024/6d19cd7dc1.jpg\" width=\"600\" height=\"600\" alt=\"Visibility of only a few metres because I’m in a cloud \"><img src=\"uploads/2024/917a0a48c1.jpg\" width=\"600\" height=\"600\" alt=\"Moel Siabod trig point\">\n",
 				"date_published": "2024-06-03T10:16:52+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/06/03/i-climbed-metres.html"
 			},
@@ -203,7 +238,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/31/coffee-and-my.html",
 				
 				"content_html": "<p>Coffee and my first ever I-cycled-50-miles-in-a-week-biscuit.</p>\n<p><a href=\"https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html\">Day 5/5 complete.</a></p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Coffee and my first ever I-cycled-50-miles-in-a-week-biscuit.\r\n\r\n[Day 5/5 complete.](https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html)\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/cec55139-ad57-4622-ae35-a5b081c26085-1-102-a.jpeg\" width=\"600\" height=\"600\" alt=\"a black Americano coffee and a biscuit, along with a bike helmet, on a wooden bench at the Cafe at the top of the hill\">\n",
+				"content_text": "Coffee and my first ever I-cycled-50-miles-in-a-week-biscuit.\r\n\r\n[Day 5/5 complete.](https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html)\n\n<img src=\"uploads/2024/cec55139-ad57-4622-ae35-a5b081c26085-1-102-a.jpeg\" width=\"600\" height=\"600\" alt=\"a black Americano coffee and a biscuit, along with a bike helmet, on a wooden bench at the Cafe at the top of the hill\">\n",
 				"date_published": "2024-05-31T17:00:51+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/31/coffee-and-my.html",
 				"tags": ["cycling"]
@@ -212,7 +247,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/30/found-a-secret.html",
 				
 				"content_html": "<p>Found a secret beach.</p>\n<p>It&rsquo;s on Komoot and is pretty well sign-posted from the path, but it&rsquo;s a secret.</p>\n<p><a href=\"https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html\">Day 4/5 complete.</a></p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Found a secret beach.\n\nIt's on Komoot and is pretty well sign-posted from the path, but it's a secret.\n\n[Day 4/5 complete.](https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html)\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/acc7dbdb-b82a-4bc3-b22a-9457d0356421-1-102-a.jpeg\" width=\"600\" height=\"480\" alt=\"a tunnel that leads to a small secluded beach\">\n",
+				"content_text": "Found a secret beach.\n\nIt's on Komoot and is pretty well sign-posted from the path, but it's a secret.\n\n[Day 4/5 complete.](https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html)\n\n<img src=\"uploads/2024/acc7dbdb-b82a-4bc3-b22a-9457d0356421-1-102-a.jpeg\" width=\"600\" height=\"480\" alt=\"a tunnel that leads to a small secluded beach\">\n",
 				"date_published": "2024-05-30T17:49:13+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html",
 				"tags": ["cycling"]
@@ -221,7 +256,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/29/i-climbed-a.html",
 				
 				"content_html": "<p>I climbed a 10% hill.</p>\n<p>I then had to bask in the glory of my accomplishment for a minute.</p>\n<p><a href=\"https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html\">Day 3/5 complete.</a></p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "I climbed a 10% hill.\n\nI then had to bask in the glory of my accomplishment for a minute.\n\n[Day 3/5 complete.](https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html)\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/img-3334.jpg\" width=\"600\" height=\"337\" alt=\"a gravel bike leaning against a barrier beside the sea\">\n",
+				"content_text": "I climbed a 10% hill.\n\nI then had to bask in the glory of my accomplishment for a minute.\n\n[Day 3/5 complete.](https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html)\n\n<img src=\"uploads/2024/img-3334.jpg\" width=\"600\" height=\"337\" alt=\"a gravel bike leaning against a barrier beside the sea\">\n",
 				"date_published": "2024-05-29T18:06:28+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html",
 				"tags": ["cycling"]
@@ -230,7 +265,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/28/coach-asked-if.html",
 				
 				"content_html": "<p>Coach asked if a photo every day was necessary?</p>\n<p>I&rsquo;m undecided.</p>\n<p><a href=\"https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html\">Day 2/5 complete.</a></p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Coach asked if a photo every day was necessary?\n\nI'm undecided.\n\n[Day 2/5 complete.](https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html)\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/0f1d3d81-155e-43fd-b562-7d67acb76d02-4-5005-c.jpeg\" width=\"450\" height=\"360\" alt=\"a gravel bike standing near a stone beach, looking out to the sea on a sunny day\">\n",
+				"content_text": "Coach asked if a photo every day was necessary?\n\nI'm undecided.\n\n[Day 2/5 complete.](https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html)\n\n<img src=\"uploads/2024/0f1d3d81-155e-43fd-b562-7d67acb76d02-4-5005-c.jpeg\" width=\"450\" height=\"360\" alt=\"a gravel bike standing near a stone beach, looking out to the sea on a sunny day\">\n",
 				"date_published": "2024-05-28T17:10:44+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html",
 				"tags": ["cycling"]
@@ -239,7 +274,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/27/bank-holiday-by.html",
 				
 				"content_html": "<p>Bank holiday by the sea.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Bank holiday by the sea. \n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/3e2ab871e3.jpg\" width=\"600\" height=\"600\" alt=\"a small boat near the shore where tourists are sitting on sand \">\n",
+				"content_text": "Bank holiday by the sea. \n\n<img src=\"uploads/2024/3e2ab871e3.jpg\" width=\"600\" height=\"600\" alt=\"a small boat near the shore where tourists are sitting on sand \">\n",
 				"date_published": "2024-05-27T20:23:41+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/27/bank-holiday-by.html"
 			},
@@ -247,7 +282,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/27/coach-says-if.html",
 				
 				"content_html": "<p>Coach says if I want to cycle 50 miles in a day I must first cycle 50 miles.</p>\n<p>So I’ve split it over 5 days.</p>\n<p>Day 1/5 complete.</p>\n<p>🚲</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Coach says if I want to cycle 50 miles in a day I must first cycle 50 miles. \n\nSo I’ve split it over 5 days. \n\nDay 1/5 complete. \n\n🚲\n\n\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/b1ebbf5b2f.jpg\" width=\"600\" height=\"600\" alt=\"gravel bike on a stone beach\">\n",
+				"content_text": "Coach says if I want to cycle 50 miles in a day I must first cycle 50 miles. \n\nSo I’ve split it over 5 days. \n\nDay 1/5 complete. \n\n🚲\n\n\n\n<img src=\"uploads/2024/b1ebbf5b2f.jpg\" width=\"600\" height=\"600\" alt=\"gravel bike on a stone beach\">\n",
 				"date_published": "2024-05-27T14:49:32+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html",
 				"tags": ["cycling"]
@@ -264,7 +299,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/26/weeknotes.html",
 				"title": "Weeknotes 002",
 				"content_html": "<p>Another missed opportunity to photograph my food.\nAnother weeknotes.</p>\n<p>I fixed my bike this week. All it needed was the tyres pumping up, but I didn&rsquo;t have the right pump because my new bike uses Presta valves and I&rsquo;d never even heard of them before.</p>\n<p>More money later and my bike&rsquo;s road worthy again. Went out for a short ride to celebrate and now I&rsquo;m all achey. Planning on getting out more next week.</p>\n<p>Met up with the Recommend.li team at <a href=\"https://www.colmoretap.co.uk/\">The Colmore</a> in Birmingham, which is a great after work spot in the city centre with a ridiculous amount of beers on tap. I had an anchovy pizza and once again forgot about needing content for my blog whilst eating it.</p>\n<p>Planned and booked <a href=\"https://www.westhighlandway.org/\">The West Highland Way</a> for June after watching <a href=\"https://youtu.be/z015CycR2pA?si=j_7OWsxhMWsndL2b\">Paul Messner&rsquo;s series</a>. Bought some new gear in preparation. Going to microblog the trip. Can&rsquo;t let good content keep going to waste.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Another missed opportunity to photograph my food. \nAnother weeknotes.\n\nI fixed my bike this week. All it needed was the tyres pumping up, but I didn't have the right pump because my new bike uses Presta valves and I'd never even heard of them before. \n\nMore money later and my bike's road worthy again. Went out for a short ride to celebrate and now I'm all achey. Planning on getting out more next week.\n\nMet up with the Recommend.li team at [The Colmore](https://www.colmoretap.co.uk/) in Birmingham, which is a great after work spot in the city centre with a ridiculous amount of beers on tap. I had an anchovy pizza and once again forgot about needing content for my blog whilst eating it.\n\nPlanned and booked [The West Highland Way](https://www.westhighlandway.org/) for June after watching [Paul Messner's series](https://youtu.be/z015CycR2pA?si=j_7OWsxhMWsndL2b). Bought some new gear in preparation. Going to microblog the trip. Can't let good content keep going to waste.\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/f15184bf-cffa-4c0b-8ef4-630ee30f46e4-1-102-a.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "Another missed opportunity to photograph my food. \nAnother weeknotes.\n\nI fixed my bike this week. All it needed was the tyres pumping up, but I didn't have the right pump because my new bike uses Presta valves and I'd never even heard of them before. \n\nMore money later and my bike's road worthy again. Went out for a short ride to celebrate and now I'm all achey. Planning on getting out more next week.\n\nMet up with the Recommend.li team at [The Colmore](https://www.colmoretap.co.uk/) in Birmingham, which is a great after work spot in the city centre with a ridiculous amount of beers on tap. I had an anchovy pizza and once again forgot about needing content for my blog whilst eating it.\n\nPlanned and booked [The West Highland Way](https://www.westhighlandway.org/) for June after watching [Paul Messner's series](https://youtu.be/z015CycR2pA?si=j_7OWsxhMWsndL2b). Bought some new gear in preparation. Going to microblog the trip. Can't let good content keep going to waste.\n\n<img src=\"uploads/2024/f15184bf-cffa-4c0b-8ef4-630ee30f46e4-1-102-a.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n",
 				"date_published": "2024-05-26T22:14:32+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/26/weeknotes.html",
 				"tags": ["weeknotes"]
@@ -282,7 +317,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/19/weeknotes.html",
 				"title": "Weeknotes 001",
 				"content_html": "<p>Weeknotes are for when you&rsquo;re eating sushi and forget to take a photo and then later you decide you should tell people about it because it was excellent.</p>\n<p>Loved the food at <a href=\"http://sushimarvel.co.uk/\">Sushi Marvel</a> in Manchester. I was too busy eating to take many photos but I paused before tackling the chicken karaage rice bowl so there&rsquo;s at least one of that. I&rsquo;ve recently started a regular pilgrimage to Manchester&rsquo;s food scene and so far Sushi Marvel&rsquo;s been my favourite for food.</p>\n<p>Lots of walking this week. Inspired by <a href=\"https://youtu.be/z015CycR2pA?si=-moWIT457QNHY4pb\">Paul Messner&rsquo;s recent trip to Scotland</a> I&rsquo;m now thinking of walking The West Highland Way.</p>\n<p>Made a proper start on the app I&rsquo;m working on with my friends. I need to learn what&rsquo;s new in React to work on the frontend.</p>\n<p>Decided to redo my Neovim config and make it work the way I want it to. This deserves its own post next week.</p>\n<p>Subscribed to Micro.blog 🥳 I&rsquo;ve decided to use <a href=\"https://micro.paultibbetts.uk\">micro.paultibbetts.uk</a> for the domain and I wrote that DNS setting down as Terraform code instead of doing it by hand. Don&rsquo;t ask how much longer that took me.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Weeknotes are for when you're eating sushi and forget to take a photo and then later you decide you should tell people about it because it was excellent.\n\nLoved the food at [Sushi Marvel](http://sushimarvel.co.uk/) in Manchester. I was too busy eating to take many photos but I paused before tackling the chicken karaage rice bowl so there's at least one of that. I've recently started a regular pilgrimage to Manchester's food scene and so far Sushi Marvel's been my favourite for food.\n\nLots of walking this week. Inspired by [Paul Messner's recent trip to Scotland](https://youtu.be/z015CycR2pA?si=-moWIT457QNHY4pb) I'm now thinking of walking The West Highland Way.\n\nMade a proper start on the app I'm working on with my friends. I need to learn what's new in React to work on the frontend.\n\nDecided to redo my Neovim config and make it work the way I want it to. This deserves its own post next week.\n\nSubscribed to Micro.blog 🥳 I've decided to use [micro.paultibbetts.uk](https://micro.paultibbetts.uk) for the domain and I wrote that DNS setting down as Terraform code instead of doing it by hand. Don't ask how much longer that took me.\n\n<img src=\"https://micro.paultibbetts.uk/uploads/2024/fed6436cb0.jpg\" width=\"600\" height=\"450\" alt=\"chicken karaage rice bowl\">\n",
+				"content_text": "Weeknotes are for when you're eating sushi and forget to take a photo and then later you decide you should tell people about it because it was excellent.\n\nLoved the food at [Sushi Marvel](http://sushimarvel.co.uk/) in Manchester. I was too busy eating to take many photos but I paused before tackling the chicken karaage rice bowl so there's at least one of that. I've recently started a regular pilgrimage to Manchester's food scene and so far Sushi Marvel's been my favourite for food.\n\nLots of walking this week. Inspired by [Paul Messner's recent trip to Scotland](https://youtu.be/z015CycR2pA?si=-moWIT457QNHY4pb) I'm now thinking of walking The West Highland Way.\n\nMade a proper start on the app I'm working on with my friends. I need to learn what's new in React to work on the frontend.\n\nDecided to redo my Neovim config and make it work the way I want it to. This deserves its own post next week.\n\nSubscribed to Micro.blog 🥳 I've decided to use [micro.paultibbetts.uk](https://micro.paultibbetts.uk) for the domain and I wrote that DNS setting down as Terraform code instead of doing it by hand. Don't ask how much longer that took me.\n\n<img src=\"uploads/2024/fed6436cb0.jpg\" width=\"600\" height=\"450\" alt=\"chicken karaage rice bowl\">\n",
 				"date_published": "2024-05-19T23:39:48+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/19/weeknotes.html",
 				"tags": ["weeknotes"]
@@ -299,7 +334,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/08/one-week-of.html",
 				"title": "One week of touch typing ⌨️",
 				"content_html": "<p>I thought I knew how to type.</p>\n<p>For years I&rsquo;ve been able to type without looking at the keys and I could get used to a new keyboard in hours, if not minutes.</p>\n<p>Then <a href=\"https://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html\">I bought a new keyboard</a> that looks like this:</p>\n<!-- raw HTML omitted -->\n<p>and realised how wrong I was.</p>\n<h2 id=\"hunter-pecker\">Hunter Pecker</h2>\n<p>It turns out I&rsquo;d become extremely proficient at hunting for keys and pecking at them with my index fingers. My hands knew where all the keys were but I primarily used my index fingers to push the buttons.</p>\n<p>Maybe the button was far enough away from the centre and I&rsquo;d use my <del>swearing</del> middle finger. Or it was right on the edge of the keyboard and I&rsquo;d use my ring finger. </p>\n<p>It worked for me for years, adapting from keyboard to keyboard and I could type at around 100 words per minute.</p>\n<h2 id=\"using-100-of-my-brain\">Using 100% of my brain</h2>\n<p>When I got my new keyboard I decided to learn it properly. </p>\n<p>I&rsquo;d watch the videos, follow the guides and use the many different training apps available.</p>\n<p>And I&rsquo;d use my little fingers if I had to.</p>\n<p>I considered switching to a more modern keyboard layout, one that was designed for better efficiency, but I wanted to learn the new keyboard first.</p>\n<p>A new layout can come later, then I&rsquo;ll be using 100% of my brain.</p>\n<h2 id=\"training-regime\">Training regime</h2>\n<p>I got my new keyboard on the 2nd of May and each day I would practise typing on <a href=\"https://www.keybr.com/\">keybr</a>. </p>\n<p>It&rsquo;s important to not overdo it, so I would spend about 30 minutes of typing and leave it for a few hours before having another go. I set the timer on keybr to 2 hours per day, the highest it would go, and stopped when I hit it.</p>\n<p>Or I&rsquo;d stop way before then.</p>\n<p>Typing was painful!</p>\n<p>It wasn&rsquo;t a sharp pain, and it wasn&rsquo;t severe, but years of only using 2 or 3 fingers to type had to be unlearnt and my little fingers had more buttons to press than ever before.</p>\n<p>Some days it felt like I wasn&rsquo;t getting any better and I would never learn how to do it, but each morning I would find my fingers a little stronger and that my muscle memory had adapted a little bit more.</p>\n<p>Apart from that one time I went to type on my Macbook and I glitched.</p>\n<p>Hands hovering above the keyboard my brain couldn&rsquo;t find the relevant instructions to function and my whole body froze until it did.</p>\n<h2 id=\"keybr\">keybr</h2>\n<p>I settled on <a href=\"https://www.keybr.com/\">keybr</a> over the others because the guided lessons limited the keys I had to press and only unlocked the next key when it thought I was ready to progress.</p>\n<p>Which was a bit weird, because my fingers knew where the next unlocked key would be before my brain told them where it was.</p>\n<p>I felt like an octopus the way my hands moved without my brain ever telling them where to go.</p>\n<!-- raw HTML omitted -->\n<p>In total I&rsquo;ve spent 12 hours doing 730 lessons on keybr. The graph above shows my typing speed in green, accuracy in orange and the purple line shows the amount of keys unlocked. </p>\n<p>You can see the day I thought I knew what I was doing and then found out quickly that I didn&rsquo;t.</p>\n<p>Sometimes unlocking a new key would throw everything off balance and I&rsquo;d have to adjust what I was doing. Or sometimes the new key would put something familiar on the map for my hands to anchor around.</p>\n<p>After 12 hours of practising I&rsquo;ve unlocked all the alpha keys on keybr and my brain&rsquo;s adapted to the new layout. </p>\n<p>I was even able to type this blog post with my new keyboard!</p>\n<h2 id=\"room-for-improvement\">Room for improvement</h2>\n<p>I&rsquo;m not very fast at typing right now though.</p>\n<p>This is where the other apps come in.</p>\n<ul>\n<li><a href=\"https://monkeytype.com/\">monkeytype</a> is for whole-word training</li>\n<li><a href=\"https://type-fu.com/\">type-fu</a> is another app for whole-word training</li>\n<li><a href=\"https://ranelpadon.github.io/ngram-type\">ngram</a> is for typing ngrams (sequences of characters) to reinforce muscle memory</li>\n</ul>\n<p>I&rsquo;ll probably cut down my 2 hours of dedicated training to something more manageable but I&rsquo;m going to need to keep at it. </p>\n<p>It&rsquo;d be a bit embarrassing sharing my screen at work right now with me typing so slow and making so many mistakes.</p>\n<p>Even worse is that I&rsquo;m a programmer and I haven&rsquo;t yet learnt where all my symbols are?!</p>\n<h2 id=\"stats\">Stats</h2>\n<p>Day 0: 100 WPM on my regular keyboard</p>\n<p>Day 1: 15 WPM on my new keyboard</p>\n<p>Days 1-7: practising on keybr for 2 hours per day</p>\n<p>Day 8: 60 WPM on my new keyboard</p>\n",
-				"content_text": "I thought I knew how to type. \n\nFor years I've been able to type without looking at the keys and I could get used to a new keyboard in hours, if not minutes.\n\nThen [I bought a new keyboard](https://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html) that looks like this:\n\n<img src=\"https://paultibbetts.micro.blog/uploads/2024/f8707a474e.jpg\" width=\"600\" height=\"600\" alt=\"Glove80 ergo mechanical keyboard in the travel case\">\n  \nand realised how wrong I was.\n\n\n\n## Hunter Pecker\n  \nIt turns out I'd become extremely proficient at hunting for keys and pecking at them with my index fingers. My hands knew where all the keys were but I primarily used my index fingers to push the buttons.\n\nMaybe the button was far enough away from the centre and I'd use my ~~swearing~~ middle finger. Or it was right on the edge of the keyboard and I'd use my ring finger. \n\nIt worked for me for years, adapting from keyboard to keyboard and I could type at around 100 words per minute.\n\n\n\n## Using 100% of my brain\n\nWhen I got my new keyboard I decided to learn it properly. \n  \nI'd watch the videos, follow the guides and use the many different training apps available.\n\nAnd I'd use my little fingers if I had to.\n\nI considered switching to a more modern keyboard layout, one that was designed for better efficiency, but I wanted to learn the new keyboard first. \n\nA new layout can come later, then I'll be using 100% of my brain.\n\n\n\n## Training regime\n\nI got my new keyboard on the 2nd of May and each day I would practise typing on [keybr](https://www.keybr.com/). \n\nIt's important to not overdo it, so I would spend about 30 minutes of typing and leave it for a few hours before having another go. I set the timer on keybr to 2 hours per day, the highest it would go, and stopped when I hit it.\n\nOr I'd stop way before then.\n\nTyping was painful!\n\nIt wasn't a sharp pain, and it wasn't severe, but years of only using 2 or 3 fingers to type had to be unlearnt and my little fingers had more buttons to press than ever before.\n\nSome days it felt like I wasn't getting any better and I would never learn how to do it, but each morning I would find my fingers a little stronger and that my muscle memory had adapted a little bit more.\n\nApart from that one time I went to type on my Macbook and I glitched.\n\nHands hovering above the keyboard my brain couldn't find the relevant instructions to function and my whole body froze until it did.\n\n\n\n## keybr\n\nI settled on [keybr](https://www.keybr.com/) over the others because the guided lessons limited the keys I had to press and only unlocked the next key when it thought I was ready to progress.\n\nWhich was a bit weird, because my fingers knew where the next unlocked key would be before my brain told them where it was.\n\nI felt like an octopus the way my hands moved without my brain ever telling them where to go.\n  \n<img src=\"https://paultibbetts.micro.blog/uploads/2024/typing-speed-week-1.png\" width=\"600\" height=\"214\" alt=\"graph showing typing speed, accuracy and unlocked keys on keybr.com\">\n\nIn total I've spent 12 hours doing 730 lessons on keybr. The graph above shows my typing speed in green, accuracy in orange and the purple line shows the amount of keys unlocked. \n\nYou can see the day I thought I knew what I was doing and then found out quickly that I didn't.\n\nSometimes unlocking a new key would throw everything off balance and I'd have to adjust what I was doing. Or sometimes the new key would put something familiar on the map for my hands to anchor around.\n\nAfter 12 hours of practising I've unlocked all the alpha keys on keybr and my brain's adapted to the new layout. \n\nI was even able to type this blog post with my new keyboard!\n\n\n\n## Room for improvement\n\nI'm not very fast at typing right now though.\n\nThis is where the other apps come in.\n\n- [monkeytype](https://monkeytype.com/) is for whole-word training\n- [type-fu](https://type-fu.com/) is another app for whole-word training\n- [ngram](https://ranelpadon.github.io/ngram-type) is for typing ngrams (sequences of characters) to reinforce muscle memory\n\nI'll probably cut down my 2 hours of dedicated training to something more manageable but I'm going to need to keep at it. \n\nIt'd be a bit embarrassing sharing my screen at work right now with me typing so slow and making so many mistakes.\n\nEven worse is that I'm a programmer and I haven't yet learnt where all my symbols are?!\n\n\n\n## Stats\n  \nDay 0: 100 WPM on my regular keyboard\n\nDay 1: 15 WPM on my new keyboard\n\nDays 1-7: practising on keybr for 2 hours per day\n\nDay 8: 60 WPM on my new keyboard\n",
+				"content_text": "I thought I knew how to type. \n\nFor years I've been able to type without looking at the keys and I could get used to a new keyboard in hours, if not minutes.\n\nThen [I bought a new keyboard](https://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html) that looks like this:\n\n<img src=\"uploads/2024/f8707a474e.jpg\" width=\"600\" height=\"600\" alt=\"Glove80 ergo mechanical keyboard in the travel case\">\n  \nand realised how wrong I was.\n\n\n\n## Hunter Pecker\n  \nIt turns out I'd become extremely proficient at hunting for keys and pecking at them with my index fingers. My hands knew where all the keys were but I primarily used my index fingers to push the buttons.\n\nMaybe the button was far enough away from the centre and I'd use my ~~swearing~~ middle finger. Or it was right on the edge of the keyboard and I'd use my ring finger. \n\nIt worked for me for years, adapting from keyboard to keyboard and I could type at around 100 words per minute.\n\n\n\n## Using 100% of my brain\n\nWhen I got my new keyboard I decided to learn it properly. \n  \nI'd watch the videos, follow the guides and use the many different training apps available.\n\nAnd I'd use my little fingers if I had to.\n\nI considered switching to a more modern keyboard layout, one that was designed for better efficiency, but I wanted to learn the new keyboard first. \n\nA new layout can come later, then I'll be using 100% of my brain.\n\n\n\n## Training regime\n\nI got my new keyboard on the 2nd of May and each day I would practise typing on [keybr](https://www.keybr.com/). \n\nIt's important to not overdo it, so I would spend about 30 minutes of typing and leave it for a few hours before having another go. I set the timer on keybr to 2 hours per day, the highest it would go, and stopped when I hit it.\n\nOr I'd stop way before then.\n\nTyping was painful!\n\nIt wasn't a sharp pain, and it wasn't severe, but years of only using 2 or 3 fingers to type had to be unlearnt and my little fingers had more buttons to press than ever before.\n\nSome days it felt like I wasn't getting any better and I would never learn how to do it, but each morning I would find my fingers a little stronger and that my muscle memory had adapted a little bit more.\n\nApart from that one time I went to type on my Macbook and I glitched.\n\nHands hovering above the keyboard my brain couldn't find the relevant instructions to function and my whole body froze until it did.\n\n\n\n## keybr\n\nI settled on [keybr](https://www.keybr.com/) over the others because the guided lessons limited the keys I had to press and only unlocked the next key when it thought I was ready to progress.\n\nWhich was a bit weird, because my fingers knew where the next unlocked key would be before my brain told them where it was.\n\nI felt like an octopus the way my hands moved without my brain ever telling them where to go.\n  \n<img src=\"uploads/2024/typing-speed-week-1.png\" width=\"600\" height=\"214\" alt=\"graph showing typing speed, accuracy and unlocked keys on keybr.com\">\n\nIn total I've spent 12 hours doing 730 lessons on keybr. The graph above shows my typing speed in green, accuracy in orange and the purple line shows the amount of keys unlocked. \n\nYou can see the day I thought I knew what I was doing and then found out quickly that I didn't.\n\nSometimes unlocking a new key would throw everything off balance and I'd have to adjust what I was doing. Or sometimes the new key would put something familiar on the map for my hands to anchor around.\n\nAfter 12 hours of practising I've unlocked all the alpha keys on keybr and my brain's adapted to the new layout. \n\nI was even able to type this blog post with my new keyboard!\n\n\n\n## Room for improvement\n\nI'm not very fast at typing right now though.\n\nThis is where the other apps come in.\n\n- [monkeytype](https://monkeytype.com/) is for whole-word training\n- [type-fu](https://type-fu.com/) is another app for whole-word training\n- [ngram](https://ranelpadon.github.io/ngram-type) is for typing ngrams (sequences of characters) to reinforce muscle memory\n\nI'll probably cut down my 2 hours of dedicated training to something more manageable but I'm going to need to keep at it. \n\nIt'd be a bit embarrassing sharing my screen at work right now with me typing so slow and making so many mistakes.\n\nEven worse is that I'm a programmer and I haven't yet learnt where all my symbols are?!\n\n\n\n## Stats\n  \nDay 0: 100 WPM on my regular keyboard\n\nDay 1: 15 WPM on my new keyboard\n\nDays 1-7: practising on keybr for 2 hours per day\n\nDay 8: 60 WPM on my new keyboard\n",
 				"date_published": "2024-05-08T15:33:40+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/08/one-week-of.html",
 				"tags": ["keyboards"]
@@ -308,7 +343,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html",
 				
 				"content_html": "<p>It&rsquo;s new keyboard day!</p>\n<p>I ordered a <a href=\"https://www.moergo.com/collections/glove80-keyboards/products/glove80-split-ergonomic-keyboard-revision-2?variant=47282998739217\">Glove80</a> with Red switches from <a href=\"https://www.moergo.com/\">MoErgo</a> on the 23rd of April and got it in the UK 10 days later.</p>\n<p>It&rsquo;s going to take some getting used to. I haven&rsquo;t used a keyboard like this before.</p>\n<p>⌨️</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "It's new keyboard day!\n\nI ordered a [Glove80](https://www.moergo.com/collections/glove80-keyboards/products/glove80-split-ergonomic-keyboard-revision-2?variant=47282998739217) with Red switches from [MoErgo](https://www.moergo.com/) on the 23rd of April and got it in the UK 10 days later.\n\nIt's going to take some getting used to. I haven't used a keyboard like this before.\n\n⌨️\n\n<img src=\"https://paultibbetts.micro.blog/uploads/2024/f8707a474e.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "It's new keyboard day!\n\nI ordered a [Glove80](https://www.moergo.com/collections/glove80-keyboards/products/glove80-split-ergonomic-keyboard-revision-2?variant=47282998739217) with Red switches from [MoErgo](https://www.moergo.com/) on the 23rd of April and got it in the UK 10 days later.\n\nIt's going to take some getting used to. I haven't used a keyboard like this before.\n\n⌨️\n\n<img src=\"uploads/2024/f8707a474e.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
 				"date_published": "2024-05-02T17:18:56+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/02/its-new-keyboard.html",
 				"tags": ["keyboards"]
@@ -317,7 +352,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/05/02/japanesestyle-sandwich-bread.html",
 				
 				"content_html": "<p>Japanese-style sandwich bread 🍞</p>\n<p>The recipe&rsquo;s from <a href=\"https://micro.blog/books/9781784885700\">JapanEasy Bowls &amp; Bento</a> by Tim Anderson 📚</p>\n<p>Most definitely not authentic and not very pretty but it&rsquo;s my first attempt and I&rsquo;m not a baker. It tastes good, so I&rsquo;m happy with it.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Japanese-style sandwich bread 🍞\n\nThe recipe's from [JapanEasy Bowls & Bento](https://micro.blog/books/9781784885700) by Tim Anderson 📚\n\nMost definitely not authentic and not very pretty but it's my first attempt and I'm not a baker. It tastes good, so I'm happy with it.\n\n<img src=\"https://paultibbetts.micro.blog/uploads/2024/fa6dac663f.jpg\" width=\"600\" height=\"600\" alt=\"a first attempt at Japanese-style sandwich bread\">\n",
+				"content_text": "Japanese-style sandwich bread 🍞\n\nThe recipe's from [JapanEasy Bowls & Bento](https://micro.blog/books/9781784885700) by Tim Anderson 📚\n\nMost definitely not authentic and not very pretty but it's my first attempt and I'm not a baker. It tastes good, so I'm happy with it.\n\n<img src=\"uploads/2024/fa6dac663f.jpg\" width=\"600\" height=\"600\" alt=\"a first attempt at Japanese-style sandwich bread\">\n",
 				"date_published": "2024-05-02T14:45:48+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/05/02/japanesestyle-sandwich-bread.html"
 			},
@@ -325,7 +360,7 @@
 				"id": "http://paultibbetts.micro.blog/2024/04/25/the-kailh-choc.html",
 				
 				"content_html": "<p>The <a href=\"https://chosfox.com/products/kailh-choc-switches-tester\">Kailh Choc switches</a> I ordered from China finally arrived.</p>\n<p>Pro Red (right) seemed too light so I&rsquo;ve gone for Red (left) for my new keyboard.</p>\n<p>Now begins the long wait for that to be delivered.</p>\n<p>⌨️</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "The [Kailh Choc switches](https://chosfox.com/products/kailh-choc-switches-tester) I ordered from China finally arrived. \n\nPro Red (right) seemed too light so I've gone for Red (left) for my new keyboard. \n\nNow begins the long wait for that to be delivered.\n\n⌨️\n\n\n\n<img src=\"https://paultibbetts.micro.blog/uploads/2024/image.jpg\" width=\"600\" height=\"600\" alt=\"Kailh Choc keyboard switches\">\n",
+				"content_text": "The [Kailh Choc switches](https://chosfox.com/products/kailh-choc-switches-tester) I ordered from China finally arrived. \n\nPro Red (right) seemed too light so I've gone for Red (left) for my new keyboard. \n\nNow begins the long wait for that to be delivered.\n\n⌨️\n\n\n\n<img src=\"uploads/2024/image.jpg\" width=\"600\" height=\"600\" alt=\"Kailh Choc keyboard switches\">\n",
 				"date_published": "2024-04-25T16:41:04+01:00",
 				"url": "https://micro.paultibbetts.uk/2024/04/25/the-kailh-choc.html",
 				"tags": ["keyboards"]
