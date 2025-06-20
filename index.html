@@ -24,6 +24,118 @@
 	
 	  <div class="h-entry">
 		
+			<h1><a href="https://micro.paultibbetts.uk/2025/06/20/why-would-you-want-a.html">Why would you want a NAS?</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/20/why-would-you-want-a.html" class="u-url"><time class="dt-published" datetime="2025-06-20 15:03:32 &#43;0100">Jun 20, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Some thoughts to help you work out if you want a NAS.</p>
+<h2 id="whats-a-nas">What&rsquo;s a NAS?</h2>
+<p>NAS stands for Network Attached Storage, which means you can connect to storage on another computer in your network.</p>
+<p>It&rsquo;s like Dropbox, Google Drive or iCloud except it&rsquo;s your computer and not theirs.</p>
+<p>When you buy &ldquo;a NAS&rdquo; you&rsquo;re buying the computer that makes storage available over the network. They usually don&rsquo;t come with any actual storage, you have to buy that separately.</p>
+<p>You can also build it yourself, at the end of the day it&rsquo;s just a computer.</p>
+<h2 id="why-would-i-want-network-attached-storage">Why would I want Network Attached Storage?</h2>
+<p>When you have a single computer managing the storage for it is pretty easy. You run out of room, you buy a USB stick, or an external hard drive, plug it in, and get more storage.</p>
+<p>It&rsquo;s when you fill up that extra storage or have multiple computers in the same household that you start looking for a better solution.</p>
+<p>Instead of buying and managing more external drives you designate a computer to act as storage and plug in all your drives to that one and make it available over the network.</p>
+<p>You might not even need to buy anything at all, most modern routers allow you to plug in an external drive and make it available over your network, and that might be all you need.</p>
+<h3 id="benefits">Benefits</h3>
+<p>Having storage available over the network means you&rsquo;re able to do a few things:</p>
+<h4 id="centralise-your-storage">Centralise your storage</h4>
+<p>You can store all your files in one place and access them from all your devices.</p>
+<p>When you treat your storage like one giant drive then adding new disks increases the <strong>total</strong> storage you have, not just giving you another smaller disk to manage.</p>
+<p>No more juggling USB sticks and label makers or emailing files to yourself.</p>
+<p>And if you install media software like <a href="https://jellyfin.org/">Jellyfin</a> or Plex then you can watch your media content on your TV without plugging in your laptop every time.</p>
+<h4 id="backups-and-redundancy">Backups and redundancy</h4>
+<p>NAS software allows you to set up redundancy for your data, so you always have an extra copy available. Some will allow you to configure your drives into a <a href="https://en.wikipedia.org/wiki/RAID">RAID</a> array which means you can survive one or two of them failing. <a href="https://www.raidisnotabackup.com/">RAID is not a backup</a>, but it does give you an extra layer of redundancy.</p>
+<p>For a better backup solution you should store a copy of your data in an external location. The benefit of having a NAS is that you can set it up to do this for you, so now all you need to do is get that data onto your NAS and then it&rsquo;s automatically backed up.</p>
+<h4 id="avoid-the-apple-tax">Avoid the Apple Tax</h4>
+<p>I like Apple, you might as well, but I do think their storage upgrades are expensive.</p>
+<p>Take the cheapest Mac mini they have right now, which is £599 for 256GB of storage.
+Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
+<p>You can buy a Raspberry Pi 5 starter kit, an NVME adapter, and a 1TB NVME drive for £200.</p>
+<p>For <!-- raw HTML omitted -->just over<!-- raw HTML omitted --> £400 you could upgrade the 1TB drive to 4TB.</p>
+<p>It&rsquo;d be slower, I admit that, but if it suits your needs then it means you get 4 times the storage for the same price.</p>
+<h3 id="bonus-homeserver">Bonus: Homeserver</h3>
+<p>A NAS can also double up as a capable server where you self-host your own apps and services.</p>
+<p>You could:</p>
+<ul>
+<li>host your own Netflix with <a href="https://jellyfin.org/">Jellyfin</a></li>
+<li>share your photos with family and friends using <a href="https://immich.app/">Immich</a></li>
+<li>block adverts with <a href="https://pi-hole.net/">Pi-hole</a></li>
+</ul>
+<p>and <a href="https://awesome-selfhosted.net/index.html">plenty more</a>.</p>
+<h2 id="convinced-yet">Convinced yet?</h2>
+<p>Maybe that helped you work out if you wanted a NAS or not.</p>
+<p>I&rsquo;ll be writing more under the <a href="https://micro.paultibbetts.uk/categories/homelab/">#homelab</a>  tag, including which NAS is right for you as well as self-hosting your own apps and services on a home server.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/15/talos-defaults-to-adding-the.html" class="u-url"><time class="dt-published" datetime="2025-06-15 17:59:02 &#43;0100">Jun 15, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Talos defaults to adding the <code>node.kubernetes.io/exclude-from-external-load-balancers=</code> label to all control plane nodes, which are all I&rsquo;m using in my Turing Pi, so that meant none of them were in the MetalLB VIP and is why I couldn&rsquo;t connect to them.</p>
+<p>I wish I knew this two hours ago.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/15/talos-is-up-and-running.html" class="u-url"><time class="dt-published" datetime="2025-06-15 12:51:56 &#43;0100">Jun 15, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Talos is up and running as a Kubernetes cluster on the Turing Pi 🎉.</p>
+<p>I&rsquo;m using <a href="https://argo-cd.readthedocs.io/">ArgoCD</a> to install and manage things, starting with <a href="https://metallb.io/">MetalLB</a> so that the cluster has an IP address to use for domains for all the apps I&rsquo;m planning to install.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/06/13/why-talos-and-not-ubuntu.html">Why Talos and not Ubuntu and K3s for Turing Pi RK1</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/13/why-talos-and-not-ubuntu.html" class="u-url"><time class="dt-published" datetime="2025-06-13 13:47:06 &#43;0100">Jun 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Now that I want to use the RK1s in my Turing Pi to host a Kubernetes cluster I have a few different options on how to do it.</p>
+<h2 id="ubuntu">Ubuntu</h2>
+<p>My goto is usually Ubuntu because I know how to use it. I can configure it using Ansible and debug it when things stop working, so of course I would use it. I didn&rsquo;t really think about it.</p>
+<p>This time I&rsquo;m using <a href="https://turingpi.com/product/turing-rk1/">RK1</a> modules, which are powered by Arm, and don&rsquo;t have &ldquo;official&rdquo; Ubuntu images. The ones it does have are <a href="https://firmware.turingpi.com/turing-rk1/">locked to Ubuntu 22.04</a>, or are <a href="https://github.com/Joshua-Riek/ubuntu-rockchip">a community effort</a>, and reading into it all made me question what I really needed.</p>
+<h2 id="k3s">K3s</h2>
+<p><a href="https://k3s.io/">K3s</a> is an obvious choice for running Kubernetes on low powered machines because it&rsquo;s a stripped back version of Kubernetes, containing only what it needs to run and nothing else.</p>
+<p>I like the sound of this approach; it&rsquo;s made me wonder if I really need Ubuntu for this.</p>
+<h2 id="talos">Talos</h2>
+<p>Enter <a href="https://www.talos.dev/">Talos</a>, a secure, immutable, minimal OS that just runs Kubernetes.</p>
+<p>Instead of the almost 3,000 binaries included in Ubuntu, Talos has only 12, and with those you can run a distributed Kubernetes cluster on bare metal.</p>
+<p>There&rsquo;s even an <a href="https://github.com/siderolabs/sbc-rockchip">official &ldquo;overlay&rdquo; that adds Rockchip support</a>, which includes my RK1s.</p>
+<p>Sure, it won&rsquo;t all be plain sailing, and there will be plenty of things to learn along the way, but the reasons mentioned above are why I&rsquo;m currently re-flashing my RK1s from Ubuntu to use Talos instead.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/13/kinda-excited-for-apple-containerization.html" class="u-url"><time class="dt-published" datetime="2025-06-13 12:29:21 &#43;0100">Jun 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Kinda excited for <a href="https://developer.apple.com/videos/play/wwdc2025/346/">Apple Containerization</a>, Apple&rsquo;s approach to running containers on macOS, even if it&rsquo;s more about the open source contribution than the tool itself.</p>
+<p>I was going to use <a href="https://github.com/abiosoft/colima">colima</a> to replace Docker Desktop on my Mac, maybe I won&rsquo;t need it.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
 
 		<a href="https://micro.paultibbetts.uk/2025/06/12/cat-sitting-for-a-friend.html" class="u-url"><time class="dt-published" datetime="2025-06-12 10:04:17 &#43;0100">Jun 12, 2025</time></a>
 
