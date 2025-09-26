@@ -25,11 +25,82 @@
 	  <div class="h-entry">
 		
 
+		<a href="https://micro.paultibbetts.uk/2025/09/26/heading-to-alpkits-big-shakeout.html" class="u-url"><time class="dt-published" datetime="2025-09-26 15:09:18 &#43;0100">Sep 26, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Heading to Alpkit’s <a href="https://alpkit.com/pages/bigshakeout">Big Shakeout Festival</a> for the weekend.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html">Checking in with my homelab after leaving it for a month</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html" class="u-url"><time class="dt-published" datetime="2025-08-13 14:36:38 &#43;0100">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>I recently had the pleasure of going outside and touching some grass, which means I haven&rsquo;t worked on my homelab for about a month, and now I&rsquo;m catching up.</p>
+<h2 id="i-didnt-need-to-use-it">I didn&rsquo;t need to use it</h2>
+<p>I&rsquo;m not running that many apps or services right now but it was still interesting to realise I didn&rsquo;t need to use it whilst I was away. I went hiking and camping for 9 days and didn&rsquo;t even think about computers, which was nice, and when I got back I was recovering and still didn&rsquo;t use it.</p>
+<p>It turns out my homelab is an indoors-only sort of thing.</p>
+<h2 id="it-all-worked-fine">It all worked fine</h2>
+<p>The one app I did use was <a href="https://www.freshrss.org/">FreshRSS</a>, which syncs my RSS feeds with <a href="https://netnewswire.com/">NetNewsWire</a> on my phone and my laptop. The few times I used it I had new content to read, although I have that many unread articles I would have been fine if it had stopped working.</p>
+<p>To use FreshRSS I had to be connected to my Wireguard VPN, so that also worked.</p>
+<h2 id="my-monitoring-failed">My monitoring failed</h2>
+<p>One thing that didn&rsquo;t work was my monitoring setup.</p>
+<p>Whilst I was away there was a brief power-cut to my homelab and all of my machines turned off. When the power came back they all turned on and resumed normal functions, except my Raspberry Pi.</p>
+<p>This Raspberry Pi runs <a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a>, for monitoring apps and services, as well as <a href="https://www.beszel.dev/">Beszel</a>, for monitoring servers. I&rsquo;m using an <a href="https://argon40.com/products/argon-one-m-2-expansion-board-nvme?pr_prod_strat=e5_desc&amp;pr_rec_id=5175427e9&amp;pr_rec_pid=6824727707713&amp;pr_ref_pid=6740406796353&amp;pr_seq=uniform">Argon One NVME case</a> and I hadn&rsquo;t set it to turn on when it receives power, so the Pi stayed off, and even though all of my services started working again I wasn&rsquo;t told about it.</p>
+<p>The immediate fix was to <a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">set the Argon One NVME case to turn on the Raspberry Pi 4 when it receives power</a>, but in the long-term I might need to rethink my monitoring setup.</p>
+<h2 id="theres-been-lots-of-updates">There&rsquo;s been lots of updates</h2>
+<p>Before I went away I set up <a href="https://docs.renovatebot.com/">Renovate</a> to track the dependencies in my homelab repo and send me pull requests when there are updates available. Now I&rsquo;m back I can see it has maxed out at (the default) 10 updates and is waiting for me to review them before continuing.</p>
+<p>I like this way of doing updates, it&rsquo;s much easier than manually checking everything every time.</p>
+<h2 id="is-it-ready-yet">&ldquo;Is it ready yet?&rdquo;</h2>
+<p>My <a href="https://micro.paultibbetts.uk/categories/pangolin-on-a-pi">Pangolin on a Pi</a> project stalled whilst I was away. This was meant to give friends and family easier access to the apps and services I&rsquo;m running.</p>
+<p><a href="https://mealie.io/">Mealie</a> is the main app being used, but a close second now is <a href="https://homebox.software/en/">Homebox</a>, which is for inventory management.</p>
+<p>I guess now I&rsquo;ve recovered and my brain power&rsquo;s been restored I&rsquo;ll have to finish this.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">How to set the Argon One NVME case to turn on Raspberry Pi when it receives power</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html" class="u-url"><time class="dt-published" datetime="2025-08-13 14:19:38 &#43;0100">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>We don&rsquo;t get many power-cuts where I live but that doesn&rsquo;t mean they never happen.</p>
+<p>My monitoring apps are installed on a Raspberry Pi 4 which lives in an <a href="https://argon40.com/products/argon-one-m-2-expansion-board-nvme?pr_prod_strat=e5_desc&amp;pr_rec_id=5175427e9&amp;pr_rec_pid=6824727707713&amp;pr_ref_pid=6740406796353&amp;pr_seq=uniform">Argon One NVME case</a> and by default <strong>it does not turn on when it receives power, you have to move the jumper pin</strong>.</p>
+<h2 id="the-jumper-pin">The Jumper Pin</h2>
+<p>You can find the instructions for the jumper pin on pages 6 and 7 of <a href="https://argon40.com/blogs/argon-resources/argon-one-m-2-case-installation-guide">the manual</a>.</p>
+<p>By default it connects pins 1 and 2 and this means you need to press the power button to turn on the Raspberry Pi.</p>
+<p>To change it to turn on the Pi when it receives power you need to move it to pins 2 and 3.</p>
+<img src="uploads/2025/img-5440.jpg" alt="Photo showing the location of the jumper pin in the correct position">
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/two-weeks-of-rest-and.html" class="u-url"><time class="dt-published" datetime="2025-08-13 13:37:44 &#43;0100">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Two weeks of rest and I&rsquo;m recovered from my trip. Time to swap back to my nerd blog and do some computer stuff.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
 		<a href="https://micro.paultibbetts.uk/2025/07/28/geneva-manchester.html" class="u-url"><time class="dt-published" datetime="2025-07-28 17:49:00 &#43;0100">Jul 28, 2025</time></a>
 
 		<div class="e-content">
 			 <p>Geneva ✈️ Manchester</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/img-5384.jpg" alt="Auto-generated description: An airplane wing with orange accents is visible against a backdrop of blue sky and white clouds.">
 
 		</div>
 	  </div>
@@ -41,7 +112,7 @@
 
 		<div class="e-content">
 			 <p>Completed the <a href="https://pinthewild.micro.blog/categories/tour-du-mont-blanc">Tour du Mont Blanc</a>!</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/img-5375.jpg" alt="Me posing under the Les Houches Tour du Mont-Blanc archway, surrounded by mountainous scenery and buildings.">
 
 		</div>
 	  </div>
@@ -64,7 +135,7 @@
 
 		<div class="e-content">
 			 <p>Chamonix 🇫🇷</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><img src="uploads/2025/81e0dc9f01.jpg" width="600" height="450" alt="A scenic view of a mountain town features colorful flowers in the foreground, a river flanked by buildings, lush greenery, and snow-capped peaks under a clear blue sky."><img src="uploads/2025/3f00b5ad60.jpg" width="600" height="450" alt="A picturesque mountain town features charming buildings with a snowy mountain backdrop under a clear blue sky."><img src="uploads/2025/830b899ce5.jpg" width="450" height="600" alt=""><img src="uploads/2025/4aec0207ea.jpg" width="600" height="450" alt=""></p>
 
 		</div>
 	  </div>
@@ -76,7 +147,7 @@
 
 		<div class="e-content">
 			 <p>Manchester ✈️ Geneva</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/e6c2941981.jpg" width="600" height="450" alt="">
 
 		</div>
 	  </div>
@@ -112,7 +183,7 @@
 		<div class="e-content">
 			 <p>Pangolin works on my IPv6 only Pi 🎉</p>
 <p>I&rsquo;ve got some tidying up to do, then it needs a write-up.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/screenshot-2025-07-05-at-11.19.16.png" width="600" height="451" alt="">
 
 		</div>
 	  </div>
@@ -147,7 +218,7 @@
 <h2 id="pi">Pi?</h2>
 <p>Mythic Beasts have their own <a href="https://www.mythic-beasts.com/order/rpi/">rack of Raspberry Pis</a> you can rent from.</p>
 <p>Hosting on someone else&rsquo;s computer isn&rsquo;t a natural fit for the self-hosted way of doing things. But doing it on a Pi? That feels better for some reason.</p>
-<p>Time to do a little test&hellip;<!-- raw HTML omitted --></p>
+<p>Time to do a little test&hellip;<img src="uploads/2025/rick-n-morty-quick-adventure.png" width="500" height="250" alt="Rick & Morty quick adventure meme 1/2: Rick & Morty stand in a school hallway next to a glowing green portal, with the caption LETS GO. IN AND OUT. 20 MINUTE ADVENTURE."></p>
 <h2 id="terraform-provider">Terraform Provider?</h2>
 <p>I could have just clicked on the website to order a Pi. Maybe I should have.</p>
 <p>Mythic Beasts have an API, so you can script your order and the management of the Pi, not that it needs much management. What they don&rsquo;t have, which surprised me a little, is a Terraform Provider.</p>
@@ -174,7 +245,8 @@
 <p>Somehow IPv4 still works and we&rsquo;re still using it, so I always thought I could deal with it when it became a problem.</p>
 <p>Like it just had.</p>
 <h2 id="heading">&hellip;</h2>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/rick-n-morty-meme-one-week-later.png" width="500" height="287" alt="Rick & Morty meme 2/2: One week later">
+I now have IPv6 working at home which means I can connect to the Pi without a proxy 🎉.
 <p>I will write up what I did another time, this quick update is over 1,000 words already.</p>
 <p>The next steps are:</p>
 <ul>
@@ -182,7 +254,6 @@
 <li>connect it to the Pi</li>
 <li>profit</li>
 </ul>
-
 		</div>
 	  </div>
 	
@@ -221,7 +292,7 @@
 		<div class="e-content">
 			 <p>Smoking BBQ Candy</p>
 <p><a href="https://share.fireboard.io/FE826C">share.fireboard.io/FE826C</a></p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/79c7e98986.jpg" width="600" height="450" alt="">
 
 		</div>
 	  </div>
@@ -266,7 +337,6 @@
 <p>Some people set up their home server for virtualisation and use a virtual machine to run their NAS software and then use other virtual machines for self-hosting, which means the same device is now both &ldquo;a NAS&rdquo; and &ldquo;a home server&rdquo;.</p>
 <h4 id="home-server-and-a-nas">Home server and a NAS</h4>
 <p>I personally have different machines for my NAS and my home server, and I think I&rsquo;m right, but then my NAS is sat idle 99% of the time, so maybe I&rsquo;m not.</p>
-
 		</div>
 	  </div>
 	
@@ -304,7 +374,7 @@
 <p>Take the cheapest Mac mini they have right now, which is £599 for 256GB of storage.
 Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>You can buy a Raspberry Pi 5 starter kit, an NVME adapter, and a 1TB NVME drive for £200.</p>
-<p>For <!-- raw HTML omitted -->just over<!-- raw HTML omitted --> £400 you could upgrade the 1TB drive to 4TB.</p>
+<p>For <small>just over</small> £400 you could upgrade the 1TB drive to 4TB.</p>
 <p>It&rsquo;d be slower, I admit that, but if it suits your needs then it means you get 4 times the storage for the same price.</p>
 <h3 id="bonus-homeserver">Bonus: Homeserver</h3>
 <p>A NAS can also double up as a capable server where you self-host your own apps and services.</p>
@@ -318,7 +388,6 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <h2 id="convinced-yet">Convinced yet?</h2>
 <p>Maybe that helped you work out if you wanted a NAS or not.</p>
 <p>I&rsquo;ll be writing more under the <a href="https://micro.paultibbetts.uk/categories/homelab/">#homelab</a>  tag, including which NAS is right for you as well as self-hosting your own apps and services on a home server.</p>
-
 		</div>
 	  </div>
 	
@@ -366,7 +435,6 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>Instead of the almost 3,000 binaries included in Ubuntu, Talos has only 12, and with those you can run a distributed Kubernetes cluster on bare metal.</p>
 <p>There&rsquo;s even an <a href="https://github.com/siderolabs/sbc-rockchip">official &ldquo;overlay&rdquo; that adds Rockchip support</a>, which includes my RK1s.</p>
 <p>Sure, it won&rsquo;t all be plain sailing, and there will be plenty of things to learn along the way, but the reasons mentioned above are why I&rsquo;m currently re-flashing my RK1s from Ubuntu to use Talos instead.</p>
-
 		</div>
 	  </div>
 	
@@ -389,7 +457,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Cat sitting for a friend this week.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2025/4f79803edb.jpg" width="600" height="450" alt="A black cat is sleeping on a cushion with a cat nip toy next to him. ">
 
 		</div>
 	  </div>
@@ -603,7 +671,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>Let&rsquo;s start on a positive note.</p>
 <h3 id="microblog">Micro.blog</h3>
 <p>2024 was the year I signed up to <a href="https://micro.blog">Micro.blog</a> and actually posted something online.</p>
-<p>This isn&rsquo;t the first time I&rsquo;ve made an attempt at blogging, and spoiler alert: it didn&rsquo;t last very long, but it was the most blogging I&rsquo;ve done in over a decade and so it deserves a <!-- raw HTML omitted -->teeny tiny<!-- raw HTML omitted --> amount of appreciation.</p>
+<p>This isn&rsquo;t the first time I&rsquo;ve made an attempt at blogging, and spoiler alert: it didn&rsquo;t last very long, but it was the most blogging I&rsquo;ve done in over a decade and so it deserves a <small>teeny tiny</small> amount of appreciation.</p>
 <h3 id="p-in-the-wild">P in the Wild</h3>
 <p>I also started an outdoors blog called <a href="https://pinthewild.micro.blog">P in the Wild</a> to share my outdoor activities.</p>
 <p>The blog itself isn&rsquo;t much but it gave me a space to share my trip to Scotland where I walked <a href="https://pinthewild.micro.blog/categories/west-highland-way">The West Highland Way</a>, which I <em>am</em> proud of.</p>
@@ -661,7 +729,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>I had meant to write these weeknotes there at camp in my new tent but there&rsquo;s something about getting out into nature, away from screens, that makes it very difficult to instead look at a smaller screen than you normally would.</p>
 <p>I opted for no screens and so weeknotes were postponed.</p>
 <p>I didn&rsquo;t think it would take this long to write them though.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/camp.jpeg" width="600" height="600" alt="a trekking pole tent and a camping chair on grass near an unused quarry that has filled with water">
 		</div>
 	  </div>
 	
@@ -909,7 +977,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>Hiked the West Highland Way.</p>
 <p>96 miles from Milngavie to Fort William.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/d360100b84.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -958,7 +1026,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Misty mountain wild camp.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f83aeb95bb.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -993,7 +1061,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Haggis, Neeps and Tatties at the Tyndrum Inn.</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><img src="uploads/2024/75d8bfe90f.jpg" width="600" height="600" alt=""><img src="uploads/2024/88f4cc7648.jpg" width="600" height="600" alt=""></p>
 
 		</div>
 	  </div>
@@ -1017,7 +1085,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Made it to Beinglas in time for dinner.</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><img src="uploads/2024/b0af1b0622.jpg" width="600" height="600" alt=""><img src="uploads/2024/b4c093bd25.jpg" width="600" height="600" alt=""></p>
 
 		</div>
 	  </div>
@@ -1029,7 +1097,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Loch Lomond</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/165039c1f7.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1041,7 +1109,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>You’re not allowed to camp at this perfect little camp spot and then sit on the perfectly located bench beside it because it’s on this side of the sign.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f13e93df27.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1056,7 +1124,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>And a coffee of course.</p>
 <p>I was impressed that the whole trailer’s powered by the electric car parked next to it and only uses 2% of the battery.</p>
 <p>🥾</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/070b23ef38.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1081,7 +1149,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>Morning.</p>
 <p>Day 2 summary needs to wait until I find WiFi.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f3f38bfb77.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1095,7 +1163,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>A long and undulating second day.</p>
 <p>Cheers!</p>
 <p>⛺️</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/4881a71063.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1120,7 +1188,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>Loch Lomond from Conic Hill.</p>
 <p>Half way through today’s route.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/56507e694a.jpg" width="600" height="480" alt="">
 
 		</div>
 	  </div>
@@ -1133,7 +1201,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>These Aloe Vera ear plugs blocked out most of the snoring and noisy sleeping pads at the camp site last night.</p>
 <p>Nothing could stop the 4:30 alarm from the birds though.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/93d047b1d2.jpg" width="600" height="600" alt="ear plugs">
 
 		</div>
 	  </div>
@@ -1147,7 +1215,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>Well this is a first.</p>
 <p>Night 1 of the West Highland Way for me is a stay at <a href="https://drymencamping.co.uk/">Drymen Camping</a>, eating pizza in my tent.</p>
 <p>🍕⛺️</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/2e7cf345f5.jpg" width="600" height="450" alt="Eating pizza inside my tent. ">
 
 		</div>
 	  </div>
@@ -1161,7 +1229,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>Off to a very damp start.</p>
 <p>3rd time doing the rain jacket on and then off again dance.</p>
 <p>92 miles to go.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/cdd1348a80.jpg" width="600" height="600" alt="A sign saying Fort William (the end of the route) is 92 miles away. ">
 
 		</div>
 	  </div>
@@ -1174,7 +1242,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>I’m walking The West Highland Way.</p>
 <p>Almost 100 miles, should take about a week, so this is now a hiking and camping micro blog.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/edfc9e7f45.jpg" width="600" height="600" alt="The starting point of The West Highland Way in Milngavie, Scotland. ">
 
 		</div>
 	  </div>
@@ -1198,7 +1266,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>At least I can see the way down.</p>
 <p>⛰️ Moel Siabod</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/1efa299ceb.jpg" width="600" height="329" alt="Hiking path down a hill, clouds cover the top third of the image and the valleys below and some other hills can be seen in the distance">
 
 		</div>
 	  </div>
@@ -1211,7 +1279,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>I climbed 872 metres for these views.</p>
 <p>⛰️Moel Siabod</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><img src="uploads/2024/6d19cd7dc1.jpg" width="600" height="600" alt="Visibility of only a few metres because I’m in a cloud "><img src="uploads/2024/917a0a48c1.jpg" width="600" height="600" alt="Moel Siabod trig point"></p>
 
 		</div>
 	  </div>
@@ -1224,7 +1292,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 		<div class="e-content">
 			 <p>Coffee and my first ever I-cycled-50-miles-in-a-week-biscuit.</p>
 <p><a href="https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html">Day 5/5 complete.</a></p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/cec55139-ad57-4622-ae35-a5b081c26085-1-102-a.jpeg" width="600" height="600" alt="a black Americano coffee and a biscuit, along with a bike helmet, on a wooden bench at the Cafe at the top of the hill">
 
 		</div>
 	  </div>
@@ -1238,7 +1306,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>Found a secret beach.</p>
 <p>It&rsquo;s on Komoot and is pretty well sign-posted from the path, but it&rsquo;s a secret.</p>
 <p><a href="https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html">Day 4/5 complete.</a></p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/acc7dbdb-b82a-4bc3-b22a-9457d0356421-1-102-a.jpeg" width="600" height="480" alt="a tunnel that leads to a small secluded beach">
 
 		</div>
 	  </div>
@@ -1252,7 +1320,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>I climbed a 10% hill.</p>
 <p>I then had to bask in the glory of my accomplishment for a minute.</p>
 <p><a href="https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html">Day 3/5 complete.</a></p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/img-3334.jpg" width="600" height="337" alt="a gravel bike leaning against a barrier beside the sea">
 
 		</div>
 	  </div>
@@ -1266,7 +1334,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 			 <p>Coach asked if a photo every day was necessary?</p>
 <p>I&rsquo;m undecided.</p>
 <p><a href="https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html">Day 2/5 complete.</a></p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/0f1d3d81-155e-43fd-b562-7d67acb76d02-4-5005-c.jpeg" width="450" height="360" alt="a gravel bike standing near a stone beach, looking out to the sea on a sunny day">
 
 		</div>
 	  </div>
@@ -1278,7 +1346,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 
 		<div class="e-content">
 			 <p>Bank holiday by the sea.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/3e2ab871e3.jpg" width="600" height="600" alt="a small boat near the shore where tourists are sitting on sand ">
 
 		</div>
 	  </div>
@@ -1293,7 +1361,7 @@ Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
 <p>So I’ve split it over 5 days.</p>
 <p>Day 1/5 complete.</p>
 <p>🚲</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/b1ebbf5b2f.jpg" width="600" height="600" alt="gravel bike on a stone beach">
 
 		</div>
 	  </div>
@@ -1325,7 +1393,7 @@ Another weeknotes.</p>
 <p>More money later and my bike&rsquo;s road worthy again. Went out for a short ride to celebrate and now I&rsquo;m all achey. Planning on getting out more next week.</p>
 <p>Met up with the Recommend.li team at <a href="https://www.colmoretap.co.uk/">The Colmore</a> in Birmingham, which is a great after work spot in the city centre with a ridiculous amount of beers on tap. I had an anchovy pizza and once again forgot about needing content for my blog whilst eating it.</p>
 <p>Planned and booked <a href="https://www.westhighlandway.org/">The West Highland Way</a> for June after watching <a href="https://youtu.be/z015CycR2pA?si=j_7OWsxhMWsndL2b">Paul Messner&rsquo;s series</a>. Bought some new gear in preparation. Going to microblog the trip. Can&rsquo;t let good content keep going to waste.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f15184bf-cffa-4c0b-8ef4-630ee30f46e4-1-102-a.jpeg" width="600" height="450" alt="">
 		</div>
 	  </div>
 	
@@ -1417,7 +1485,7 @@ terraform apply
 <p>Made a proper start on the app I&rsquo;m working on with my friends. I need to learn what&rsquo;s new in React to work on the frontend.</p>
 <p>Decided to redo my Neovim config and make it work the way I want it to. This deserves its own post next week.</p>
 <p>Subscribed to Micro.blog 🥳 I&rsquo;ve decided to use <a href="https://micro.paultibbetts.uk">micro.paultibbetts.uk</a> for the domain and I wrote that DNS setting down as Terraform code instead of doing it by hand. Don&rsquo;t ask how much longer that took me.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/fed6436cb0.jpg" width="600" height="450" alt="chicken karaage rice bowl">
 
 		</div>
 	  </div>
@@ -1430,7 +1498,8 @@ terraform apply
 		<a href="https://micro.paultibbetts.uk/2024/05/13/what-im-doing.html" class="u-url"><time class="dt-published" datetime="2024-05-13 15:14:20 &#43;0100">May 13, 2024</time></a>
 
 		<div class="e-content">
-			 <h2 id="sabbatical">Sabbatical</h2>
+			 <img src="https://cdn.micro.blog/books/9781455586660?title=Deep+Work&author=Cal+Newport&cover_id=161982/cover.jpg" align="left" class="microblog_book" style="max-width: 60px; margin-right: 20px; margin-top: 0px; padding-top: 0px;">
+<h2 id="sabbatical">Sabbatical</h2>
 <p>I&rsquo;m currently on a three month sabbatical from work.</p>
 <p>I&rsquo;ve been there for over five years and wanted a little break to work on my own things.</p>
 <h2 id="personal">Personal</h2>
@@ -1477,7 +1546,7 @@ terraform apply
 			 <p>I thought I knew how to type.</p>
 <p>For years I&rsquo;ve been able to type without looking at the keys and I could get used to a new keyboard in hours, if not minutes.</p>
 <p>Then <a href="https://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html">I bought a new keyboard</a> that looks like this:</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f8707a474e.jpg" width="600" height="600" alt="Glove80 ergo mechanical keyboard in the travel case">
 <p>and realised how wrong I was.</p>
 <h2 id="hunter-pecker">Hunter Pecker</h2>
 <p>It turns out I&rsquo;d become extremely proficient at hunting for keys and pecking at them with my index fingers. My hands knew where all the keys were but I primarily used my index fingers to push the buttons.</p>
@@ -1502,7 +1571,7 @@ terraform apply
 <p>I settled on <a href="https://www.keybr.com/">keybr</a> over the others because the guided lessons limited the keys I had to press and only unlocked the next key when it thought I was ready to progress.</p>
 <p>Which was a bit weird, because my fingers knew where the next unlocked key would be before my brain told them where it was.</p>
 <p>I felt like an octopus the way my hands moved without my brain ever telling them where to go.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/typing-speed-week-1.png" width="600" height="214" alt="graph showing typing speed, accuracy and unlocked keys on keybr.com">
 <p>In total I&rsquo;ve spent 12 hours doing 730 lessons on keybr. The graph above shows my typing speed in green, accuracy in orange and the purple line shows the amount of keys unlocked. </p>
 <p>You can see the day I thought I knew what I was doing and then found out quickly that I didn&rsquo;t.</p>
 <p>Sometimes unlocking a new key would throw everything off balance and I&rsquo;d have to adjust what I was doing. Or sometimes the new key would put something familiar on the map for my hands to anchor around.</p>
@@ -1538,7 +1607,7 @@ terraform apply
 <p>I ordered a <a href="https://www.moergo.com/collections/glove80-keyboards/products/glove80-split-ergonomic-keyboard-revision-2?variant=47282998739217">Glove80</a> with Red switches from <a href="https://www.moergo.com/">MoErgo</a> on the 23rd of April and got it in the UK 10 days later.</p>
 <p>It&rsquo;s going to take some getting used to. I haven&rsquo;t used a keyboard like this before.</p>
 <p>⌨️</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/f8707a474e.jpg" width="600" height="600" alt="">
 
 		</div>
 	  </div>
@@ -1552,7 +1621,7 @@ terraform apply
 			 <p>Japanese-style sandwich bread 🍞</p>
 <p>The recipe&rsquo;s from <a href="https://micro.blog/books/9781784885700">JapanEasy Bowls &amp; Bento</a> by Tim Anderson 📚</p>
 <p>Most definitely not authentic and not very pretty but it&rsquo;s my first attempt and I&rsquo;m not a baker. It tastes good, so I&rsquo;m happy with it.</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/fa6dac663f.jpg" width="600" height="600" alt="a first attempt at Japanese-style sandwich bread">
 
 		</div>
 	  </div>
@@ -1567,7 +1636,7 @@ terraform apply
 <p>Pro Red (right) seemed too light so I&rsquo;ve gone for Red (left) for my new keyboard.</p>
 <p>Now begins the long wait for that to be delivered.</p>
 <p>⌨️</p>
-<!-- raw HTML omitted -->
+<img src="uploads/2024/image.jpg" width="600" height="600" alt="Kailh Choc keyboard switches">
 
 		</div>
 	  </div>
