@@ -47,36 +47,6 @@
 	
 	  <div class="h-entry">
 		
-			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html">Checking in with my homelab after leaving it for a month</a></h1>
-		
-
-		<a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html" class="u-url"><time class="dt-published" datetime="2025-08-13 13:36:38 &#43;0000">Aug 13, 2025</time></a>
-
-		<div class="e-content">
-			 <p>I recently had the pleasure of going outside and touching some grass, which means I haven&rsquo;t worked on my homelab for about a month, and now I&rsquo;m catching up.</p>
-<h2 id="i-didnt-need-to-use-it">I didn&rsquo;t need to use it</h2>
-<p>I&rsquo;m not running that many apps or services right now but it was still interesting to realise I didn&rsquo;t need to use it whilst I was away. I went hiking and camping for 9 days and didn&rsquo;t even think about computers, which was nice, and when I got back I was recovering and still didn&rsquo;t use it.</p>
-<p>It turns out my homelab is an indoors-only sort of thing.</p>
-<h2 id="it-all-worked-fine">It all worked fine</h2>
-<p>The one app I did use was <a href="https://www.freshrss.org/">FreshRSS</a>, which syncs my RSS feeds with <a href="https://netnewswire.com/">NetNewsWire</a> on my phone and my laptop. The few times I used it I had new content to read, although I have that many unread articles I would have been fine if it had stopped working.</p>
-<p>To use FreshRSS I had to be connected to my Wireguard VPN, so that also worked.</p>
-<h2 id="my-monitoring-failed">My monitoring failed</h2>
-<p>One thing that didn&rsquo;t work was my monitoring setup.</p>
-<p>Whilst I was away there was a brief power-cut to my homelab and all of my machines turned off. When the power came back they all turned on and resumed normal functions, except my Raspberry Pi.</p>
-<p>This Raspberry Pi runs <a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a>, for monitoring apps and services, as well as <a href="https://www.beszel.dev/">Beszel</a>, for monitoring servers. I&rsquo;m using an <a href="https://argon40.com/products/argon-one-m-2-expansion-board-nvme?pr_prod_strat=e5_desc&amp;pr_rec_id=5175427e9&amp;pr_rec_pid=6824727707713&amp;pr_ref_pid=6740406796353&amp;pr_seq=uniform">Argon One NVME case</a> and I hadn&rsquo;t set it to turn on when it receives power, so the Pi stayed off, and even though all of my services started working again I wasn&rsquo;t told about it.</p>
-<p>The immediate fix was to <a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">set the Argon One NVME case to turn on the Raspberry Pi 4 when it receives power</a>, but in the long-term I might need to rethink my monitoring setup.</p>
-<h2 id="theres-been-lots-of-updates">There&rsquo;s been lots of updates</h2>
-<p>Before I went away I set up <a href="https://docs.renovatebot.com/">Renovate</a> to track the dependencies in my homelab repo and send me pull requests when there are updates available. Now I&rsquo;m back I can see it has maxed out at (the default) 10 updates and is waiting for me to review them before continuing.</p>
-<p>I like this way of doing updates, it&rsquo;s much easier than manually checking everything every time.</p>
-<h2 id="is-it-ready-yet">&ldquo;Is it ready yet?&rdquo;</h2>
-<p>My <a href="https://micro.paultibbetts.uk/categories/pangolin-on-a-pi">Pangolin on a Pi</a> project stalled whilst I was away. This was meant to give friends and family easier access to the apps and services I&rsquo;m running.</p>
-<p><a href="https://mealie.io/">Mealie</a> is the main app being used, but a close second now is <a href="https://homebox.software/en/">Homebox</a>, which is for inventory management.</p>
-<p>I guess now I&rsquo;ve recovered and my brain power&rsquo;s been restored I&rsquo;ll have to finish this.</p>
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
 			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">How to set the Argon One NVME case to turn on Raspberry Pi when it receives power</a></h1>
 		
 
@@ -102,6 +72,36 @@
 		<div class="e-content">
 			 <p>Two weeks of rest and I&rsquo;m recovered from my trip. Time to swap back to my nerd blog and do some computer stuff.</p>
 
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html">Checking in with my homelab after leaving it for a month</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html" class="u-url"><time class="dt-published" datetime="2025-08-13 12:36:00 &#43;0000">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>I recently had the pleasure of going outside and touching some grass, which means I haven&rsquo;t worked on my homelab for about a month, and now I&rsquo;m catching up.</p>
+<h2 id="i-didnt-need-to-use-it">I didn&rsquo;t need to use it</h2>
+<p>I&rsquo;m not running that many apps or services right now but it was still interesting to realise I didn&rsquo;t need to use it whilst I was away. I went hiking and camping for 9 days and didn&rsquo;t even think about computers, which was nice, and when I got back I was recovering and still didn&rsquo;t use it.</p>
+<p>It turns out my homelab is an indoors-only sort of thing.</p>
+<h2 id="it-all-worked-fine">It all worked fine</h2>
+<p>The one app I did use was <a href="https://www.freshrss.org/">FreshRSS</a>, which syncs my RSS feeds with <a href="https://netnewswire.com/">NetNewsWire</a> on my phone and my laptop. The few times I used it I had new content to read, although I have that many unread articles I would have been fine if it had stopped working.</p>
+<p>To use FreshRSS I had to be connected to my Wireguard VPN, so that also worked.</p>
+<h2 id="my-monitoring-failed">My monitoring failed</h2>
+<p>One thing that didn&rsquo;t work was my monitoring setup.</p>
+<p>Whilst I was away there was a brief power-cut to my homelab and all of my machines turned off. When the power came back they all turned on and resumed normal functions, except my Raspberry Pi.</p>
+<p>This Raspberry Pi runs <a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a>, for monitoring apps and services, as well as <a href="https://www.beszel.dev/">Beszel</a>, for monitoring servers. I&rsquo;m using an <a href="https://argon40.com/products/argon-one-m-2-expansion-board-nvme?pr_prod_strat=e5_desc&amp;pr_rec_id=5175427e9&amp;pr_rec_pid=6824727707713&amp;pr_ref_pid=6740406796353&amp;pr_seq=uniform">Argon One NVME case</a> and I hadn&rsquo;t set it to turn on when it receives power, so the Pi stayed off, and even though all of my services started working again I wasn&rsquo;t told about it.</p>
+<p>The immediate fix was to <a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">set the Argon One NVME case to turn on the Raspberry Pi 4 when it receives power</a>, but in the long-term I might need to rethink my monitoring setup.</p>
+<h2 id="theres-been-lots-of-updates">There&rsquo;s been lots of updates</h2>
+<p>Before I went away I set up <a href="https://docs.renovatebot.com/">Renovate</a> to track the dependencies in my homelab repo and send me pull requests when there are updates available. Now I&rsquo;m back I can see it has maxed out at (the default) 10 updates and is waiting for me to review them before continuing.</p>
+<p>I like this way of doing updates, it&rsquo;s much easier than manually checking everything every time.</p>
+<h2 id="is-it-ready-yet">&ldquo;Is it ready yet?&rdquo;</h2>
+<p>My <a href="https://micro.paultibbetts.uk/categories/pangolin-on-a-pi">Pangolin on a Pi</a> project stalled whilst I was away. This was meant to give friends and family easier access to the apps and services I&rsquo;m running.</p>
+<p><a href="https://mealie.io/">Mealie</a> is the main app being used, but a close second now is <a href="https://homebox.software/en/">Homebox</a>, which is for inventory management.</p>
+<p>I guess now I&rsquo;ve recovered and my brain power&rsquo;s been restored I&rsquo;ll have to finish this.</p>
 		</div>
 	  </div>
 	
