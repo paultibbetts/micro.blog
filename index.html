@@ -24,6 +24,57 @@
 	
 	  <div class="h-entry">
 		
+			<h1><a href="https://micro.paultibbetts.uk/2025/12/31/how-to-play-the-beginners.html">How to play The Beginner&#39;s Guide on a modern computer</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/12/31/how-to-play-the-beginners.html" class="u-url"><time class="dt-published" datetime="2025-12-31 14:49:39 &#43;0000">Dec 31, 2025</time></a>
+
+		<div class="e-content">
+			 <p>For a game about the game development process I find it kind of fitting you need to run obscure commands from the internet to get it to work on a modern computer.</p>
+<p>Without them, you can&rsquo;t play the game at all. This feels intentional, like a puzzle that exists before the game even starts, and is almost impossible to solve.</p>
+<p>The solution is pretty easy once you know it, you reduce how hard the machine is allowed to work, and is a reference to how we should slow ourselves down to better appreciate things.</p>
+<p><img src="https://images.unsplash.com/photo-1618944087986-2a78922c8412?q=80&amp;w=1528&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="lamppost" title="..."></p>
+<p>When you&rsquo;re ready to play, this is how you do it:</p>
+<h2 id="windows-11">Windows 11</h2>
+<p>Press <code>Windows</code> + <code>R</code> to open the Run dialog.</p>
+<p>Type in <code>msconfig</code> and click &ldquo;OK&rdquo;. This opens &ldquo;System Configuration&rdquo;.</p>
+<p>Select the &ldquo;Boot&rdquo; tab.</p>
+<p>Click &ldquo;Advanced Options…&rdquo;</p>
+<p>In the new popup window check the &ldquo;Number of processors&rdquo; box and from the dropdown choose &ldquo;8&rdquo;, then click &ldquo;OK&rdquo; to close this window.</p>
+<p>Now click &ldquo;Apply&rdquo; and then &ldquo;OK&rdquo;.</p>
+<p>You must restart your computer for this to take effect. Afterwards the game should start without crashing.</p>
+<p><strong>Remember to undo this after playing the game</strong> as this fix has temporarily lowered the performance of your computer. It is not permanent and will not cause any damage, but you will struggle running as many apps and tabs in your browser while you have the fix applied.</p>
+<h2 id="linux">Linux</h2>
+<p>It&rsquo;s a lot easier to do this in Linux. You don&rsquo;t need to reboot after, you can limit the change to apply only to The Beginner&rsquo;s Guide, not the rest of your system, and you don&rsquo;t need to remember to turn it off after.</p>
+<h3 id="wineproton">Wine/Proton</h3>
+<p>Use the <code>WINE_CPU_TOPOLOGY</code> environment variable to limit the processors to 8:</p>
+<pre tabindex="0"><code>WINE_CPU_TOPOLOGY=8:0,1,2,3,4,5,6,7
+</code></pre><h3 id="steam">Steam</h3>
+<p>In Steam right click the game and choose &ldquo;Properties&rdquo;.</p>
+<p>In &ldquo;General&rdquo; for the &ldquo;Launch Options&rdquo; use</p>
+<pre tabindex="0"><code>WINE_CPU_TOPOLOGY=8:0,1,2,3,4,5,6,7 %command%
+</code></pre><h3 id="other-launchers">Other launchers</h3>
+<p>Steam is the only launcher I&rsquo;ve tested this on.</p>
+<p>For Lutris, Heroic or Bottles you need to set an environment variable using that launcher&rsquo;s config for the game.</p>
+<h2 id="credits">Credits</h2>
+<p>Thanks to <a href="https://unsplash.com/photos/black-street-light-under-blue-sky-gtQEUHhMCK8">Adam Eperjesi</a> for the Unsplash image, <a href="https://gameplay.tips/guides/the-beginners-guide-game-crashing-fix.html">Gameplay.tips</a> for the Windows guide, <a href="https://steamcommunity.com/app/303210/discussions/0/3772364735644808241/#c4347733139652152557">fleakuda</a> for linking to it, and everyone who contributes to ProtonDB, especially <a href="https://www.protondb.com/app/303210#0l18q-LYdZ">ShatteredScales</a> for the Wine environment variable.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/12/30/i-tried-to-turn-pangolin.html" class="u-url"><time class="dt-published" datetime="2025-12-30 20:12:49 &#43;0000">Dec 30, 2025</time></a>
+
+		<div class="e-content">
+			 <p>I tried to turn <a href="https://paultibbetts.uk/2025/12/30/pangolin-on-a-pi/">Pangolin on a Pi</a> into a guide. It didn&rsquo;t want to be one.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
 
 		<a href="https://micro.paultibbetts.uk/2025/12/28/spent-yesterday-dealing-with-a.html" class="u-url"><time class="dt-published" datetime="2025-12-28 11:12:58 &#43;0000">Dec 28, 2025</time></a>
 
