@@ -7,6 +7,15 @@
 	"items": [
 		
 			{
+				"id": "http://paultibbetts.micro.blog/2026/01/08/adam-wathan-creator-of-tailwind.html",
+				
+				"content_html": "<p><a href=\"https://github.com/tailwindlabs/tailwindcss/discussions/14677#discussioncomment-15435530\">Adam Wathan</a>, creator of Tailwind CSS:</p>\n<blockquote>\n<p>had to lay off most of the team on Monday because AI has gutted our business so badly</p>\n</blockquote>\n<p>Ouch.</p>\n<p>More details in his <a href=\"https://x.com/adamwathan/status/2008909129591443925\">morning walk podcast</a>: Tailwind is more popular than ever but visits to the docs, where they advertise paid services, is down 40%.</p>\n",
+				"content_text": "[Adam Wathan](https://github.com/tailwindlabs/tailwindcss/discussions/14677#discussioncomment-15435530), creator of Tailwind CSS:\n\n> had to lay off most of the team on Monday because AI has gutted our business so badly\n\nOuch. \n\nMore details in his [morning walk podcast](https://x.com/adamwathan/status/2008909129591443925): Tailwind is more popular than ever but visits to the docs, where they advertise paid services, is down 40%.\n",
+				"date_published": "2026-01-08T11:22:56+00:00",
+				"url": "https://micro.paultibbetts.uk/2026/01/08/adam-wathan-creator-of-tailwind.html",
+				"tags": ["AI"]
+			},
+			{
 				"id": "http://paultibbetts.micro.blog/2026/01/06/trying-to-close-all-my.html",
 				
 				"content_html": "<p>Trying to close all my browser tabs is like fighting a hydra.</p>\n",
