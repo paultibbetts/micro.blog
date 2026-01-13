@@ -31,7 +31,77 @@
 
 		<div class="e-content">
 			 <p><a href="https://homebox.software/">HomeBox</a> is a self-hosted inventory management system that I&rsquo;ve just installed into my homelab. This is a log of how I did it.</p>
-<h2 id="architecturehomebox-can-run-entirely-independently-using-a-sqlite-database-the-local-file-system-for-storage-and-its-own-user-system-for-authentication-however-it-can-also-use-postgresql-s3-compatible-storage-and-abbr-titleopenid-connectoidcabbr-for-auth-since-i-have-all-of-those-things-already-running-thats-how-i-set-it-up-installthe-docs-contain-an-example-docker-compose-filehttpshomeboxsoftwareeninstallationhtmldocker-compose-so-i-started-with-that-i-use-ansible-to-configure-my-virtual-machines-and-have-one-dedicated-to-docker-compose-stacks-so-in-my-code-i-created-a-new-directory-for-homebox-and-added-the-example-docker-compose-fileif-i-was-using-the-default-setup-i-could-have-stopped-there-but-im-using-the-extra-things-i-mentioned-above-and-each-one-of-them-needs-a-secret-instead-of-writing-the-secrets-as-plain-text-i-used-ansible-vaulthttpsdocsansiblecomprojectsansiblelatestvault_guidevaulthtml-to-encrypt-a-template-file-in-my-repo-and-then-write-that-as-env-to-the-same-directory-as-the-compose-file-docker-compose-will-automatically-read-it-and-use-its-values-when-referenced-in-the-docker-composeyaml-file-databasei-have-a-virtual-machine-dedicated-to-running-postgres-and-use-the-geerlingguydocker-role-postgresqlhttpsgithubcomgeerlingguyansible-role-postgresql-role-to-configure-it-in-my-group_varspostgresmainyaml-file-i-added-lines-for-a-new-homebox-database-and-user-to-postgresql_databases-postgresql_users-and-postgresql_hba_entries-the-new-postgresql_user-uses-a-password-of--vault_homebox_database_password--so-i-created-a-new-password-and-entered-it-into-my-group_varspostgresvaultyaml-file-which-is-also-encrypted-with-ansible-vaultto-use-it-i-addedyaml--hbox_database_driverpostgres--hbox_database_hostpostgresinfrahomearpa--hbox_database_port5432--hbox_database_usernamehomebox--hbox_database_passwordhbox_database_password--hbox_database_databasehomeboxto-the-environment-part-of-the-docker-composeyaml-the-role-that-sets-up-the-docker-compose-stacks-doesnt-read-the-values-i-set-for-the-postgres-role-so-i-had-to-copy-the-password-i-used-for-the-database-into-the-encrypted-file-that-creates-the-env-for-homebox-i-now-have-that-same-password-written-twice-once-for-the-database-and-once-for-homebox-to-use-it-storageim-currently-running-miniohttpswwwminio-on-my-truenas-scalehttpswwwtruenascomtruenas-community-edition-machine-and-i-can-use-that-for-s3-compatible-storage-i-set-it-up-before-they-changed-their-license-and-now-migrating-to-an-alternative-is-yet-another-thing-on-my-todo-listi-created-a-new-bucket-by-using-the-mchttpsminiogithubiomc-cli-client-to-runshmc-mb-labhomeboxto-use-it-i-addedyaml--aws_access_key_idaws_access_key_id--aws_secret_access_keyaws_secret_access_key--hbox_storage_conn_strings3homeboxawssdkv2endpointhttpnas_ip9000disable_httpstrues3forcepathstyletrueto-the-environment-part-of-my-docker-composeyamlthe-aws-minio-values-are-also-secrets-added-to-the-template-that-writes-out-the-env-filethe-hbox_storage_conn_string-value-comes-from-the-homebox-docshttpshomeboxsoftwareenconfigurestoragehtmltested-s3-compatible-storagenote-to-self-i-should-also-set-up-nasinfrahomearpa-like-i-did-for-postgres-oidci-have-kanidmhttpskanidmcom-set-up-as-an-abbr-titleidentity-provideridpabbr-and-it-can-do-oidc-for-homebox-to-use-for-authenticationto-create-the-client-in-kanidm-i-ranshkanidm-system-oauth2-create-homebox-homebox-httpshomeboxcloudpaultibbettsukkanidm-group-create-homebox_userskanidm-group-add-members-homebox_users-paulkanidm-system-oauth2-update-scope-map-homebox-homebox_users-openid-profile-emailand-to-set-the-logo-for-it-i-ranshcurl--o-homeboxsvg-httpsrawgithubusercontentcomsysadminsmediahomeboxrefsheadsmaindocspubliclilboxsvgkanidm-system-oauth2-set-image-homebox-homeboxsvg-svgrm-homeboxsvgthe-docker-compose-environment-values-to-use-kanidm-for-oidc-areyaml--hbox_options_hostnamehomeboxcloudpaultibbettsuk--hbox_oidc_enabledtrue--hbox_oidc_issuer_urlhttpskanidm_domainoauth2openidhomebox--hbox_oidc_client_idhomebox--hbox_oidc_client_secrethbox_oidc_client_secret--hbox_options_trust_proxytruewhere-hbox_oidcd_client_secret-is-another-secret-added-to-the-env-template-dnsi-use-pi-holehttpspi-holenet-for-ad-blocking-and-custom-dns-records-in-my-homelabi-dont-yet-have-an-automated-way-to-configure-it-so-i-did-it-using-the-web-ui-and-wrote-another-reminder-to-automate-this-processi-have-an-a-record-for-the-reverse-proxy-i-use-so-i-created-a-cname-for-homebox-that-points-homeboxcloudpaultibbettsuk-to-the-reverse-proxyi-could-set-up-an-a-record-for-homebox-but-that-would-mean-writing-out-the-ip-of-the-reverse-proxy-whereas-using-a-cname-means-i-can-enter-its-domain-which-is-easier-to-remember-than-numbers-it-also-means-i-could-move-the-reverse-proxy-to-another-server-and-i-would-only-need-to-update-the-a-record-for-it-and-all-the-things-pointing-to-it-with-cnames-would-still-work-reverse-proxyi-use-caddyhttpscaddyservercom-as-a-reverse-proxy-this-is-configured-by-an-ansible-role-well-it-should-be-i-left-all-the-tasks-in-the-playbook-but-i-only-use-it-once-in-this-one-playbook-so-it-doesnt-need-to-bethe-caddyfile-that-configures-all-my-virtual-hosts-is-a-template-that-ansible-writes-out-i-use-cloudflares-dns-challengehttpscaddyservercomdocsautomatic-httpsdns-challenge-when-caddy-requests-tls-certificates-from-lets-encrypt-and-that-needs-a-token-for-cloudflare-so-i-use-an-ansible-template-file-so-i-can-encrypt-the-token-using-ansible-vault-i-use-the-dns-challenge-because-my-homelab-isnt-on-the-internet-so-its-not-accessible-to-lets-encrypt-when-it-tries-to-do-the-regular-http-challengefor-homebox-i-addedhttpshomeboxcloudpaultibbettsuk---reverse_proxy-appsinfrahomearpa3100where-appsinfrahomearpa-is-an-a-record-for-the-vm-with-docker-compose-running-homebox-the-3100-port-was-defined-earlier-in-the-docker-compose-yaml-fileyamlports----31007745-deployto-deploy-i-ran-the-appsyaml-playbook-to-write-the-docker-composeyaml-file-and-the-env-file-that-contains-all-the-secrets-this-also-runs-docker-compose-up--d-so-the-stack-is-up-and-running-by-the-end-of-itto-add-the-virtual-host-to-caddy-i-ran-my-ingressyaml-playbook-that-configures-caddybecause-this-is-my-writeup-i-can-pretend-it-all-worked-perfectly-the-first-time-and-i-definitely-didnt-have-a-typo-in-my-domain-initial-testi-registered-a-user-account-using-my-email-and-set-a-password-just-in-case-i-then-logged-out-and-tried-again-using-oidc-and-it-logged-me-into-the-same-account---this-is-because-my-email-in-kanidm-is-the-same-one-i-used-when-registering-some-apps-make-separate-accounts-when-logging-in-using-a-password-or-with-oidc-but-i-like-this-approach-morehomebox-doesnt-have-a-super-user-it-uses-a-multi-tenant-setup-where-everyone-gets-their-own-inventory-and-you-have-to-invite-others-to-access-yours-i-havent-tried-this-yet-i-might-not-ever-need-it---i-dont-want-anyone-else-seeing-how-many-unused-cables-i-refuse-to-throw-awaycreating-my-account-proved-the-database-worked--and-logging-in-with-kanidm-proved-oidc-worked--so-i-created-an-item-in-homebox-and-uploaded-a-photo-and-that-proved-the-storage-with-minio-worked-">ArchitectureHomeBox can run entirely independently using a SQLite database, the local file system for storage, and its own user system for authentication. However it can also use PostgreSQL, S3-compatible storage, and <!-- raw HTML omitted -->OIDC<!-- raw HTML omitted --> for auth. Since I have all of those things already running that&rsquo;s how I set it up.## InstallThe docs contain an <a href="https://homebox.software/en/installation.html#docker-compose">example Docker compose file</a> so I started with that. I use Ansible to configure my virtual machines and have one dedicated to Docker Compose stacks, so in my code I created a new directory for HomeBox and added the example Docker Compose file.If I was using the default setup I could have stopped there but I&rsquo;m using the extra things I mentioned above and each one of them needs a secret. Instead of writing the secrets as plain-text I used <a href="https://docs.ansible.com/projects/ansible/latest/vault_guide/vault.html">Ansible vault</a> to encrypt a template file in my repo and then write that as <code>.env</code> to the same directory as the compose file. Docker Compose will automatically read it and use its values when referenced in the <code>docker-compose.yaml</code> file.## DatabaseI have a virtual machine dedicated to running Postgres and use the <a href="https://github.com/geerlingguy/ansible-role-postgresql/">geerlingguy/docker-role-postgresql</a> role to configure it. In my <code>group_vars/postgres/main.yaml</code> file I added lines for a new <code>homebox</code> database and user to <code>postgresql_databases</code>, <code>postgresql_users</code> and <code>postgresql_hba_entries</code>. The new <code>postgresql_user</code> uses a password of <code>&quot;{{ vault_homebox_database_password }}&quot;</code> so I created a new password and entered it into my <code>group_vars/postgres/vault.yaml</code> file which is also encrypted with Ansible vault.To use it I added:<code>yaml- HBOX_DATABASE_DRIVER=postgres- HBOX_DATABASE_HOST=postgres.infra.home.arpa- HBOX_DATABASE_PORT=5432- HBOX_DATABASE_USERNAME=homebox- HBOX_DATABASE_PASSWORD=${HBOX_DATABASE_PASSWORD}- HBOX_DATABASE_DATABASE=homebox</code>to the <code>environment</code> part of the <code>docker-compose.yaml</code>. The role that sets up the Docker Compose stacks doesn&rsquo;t read the values I set for the Postgres role, so I had to copy the password I used for the database into the encrypted file that creates the <code>.env</code> for HomeBox. I now have that same password written twice, once for the database and once for HomeBox to use it.## StorageI&rsquo;m currently running <a href="https://www.min.io/">MinIO</a> on my <a href="https://www.truenas.com/truenas-community-edition/">TrueNAS Scale</a> machine and I can use that for S3-compatible storage. I set it up before they changed their license and now migrating to an alternative is yet another thing on my TODO list.I created a new bucket by using the <a href="https://minio.github.io/mc/">mc</a> CLI client to run:<code>shmc mb lab/homebox</code>To use it I added:<code>yaml- AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}- AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}- HBOX_STORAGE_CONN_STRING=s3://homebox?awssdk=v2&amp;endpoint=http://&lt;NAS_IP&gt;:9000&amp;disable_https=true&amp;s3ForcePathStyle=true</code>to the <code>environment</code> part of my <code>docker-compose.yaml</code>.The &ldquo;AWS&rdquo; (Minio) values are also secrets added to the template that writes out the <code>.env</code> file.The <code>HBOX_STORAGE_CONN_STRING</code> value comes from the <a href="https://homebox.software/en/configure/storage.html#tested-s3-compatible-storage">HomeBox docs</a>.Note to self: I should also set up <code>nas.infra.home.arpa</code> like I did for Postgres.## OIDCI have <a href="https://kanidm.com/">Kanidm</a> set up as an <!-- raw HTML omitted -->IdP<!-- raw HTML omitted --> and it can do OIDC for HomeBox to use for authentication.To create the client in Kanidm I ran:<code>shkanidm system oauth2 create homebox HomeBox &quot;https://homebox.cloud.paultibbetts.uk&quot;kanidm group create homebox_userskanidm group add-members homebox_users paulkanidm system oauth2 update-scope-map homebox homebox_users openid profile email</code>and to set the logo for it I ran:<code>shcurl -o homebox.svg https://raw.githubusercontent.com/sysadminsmedia/homebox/refs/heads/main/docs/public/lilbox.svgkanidm system oauth2 set-image homebox homebox.svg svgrm homebox.svg</code>The docker compose environment values to use Kanidm for OIDC are:<code>yaml- HBOX_OPTIONS_HOSTNAME=homebox.cloud.paultibbetts.uk- HBOX_OIDC_ENABLED=true- HBOX_OIDC_ISSUER_URL=https://&lt;kanidm_domain&gt;/oauth2/openid/homebox- HBOX_OIDC_CLIENT_ID=homebox- HBOX_OIDC_CLIENT_SECRET=${HBOX_OIDC_CLIENT_SECRET}- HBOX_OPTIONS_TRUST_PROXY=true</code>where <code>HBOX_OIDCD_CLIENT_SECRET</code> is another secret added to the <code>.env</code> template.## DNSI use <a href="https://pi-hole.net/">Pi-hole</a> for ad-blocking and custom DNS records in my homelab.I don&rsquo;t yet have an automated way to configure it, so I did it using the web UI, and wrote another reminder to automate this process.I have an A record for the reverse proxy I use so I created a CNAME for HomeBox that points <code>homebox.cloud.paultibbetts.uk</code> to the reverse proxy.I could set up an A record for HomeBox but that would mean writing out the IP of the reverse proxy, whereas using a CNAME means I can enter its domain, which is easier to remember than numbers. It also means I could move the reverse proxy to another server and I would only need to update the A record for it and all the things pointing to it with CNAMEs would still work.## Reverse proxyI use <a href="https://caddyserver.com/">Caddy</a> as a reverse proxy. This is configured by an Ansible role. Well it should be, I left all the tasks in the playbook but I only use it once in this one playbook so it doesn&rsquo;t need to be.The Caddyfile that configures all my virtual hosts is a template that Ansible writes out. I use <a href="https://caddyserver.com/docs/automatic-https#dns-challenge">Cloudflare&rsquo;s DNS challenge</a> when Caddy requests TLS certificates from Lets Encrypt and that needs a token for Cloudflare so I use an Ansible template file so I can encrypt the token using Ansible vault. I use the DNS challenge because my homelab isn&rsquo;t on the internet so it&rsquo;s not accessible to Lets Encrypt when it tries to do the regular HTTP challenge.For HomeBox I added:<code>https://homebox.cloud.paultibbetts.uk {  reverse_proxy apps.infra.home.arpa:3100}</code>where <code>apps.infra.home.arpa</code> is an A record for the VM with Docker Compose running HomeBox. The <code>3100</code> port was defined earlier in the Docker Compose yaml file:<code>yamlports:  - 3100:7745</code>## DeployTo deploy I ran the <code>apps.yaml</code> playbook to write the <code>docker-compose.yaml</code> file and the <code>.env</code> file that contains all the secrets. This also runs <code>docker compose up -d</code> so the stack is up and running by the end of it.To add the virtual host to Caddy I ran my <code>ingress.yaml</code> playbook that configures Caddy.Because this is my writeup I can pretend it all worked perfectly the first time and I definitely didn&rsquo;t have a typo in my domain.## Initial testI registered a user account using my email and set a password, just in case. I then logged out and tried again using OIDC and it logged me into the same account - this is because my email in Kanidm is the same one I used when registering. Some apps make separate accounts when logging in using a password or with OIDC but I like this approach more.HomeBox doesn&rsquo;t have a super user, it uses a multi-tenant setup where everyone gets their own inventory and you have to invite others to access yours. I haven&rsquo;t tried this yet. I might not ever need it - I don&rsquo;t want anyone else seeing how many unused cables I refuse to throw away.Creating my account proved the database worked ✅, and logging in with Kanidm proved OIDC worked ✅, so I created an item in HomeBox and uploaded a photo and that proved the storage with MinIO worked ✅.</h2>
+<h2 id="architecture">Architecture</h2>
+<p>HomeBox can run entirely independently using a SQLite database, the local file system for storage, and its own user system for authentication. However it can also use PostgreSQL, S3-compatible storage, and <!-- raw HTML omitted -->OIDC<!-- raw HTML omitted --> for auth.</p>
+<p>Since I have all of those things already running that&rsquo;s how I set it up.</p>
+<h2 id="install">Install</h2>
+<p>The docs contain an <a href="https://homebox.software/en/installation.html#docker-compose">example Docker compose file</a> so I started with that. I use Ansible to configure my virtual machines and have one dedicated to Docker Compose stacks, so in my code I created a new directory for HomeBox and added the example Docker Compose file.</p>
+<p>If I was using the default setup I could have stopped there but I&rsquo;m using the extra things I mentioned above and each one of them needs a secret. Instead of writing the secrets as plain-text I used <a href="https://docs.ansible.com/projects/ansible/latest/vault_guide/vault.html">Ansible vault</a> to encrypt a template file in my repo and then write that as <code>.env</code> to the same directory as the compose file. Docker Compose will automatically read it and use its values when referenced in the <code>docker-compose.yaml</code> file.</p>
+<h2 id="database">Database</h2>
+<p>I have a virtual machine dedicated to running Postgres and use the <a href="https://github.com/geerlingguy/ansible-role-postgresql/">geerlingguy/docker-role-postgresql</a> role to configure it. In my <code>group_vars/postgres/main.yaml</code> file I added lines for a new <code>homebox</code> database and user to <code>postgresql_databases</code>, <code>postgresql_users</code> and <code>postgresql_hba_entries</code>. The new <code>postgresql_user</code> uses a password of <code>&quot;{{ vault_homebox_database_password }}&quot;</code> so I created a new password and entered it into my <code>group_vars/postgres/vault.yaml</code> file which is also encrypted with Ansible vault.</p>
+<p>To use it I added:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">HBOX_DATABASE_DRIVER=postgres</span>
+- <span style="color:#ae81ff">HBOX_DATABASE_HOST=postgres.infra.home.arpa</span>
+- <span style="color:#ae81ff">HBOX_DATABASE_PORT=5432</span>
+- <span style="color:#ae81ff">HBOX_DATABASE_USERNAME=homebox</span>
+- <span style="color:#ae81ff">HBOX_DATABASE_PASSWORD=${HBOX_DATABASE_PASSWORD}</span>
+- <span style="color:#ae81ff">HBOX_DATABASE_DATABASE=homebox</span>
+</code></pre></div><p>to the <code>environment</code> part of the <code>docker-compose.yaml</code>.</p>
+<p>The role that sets up the Docker Compose stacks doesn&rsquo;t read the values I set for the Postgres role, so I had to copy the password I used for the database into the encrypted file that creates the <code>.env</code> for HomeBox. I now have that same password written twice, once for the database and once for HomeBox to use it.</p>
+<h2 id="storage">Storage</h2>
+<p>I&rsquo;m currently running <a href="https://www.min.io/">MinIO</a> on my <a href="https://www.truenas.com/truenas-community-edition/">TrueNAS Scale</a> machine and I can use that for S3-compatible storage. I set it up before they changed their license and now migrating to an alternative is yet another thing on my TODO list.</p>
+<p>I created a new bucket by using the <a href="https://minio.github.io/mc/">mc</a> CLI client to run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mc mb lab/homebox
+</code></pre></div><p>To use it I added:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}</span>
+- <span style="color:#ae81ff">AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}</span>
+- <span style="color:#ae81ff">HBOX_STORAGE_CONN_STRING=s3://homebox?awssdk=v2&amp;endpoint=http://&lt;NAS_IP&gt;:9000&amp;disable_https=true&amp;s3ForcePathStyle=true</span>
+</code></pre></div><p>to the <code>environment</code> part of my <code>docker-compose.yaml</code>.</p>
+<p>The &ldquo;AWS&rdquo; (Minio) values are also secrets added to the template that writes out the <code>.env</code> file.</p>
+<p>The <code>HBOX_STORAGE_CONN_STRING</code> value comes from the <a href="https://homebox.software/en/configure/storage.html#tested-s3-compatible-storage">HomeBox docs</a>.</p>
+<p>Note to self: I should also set up <code>nas.infra.home.arpa</code> like I did for Postgres.</p>
+<h2 id="oidc">OIDC</h2>
+<p>I have <a href="https://kanidm.com/">Kanidm</a> set up as an <!-- raw HTML omitted -->IdP<!-- raw HTML omitted --> and it can do OIDC for HomeBox to use for authentication.</p>
+<p>To create the client in Kanidm I ran:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">kanidm system oauth2 create homebox HomeBox <span style="color:#e6db74">&#34;https://homebox.cloud.paultibbetts.uk&#34;</span>
+kanidm group create homebox_users
+kanidm group add-members homebox_users paul
+kanidm system oauth2 update-scope-map homebox homebox_users openid profile email
+</code></pre></div><p>and to set the logo for it I ran:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -o homebox.svg https://raw.githubusercontent.com/sysadminsmedia/homebox/refs/heads/main/docs/public/lilbox.svg
+kanidm system oauth2 set-image homebox homebox.svg svg
+rm homebox.svg
+</code></pre></div><p>The docker compose environment values to use Kanidm for OIDC are:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">HBOX_OPTIONS_HOSTNAME=homebox.cloud.paultibbetts.uk</span>
+- <span style="color:#ae81ff">HBOX_OIDC_ENABLED=true</span>
+- <span style="color:#ae81ff">HBOX_OIDC_ISSUER_URL=https://&lt;kanidm_domain&gt;/oauth2/openid/homebox</span>
+- <span style="color:#ae81ff">HBOX_OIDC_CLIENT_ID=homebox</span>
+- <span style="color:#ae81ff">HBOX_OIDC_CLIENT_SECRET=${HBOX_OIDC_CLIENT_SECRET}</span>
+- <span style="color:#ae81ff">HBOX_OPTIONS_TRUST_PROXY=true</span>
+</code></pre></div><p>where <code>HBOX_OIDCD_CLIENT_SECRET</code> is another secret added to the <code>.env</code> template.</p>
+<h2 id="dns">DNS</h2>
+<p>I use <a href="https://pi-hole.net/">Pi-hole</a> for ad-blocking and custom DNS records in my homelab.</p>
+<p>I don&rsquo;t yet have an automated way to configure it, so I did it using the web UI, and wrote another reminder to automate this process.</p>
+<p>I have an A record for the reverse proxy I use so I created a CNAME for HomeBox that points <code>homebox.cloud.paultibbetts.uk</code> to the reverse proxy.</p>
+<p>I could set up an A record for HomeBox but that would mean writing out the IP of the reverse proxy, whereas using a CNAME means I can enter its domain, which is easier to remember than numbers. It also means I could move the reverse proxy to another server and I would only need to update the A record for it and all the things pointing to it with CNAMEs would still work.</p>
+<h2 id="reverse-proxy">Reverse proxy</h2>
+<p>I use <a href="https://caddyserver.com/">Caddy</a> as a reverse proxy. This is configured by an Ansible role. Well it should be, I left all the tasks in the playbook but I only use it once in this one playbook so it doesn&rsquo;t need to be.</p>
+<p>The Caddyfile that configures all my virtual hosts is a template that Ansible writes out. I use <a href="https://caddyserver.com/docs/automatic-https#dns-challenge">Cloudflare&rsquo;s DNS challenge</a> when Caddy requests TLS certificates from Lets Encrypt and that needs a token for Cloudflare so I use an Ansible template file so I can encrypt the token using Ansible vault. I use the DNS challenge because my homelab isn&rsquo;t on the internet so it&rsquo;s not accessible to Lets Encrypt when it tries to do the regular HTTP challenge.</p>
+<p>For HomeBox I added:</p>
+<pre tabindex="0"><code>https://homebox.cloud.paultibbetts.uk {
+  reverse_proxy apps.infra.home.arpa:3100
+}
+</code></pre><p>where <code>apps.infra.home.arpa</code> is an A record for the VM with Docker Compose running HomeBox. The <code>3100</code> port was defined earlier in the Docker Compose yaml file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">ports</span>:
+  - <span style="color:#ae81ff">3100</span>:<span style="color:#ae81ff">7745</span>
+</code></pre></div><h2 id="deploy">Deploy</h2>
+<p>To deploy I ran the <code>apps.yaml</code> playbook to write the <code>docker-compose.yaml</code> file and the <code>.env</code> file that contains all the secrets. This also runs <code>docker compose up -d</code> so the stack is up and running by the end of it.</p>
+<p>To add the virtual host to Caddy I ran my <code>ingress.yaml</code> playbook that configures Caddy.</p>
+<p>Because this is my writeup I can pretend it all worked perfectly the first time and I definitely didn&rsquo;t have a typo in my domain.</p>
+<h2 id="initial-test">Initial test</h2>
+<p>I registered a user account using my email and set a password, just in case. I then logged out and tried again using OIDC and it logged me into the same account - this is because my email in Kanidm is the same one I used when registering. Some apps make separate accounts when logging in using a password or with OIDC but I like this approach more.</p>
+<p>HomeBox doesn&rsquo;t have a super user, it uses a multi-tenant setup where everyone gets their own inventory and you have to invite others to access yours. I haven&rsquo;t tried this yet. I might not ever need it - I don&rsquo;t want anyone else seeing how many unused cables I refuse to throw away.</p>
+<p>Creating my account proved the database worked ✅, and logging in with Kanidm proved OIDC worked ✅, so I created an item in HomeBox and uploaded a photo and that proved the storage with MinIO worked ✅.</p>
 		</div>
 	  </div>
 	
@@ -98,7 +168,6 @@
 <p>For Lutris, Heroic or Bottles you need to set an environment variable using that launcher&rsquo;s config for the game.</p>
 <h2 id="credits">Credits</h2>
 <p>Thanks to <a href="https://unsplash.com/photos/black-street-light-under-blue-sky-gtQEUHhMCK8">Adam Eperjesi</a> for the Unsplash image, <a href="https://gameplay.tips/guides/the-beginners-guide-game-crashing-fix.html">Gameplay.tips</a> for the Windows guide, <a href="https://steamcommunity.com/app/303210/discussions/0/3772364735644808241/#c4347733139652152557">fleakuda</a> for linking to it, and everyone who contributes to <a href="https://www.protondb.com/">ProtonDB</a>, especially <a href="https://www.protondb.com/app/303210#0l18q-LYdZ">ShatteredScales</a> for the Wine environment variable.</p>
-
 		</div>
 	  </div>
 	
@@ -110,6 +179,70 @@
 		<div class="e-content">
 			 <p>I tried to turn <a href="https://paultibbetts.uk/2025/12/30/pangolin-on-a-pi/">Pangolin on a Pi</a> into a guide. It didn&rsquo;t want to be one.</p>
 
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/12/28/spent-yesterday-dealing-with-a.html" class="u-url"><time class="dt-published" datetime="2025-12-28 11:12:58 &#43;0000">Dec 28, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Spent yesterday dealing with a homelab problem I had baked into a VM template a year ago.</p>
+<p>Makes me wonder what other bugs I&rsquo;ve created and haven&rsquo;t found yet.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/09/26/heading-to-alpkits-big-shakeout.html" class="u-url"><time class="dt-published" datetime="2025-09-26 14:09:18 &#43;0000">Sep 26, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Heading to Alpkit’s <a href="https://alpkit.com/pages/bigshakeout">Big Shakeout Festival</a> for the weekend.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/two-weeks-of-rest-and.html" class="u-url"><time class="dt-published" datetime="2025-08-13 12:37:44 &#43;0000">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Two weeks of rest and I&rsquo;m recovered from my trip. Time to swap back to my nerd blog and do some computer stuff.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html">Checking in with my homelab after leaving it for a month</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/08/13/checking-in-with-my-homelab.html" class="u-url"><time class="dt-published" datetime="2025-08-13 12:36:00 &#43;0000">Aug 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>I recently had the pleasure of going outside and touching some grass, which means I haven&rsquo;t worked on my homelab for about a month, and now I&rsquo;m catching up.</p>
+<h2 id="i-didnt-need-to-use-it">I didn&rsquo;t need to use it</h2>
+<p>I&rsquo;m not running that many apps or services right now but it was still interesting to realise I didn&rsquo;t need to use it whilst I was away. I went hiking and camping for 9 days and didn&rsquo;t even think about computers, which was nice, and when I got back I was recovering and still didn&rsquo;t use it.</p>
+<p>It turns out my homelab is an indoors-only sort of thing.</p>
+<h2 id="it-all-worked-fine">It all worked fine</h2>
+<p>The one app I did use was <a href="https://www.freshrss.org/">FreshRSS</a>, which syncs my RSS feeds with <a href="https://netnewswire.com/">NetNewsWire</a> on my phone and my laptop. The few times I used it I had new content to read, although I have that many unread articles I would have been fine if it had stopped working.</p>
+<p>To use FreshRSS I had to be connected to my Wireguard VPN, so that also worked.</p>
+<h2 id="my-monitoring-failed">My monitoring failed</h2>
+<p>One thing that didn&rsquo;t work was my monitoring setup.</p>
+<p>Whilst I was away there was a brief power-cut to my homelab and all of my machines turned off. When the power came back they all turned on and resumed normal functions, except my Raspberry Pi.</p>
+<p>This Raspberry Pi runs <a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a>, for monitoring apps and services, as well as <a href="https://www.beszel.dev/">Beszel</a>, for monitoring servers. I&rsquo;m using an <a href="https://argon40.com/products/argon-one-m-2-expansion-board-nvme?pr_prod_strat=e5_desc&amp;pr_rec_id=5175427e9&amp;pr_rec_pid=6824727707713&amp;pr_ref_pid=6740406796353&amp;pr_seq=uniform">Argon One NVME case</a> and I hadn&rsquo;t set it to turn on when it receives power, so the Pi stayed off, and even though all of my services started working again I wasn&rsquo;t told about it.</p>
+<p>The immediate fix was to <a href="https://micro.paultibbetts.uk/2025/08/13/how-to-set-the-argon.html">set the Argon One NVME case to turn on the Raspberry Pi 4 when it receives power</a>, but in the long-term I might need to rethink my monitoring setup.</p>
+<h2 id="theres-been-lots-of-updates">There&rsquo;s been lots of updates</h2>
+<p>Before I went away I set up <a href="https://docs.renovatebot.com/">Renovate</a> to track the dependencies in my homelab repo and send me pull requests when there are updates available. Now I&rsquo;m back I can see it has maxed out at (the default) 10 updates and is waiting for me to review them before continuing.</p>
+<p>I like this way of doing updates, it&rsquo;s much easier than manually checking everything every time.</p>
+<h2 id="is-it-ready-yet">&ldquo;Is it ready yet?&rdquo;</h2>
+<p>My <a href="https://micro.paultibbetts.uk/categories/pangolin-on-a-pi">Pangolin on a Pi</a> project stalled whilst I was away. This was meant to give friends and family easier access to the apps and services I&rsquo;m running.</p>
+<p><a href="https://mealie.io/">Mealie</a> is the main app being used, but a close second now is <a href="https://homebox.software/en/">Homebox</a>, which is for inventory management.</p>
+<p>I guess now I&rsquo;ve recovered and my brain power&rsquo;s been restored I&rsquo;ll have to finish this.</p>
 		</div>
 	  </div>
 	
@@ -128,6 +261,1578 @@
 <p>By default it connects pins 1 and 2 and this means you need to press the power button to turn on the Raspberry Pi.</p>
 <p>To change it to turn on the Pi when it receives power you need to move it to pins 2 and 3.</p>
 <!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/28/geneva-manchester.html" class="u-url"><time class="dt-published" datetime="2025-07-28 16:49:00 &#43;0000">Jul 28, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Geneva ✈️ Manchester</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/27/completed-the-tour-du-mont.html" class="u-url"><time class="dt-published" datetime="2025-07-27 12:27:00 &#43;0000">Jul 27, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Completed the <a href="https://pinthewild.micro.blog/categories/tour-du-mont-blanc">Tour du Mont Blanc</a>!</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/19/starting-the-tour-du-mont.html" class="u-url"><time class="dt-published" datetime="2025-07-19 07:18:50 &#43;0000">Jul 19, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Starting the Tour du Mont Blanc today, will be posting from <a href="https://pinthewild.micro.blog">my hiking blog</a> but there will inevitably be a double post or two</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/18/chamonix.html" class="u-url"><time class="dt-published" datetime="2025-07-18 19:02:40 &#43;0000">Jul 18, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Chamonix 🇫🇷</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/18/manchester-geneva.html" class="u-url"><time class="dt-published" datetime="2025-07-18 11:21:59 &#43;0000">Jul 18, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Manchester ✈️ Geneva</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/11/setting-off-to-the-other.html" class="u-url"><time class="dt-published" datetime="2025-07-11 12:59:29 &#43;0000">Jul 11, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Setting off to the other side of the island for the weekend.</p>
+<p>Only 9 hours to go.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/10/booked-my-flight-to-switzerland.html" class="u-url"><time class="dt-published" datetime="2025-07-10 14:35:20 &#43;0000">Jul 10, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Booked my flight to Switzerland to hike the <a href="https://www.autourdumontblanc.com/en/">Tour du Mont Blanc</a>, so now I&rsquo;m doing some last minute shopping for new gear and replacements of all the lost and broken things since my last week long trip.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/05/pangolin-works-on-my-ipv.html" class="u-url"><time class="dt-published" datetime="2025-07-05 10:24:45 &#43;0000">Jul 5, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Pangolin works on my IPv6 only Pi 🎉</p>
+<p>I&rsquo;ve got some tidying up to do, then it needs a write-up.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/07/03/pangolin-on-a-pi-project.html">Pangolin on a Pi project progress</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/07/03/pangolin-on-a-pi-project.html" class="u-url"><time class="dt-published" datetime="2025-07-03 15:54:12 &#43;0000">Jul 3, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Most things in tech play out like <a href="https://youtu.be/5W4NFcamRhM?si=UfMWOyK6d9hEitz-">that scene from Malcom in the Middle</a>, where Hal&rsquo;s trying to do one thing and then he needs to do another, and another, until he&rsquo;s forgotten where he started.</p>
+<p>Pangolin on a Pi started off as a quick little test that turned into a week long adventure.</p>
+<h2 id="pangolin">Pangolin</h2>
+<p><a href="https://docs.fossorial.io/Getting%20Started/overview">Pangolin</a> is an app that lets you tunnel into a private network, securely, from the outer internet. This means you can run your own apps and services at home and use Pangolin to let your friends and family connect to them.</p>
+<p>You can do the same thing with <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/">Cloudflare tunnels</a> except that way Cloudflare can read everything that goes through the tunnel and they don&rsquo;t want you using it for movies, so you&rsquo;re not supposed to use it for Jellyfin or Plex.</p>
+<p>I&rsquo;m not planning on using it for Jellyfin, but I like that the option&rsquo;s there with Pangolin, and that it&rsquo;s hosted on my own server.</p>
+<h2 id="hosting">Hosting</h2>
+<p>Except it&rsquo;s not my own server, because I don&rsquo;t have one of those huge internet cables like the big companies do, so I have to rent access to one from them.</p>
+<p>It doesn&rsquo;t need to be a big server, only 1GB of RAM and 1 vCPU, which you can get for $1 per month if you go with <a href="https://my.racknerd.com/aff.php?aff=13788&amp;pid=912">RackNerd</a>.</p>
+<p>Which is great if you live in the US, since you&rsquo;re close to any one of the 6 data centres you can choose from for that offer, but I don&rsquo;t, I live all the way across the pond.</p>
+<h2 id="uk-hosting">UK Hosting</h2>
+<p>The closer this server is to where I am the better. In the UK server hosting mainly happens in London, which is close enough to me to be super fast, even if there are other places I could choose.</p>
+<p>Like Manchester, which is closer to me than London. I was surprised to find they had their own data centres I could host from. I could only find one company that offered it publicly though, which was ran by an American company.</p>
+<p>I don&rsquo;t want to talk about recent events, but I don&rsquo;t want to spend my money with a company that pays its taxes to a government that just bombed the country my friend&rsquo;s family lives in. I&rsquo;m not getting involved in any of this. I will choose a different company.</p>
+<p>Preferably one in the UK; as I&rsquo;ve aged I&rsquo;ve realised it&rsquo;s up to us to keep this island afloat.</p>
+<h2 id="mythic-beasts">Mythic Beasts</h2>
+<p>A quick Reddit search led me to <a href="https://www.mythic-beasts.com/">Mythic Beasts</a>, an independent, privately owned company based in the UK, with lots of good reviews.</p>
+<p>They even had a blog, and it didn&rsquo;t take long to find a post titled &ldquo;<a href="https://www.mythic-beasts.com/blog/2025/02/25/supporting-the-open-rights-group/">Supporting the Open Rights Group</a>&rdquo;.</p>
+<p>Yep, that&rsquo;s all I need to read, I&rsquo;m hosting my server here with these beasts.</p>
+<h2 id="pi">Pi?</h2>
+<p>Mythic Beasts have their own <a href="https://www.mythic-beasts.com/order/rpi/">rack of Raspberry Pis</a> you can rent from.</p>
+<p>Hosting on someone else&rsquo;s computer isn&rsquo;t a natural fit for the self-hosted way of doing things. But doing it on a Pi? That feels better for some reason.</p>
+<p>Time to do a little test&hellip;<!-- raw HTML omitted --></p>
+<h2 id="terraform-provider">Terraform Provider?</h2>
+<p>I could have just clicked on the website to order a Pi. Maybe I should have.</p>
+<p>Mythic Beasts have an API, so you can script your order and the management of the Pi, not that it needs much management. What they don&rsquo;t have, which surprised me a little, is a Terraform Provider.</p>
+<p>A Terraform Provider is the bit that connects Terraform, an industry standard tool for writing down servers as code, to the API of the server provider.</p>
+<p>An ex member of staff <a href="https://github.com/jbayfield/terraform-provider-mythic/tree/main">started one</a> using the older version of the Terraform Provider code, but they had archived it and since left the company.</p>
+<p>Which gave me an idea.</p>
+<h2 id="i-will-write-one">I will write one!</h2>
+<p>I was looking for a chance to practise writing Go, as well as create a project to put on my GitHub, which had gotten a little quiet recently, and now I&rsquo;d found one.</p>
+<p>How hard could it be?</p>
+<h2 id="why-arent-the-docs-accurate">WHY AREN&rsquo;T THE DOCS ACCURATE?!</h2>
+<p>A small gripe, if I may, is that it helps if your API documentation is accurate. The docs I was reading were mostly accurate, and I could get around whatever differences there were, but it had been a while since I&rsquo;d coded against someone else&rsquo;s API and I&rsquo;d forgotten this happens.</p>
+<h2 id="ipv6">IPv6?</h2>
+<p>Since there are no more IPv4 addresses left the Pis are IPv6 only. Mythic Beasts host proxies that let you get into the Pis from IPv4 connections, which works for websites, but Pangolin needs a different type of access.</p>
+<h2 id="newt">Newt?</h2>
+<p>Pangolin is the website part of the project, it&rsquo;s the bit the users see and is hosted on the Pi. It works by letting only the right users into the secure Wireguard tunnel that goes into your home network.</p>
+<p>The thing that you host at home that sets up the other side of the tunnel is called Newt. It uses Wireguard for the tunnel, and that speaks to the Pi on a particular port which <strong>isn&rsquo;t proxied by Mythic Beasts</strong>.</p>
+<h2 id="another-proxy">Another proxy?</h2>
+<p>Maybe you could get another proxy for this, but then you&rsquo;re hosting a tunnel for your tunnel.</p>
+<p>So no.</p>
+<h2 id="ipv6-1">IPv6!</h2>
+<p>You don&rsquo;t need a proxy if you can connect to the Pi through IPv6.</p>
+<p>Except I couldn&rsquo;t.</p>
+<p>I&rsquo;ve known for years that we&rsquo;ve ran out of IPv4 addresses and that they&rsquo;re being passed around from company to company for larger and larger amounts of money.</p>
+<p>Somehow IPv4 still works and we&rsquo;re still using it, so I always thought I could deal with it when it became a problem.</p>
+<p>Like it just had.</p>
+<h2 id="heading">&hellip;</h2>
+<!-- raw HTML omitted -->
+<p>I will write up what I did another time, this quick update is over 1,000 words already.</p>
+<p>The next steps are:</p>
+<ul>
+<li>install Newt on my home server</li>
+<li>connect it to the Pi</li>
+<li>profit</li>
+</ul>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/30/pushed-my-developer-environment-setup.html" class="u-url"><time class="dt-published" datetime="2025-06-30 14:30:38 &#43;0000">Jun 30, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Pushed my <a href="https://github.com/paultibbetts/dev">developer environment setup scripts repo</a> up to GitHub.</p>
+<p>As mentioned in the readme:</p>
+<blockquote>
+<p>This is what works for me. I don&rsquo;t expect or encourage anyone else to use them.</p>
+</blockquote>
+<p>Planning on writing a few posts about it, so more details on it soon.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/30/this-weeks-aim-is-to.html" class="u-url"><time class="dt-published" datetime="2025-06-30 10:37:31 &#43;0000">Jun 30, 2025</time></a>
+
+		<div class="e-content">
+			 <p>This week&rsquo;s aim is to find a better balance 🧘</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/23/smoking-bbq-candy-httpssharefireboardiofec.html" class="u-url"><time class="dt-published" datetime="2025-06-23 15:58:13 &#43;0000">Jun 23, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Smoking BBQ Candy</p>
+<p><a href="https://share.fireboard.io/FE826C">share.fireboard.io/FE826C</a></p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/06/21/why-would-you-want-a.html">Why would you want a home server?</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/21/why-would-you-want-a.html" class="u-url"><time class="dt-published" datetime="2025-06-21 16:15:58 &#43;0000">Jun 21, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Some thoughts to help you work out if you want a home server.</p>
+<h2 id="whats-a-home-server">What&rsquo;s a Home Server?</h2>
+<p>If you thought servers were big black boxes with blinky lights in noisy rooms then you&rsquo;d be mostly correct, but a growing number of us are running them at home and they&rsquo;re smaller and quieter than you think.</p>
+<p>If you just want to block adverts with <a href="https://pi-hole.net/">Pi-hole</a> then you don&rsquo;t need that much power and you can get away with a teeny tiny <a href="https://www.raspberrypi.com/products/raspberry-pi-zero-w/">Raspberry Pi Zero</a> that fits in your hand and costs £15.</p>
+<p>A home server is any machine that lets you host things in your home.</p>
+<h2 id="self-hosting">Self-hosting</h2>
+<p>There&rsquo;s a bunch of things you can self-host.</p>
+<h3 id="services">Services</h3>
+<p>Some services are only available by self-hosting them.</p>
+<p>Blocking adverts in the browser alone means you still had to download the advert, even if you didn&rsquo;t see it. <a href="https://pi-hole.net/">Pi-hole</a> blocks adverts by stopping your network from fetching the advert in the first place, which makes your browsing experience faster.</p>
+<p><a href="https://jellyfin.org/">Jellyfin</a> lets you host your own Netflix, and apps like <a href="https://github.com/janeczku/calibre-web">calibre-web</a> and <a href="https://www.audiobookshelf.org/">audiobookshelf</a> do the same for your books and podcasts.</p>
+<p>Having a home server lets you make the most of your own media.</p>
+<h3 id="applications">Applications</h3>
+<p>There are open source versions of loads of apps you&rsquo;re already using, like Word processors and spreadsheets and stuff, as well as new ones you didn&rsquo;t realise you&rsquo;d need.</p>
+<p><a href="https://mealie.io/">Mealie</a> is one of my recent favourites, it&rsquo;s a recipe management app that lets me do meal planning and then generate a shopping list with all the ingredients I need.</p>
+<p>I use <a href="https://www.freshrss.org/">FreshRSS</a> to keep up to date with RSS feeds as well as keep my phone and laptop clients in sync with each other.</p>
+<p><a href="https://www.wireguard.com/">Wireguard</a> lets me access my home server from anywhere.</p>
+<p>You can find more at <a href="https://www.awesome-homelab.com/">Awesome Homelab</a> and on <a href="https://www.reddit.com/r/selfhosted/">Reddit</a>.</p>
+<h3 id="storage">Storage</h3>
+<p>If you&rsquo;ve read my <a href="https://micro.paultibbetts.uk/2025/06/20/why-would-you-want-a.html">Why would you want a NAS?</a> post you&rsquo;ll know whether you need <em>something</em> for storage.</p>
+<p>What I didn&rsquo;t mention is that the line between a home server and &ldquo;a NAS&rdquo; can be a little blurry.</p>
+<p>&ldquo;NAS&rdquo; just means network storage and &ldquo;a NAS&rdquo; usually refers to the machine you dedicate to doing NAS things. You don&rsquo;t have to own &ldquo;a NAS&rdquo; to have NAS.</p>
+<h4 id="nas--self-host">NAS + self host</h4>
+<p>Most NAS software has the ability to run custom apps somehow, so if you mainly wanted storage and only wanted to run a few apps you could get away with using your NAS device as a home server.</p>
+<p>You can run your own apps even on the consumer NAS devices like the ones from Synology.</p>
+<h4 id="home-server--network-attached-storage">Home server + Network Attached Storage</h4>
+<p>If you wanted the opposite, mainly to self-host with a little bit of network storage, you could get away with plugging in some drives to your home server and making them available over the network.</p>
+<p>This could be as small as a Raspberry Pi 5 with an NVME plugged in to it.</p>
+<h4 id="home-server-with-nas-virtualised">Home server with NAS virtualised</h4>
+<p>Some people set up their home server for virtualisation and use a virtual machine to run their NAS software and then use other virtual machines for self-hosting, which means the same device is now both &ldquo;a NAS&rdquo; and &ldquo;a home server&rdquo;.</p>
+<h4 id="home-server-and-a-nas">Home server and a NAS</h4>
+<p>I personally have different machines for my NAS and my home server, and I think I&rsquo;m right, but then my NAS is sat idle 99% of the time, so maybe I&rsquo;m not.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/06/20/why-would-you-want-a.html">Why would you want a NAS?</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/20/why-would-you-want-a.html" class="u-url"><time class="dt-published" datetime="2025-06-20 14:03:32 &#43;0000">Jun 20, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Some thoughts to help you work out if you want a NAS.</p>
+<h2 id="whats-a-nas">What&rsquo;s a NAS?</h2>
+<p>NAS stands for Network Attached Storage, which means you can connect to storage on another computer in your network.</p>
+<p>It&rsquo;s like Dropbox, Google Drive or iCloud except it&rsquo;s your computer and not theirs.</p>
+<p>When you buy &ldquo;a NAS&rdquo; you&rsquo;re buying the computer that makes storage available over the network. They usually don&rsquo;t come with any actual storage, you have to buy that separately.</p>
+<p>You can also build it yourself, at the end of the day it&rsquo;s just a computer.</p>
+<h2 id="why-would-i-want-network-attached-storage">Why would I want Network Attached Storage?</h2>
+<p>When you have a single computer managing the storage for it is pretty easy. You run out of room, you buy a USB stick, or an external hard drive, plug it in, and get more storage.</p>
+<p>It&rsquo;s when you fill up that extra storage or have multiple computers in the same household that you start looking for a better solution.</p>
+<p>Instead of buying and managing more external drives you designate a computer to act as storage and plug in all your drives to that one and make it available over the network.</p>
+<p>You might not even need to buy anything at all, most modern routers allow you to plug in an external drive and make it available over your network, and that might be all you need.</p>
+<h3 id="benefits">Benefits</h3>
+<p>Having storage available over the network means you&rsquo;re able to do a few things:</p>
+<h4 id="centralise-your-storage">Centralise your storage</h4>
+<p>You can store all your files in one place and access them from all your devices.</p>
+<p>When you treat your storage like one giant drive then adding new disks increases the <strong>total</strong> storage you have, not just giving you another smaller disk to manage.</p>
+<p>No more juggling USB sticks and label makers or emailing files to yourself.</p>
+<p>And if you install media software like <a href="https://jellyfin.org/">Jellyfin</a> or Plex then you can watch your media content on your TV without plugging in your laptop every time.</p>
+<h4 id="backups-and-redundancy">Backups and redundancy</h4>
+<p>NAS software allows you to set up redundancy for your data, so you always have an extra copy available. Some will allow you to configure your drives into a <a href="https://en.wikipedia.org/wiki/RAID">RAID</a> array which means you can survive one or two of them failing. <a href="https://www.raidisnotabackup.com/">RAID is not a backup</a>, but it does give you an extra layer of redundancy.</p>
+<p>For a better backup solution you should store a copy of your data in an external location. The benefit of having a NAS is that you can set it up to do this for you, so now all you need to do is get that data onto your NAS and then it&rsquo;s automatically backed up.</p>
+<h4 id="avoid-the-apple-tax">Avoid the Apple Tax</h4>
+<p>I like Apple, you might as well, but I do think their storage upgrades are expensive.</p>
+<p>Take the cheapest Mac mini they have right now, which is £599 for 256GB of storage.
+Upgrading it to 512GB is an extra £200. 1TB is an extra £400.</p>
+<p>You can buy a Raspberry Pi 5 starter kit, an NVME adapter, and a 1TB NVME drive for £200.</p>
+<p>For <!-- raw HTML omitted -->just over<!-- raw HTML omitted --> £400 you could upgrade the 1TB drive to 4TB.</p>
+<p>It&rsquo;d be slower, I admit that, but if it suits your needs then it means you get 4 times the storage for the same price.</p>
+<h3 id="bonus-homeserver">Bonus: Homeserver</h3>
+<p>A NAS can also double up as a capable server where you self-host your own apps and services.</p>
+<p>You could:</p>
+<ul>
+<li>host your own Netflix with <a href="https://jellyfin.org/">Jellyfin</a></li>
+<li>share your photos with family and friends using <a href="https://immich.app/">Immich</a></li>
+<li>block adverts with <a href="https://pi-hole.net/">Pi-hole</a></li>
+</ul>
+<p>and <a href="https://awesome-selfhosted.net/index.html">plenty more</a>.</p>
+<h2 id="convinced-yet">Convinced yet?</h2>
+<p>Maybe that helped you work out if you wanted a NAS or not.</p>
+<p>I&rsquo;ll be writing more under the <a href="https://micro.paultibbetts.uk/categories/homelab/">#homelab</a>  tag, including which NAS is right for you as well as self-hosting your own apps and services on a home server.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/15/talos-defaults-to-adding-the.html" class="u-url"><time class="dt-published" datetime="2025-06-15 16:59:02 &#43;0000">Jun 15, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Talos defaults to adding the <code>node.kubernetes.io/exclude-from-external-load-balancers=</code> label to all control plane nodes, which are all I&rsquo;m using in my Turing Pi, so that meant none of them were in the MetalLB VIP and is why I couldn&rsquo;t connect to them.</p>
+<p>I wish I knew this two hours ago.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/15/talos-is-up-and-running.html" class="u-url"><time class="dt-published" datetime="2025-06-15 11:51:56 &#43;0000">Jun 15, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Talos is up and running as a Kubernetes cluster on the Turing Pi 🎉.</p>
+<p>I&rsquo;m using <a href="https://argo-cd.readthedocs.io/">ArgoCD</a> to install and manage things, starting with <a href="https://metallb.io/">MetalLB</a> so that the cluster has an IP address to use for domains for all the apps I&rsquo;m planning to install.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/06/13/why-talos-and-not-ubuntu.html">Why Talos and not Ubuntu and K3s for Turing Pi RK1</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/13/why-talos-and-not-ubuntu.html" class="u-url"><time class="dt-published" datetime="2025-06-13 12:47:06 &#43;0000">Jun 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Now that I want to use the RK1s in my Turing Pi to host a Kubernetes cluster I have a few different options on how to do it.</p>
+<h2 id="ubuntu">Ubuntu</h2>
+<p>My goto is usually Ubuntu because I know how to use it. I can configure it using Ansible and debug it when things stop working, so of course I would use it. I didn&rsquo;t really think about it.</p>
+<p>This time I&rsquo;m using <a href="https://turingpi.com/product/turing-rk1/">RK1</a> modules, which are powered by Arm, and don&rsquo;t have &ldquo;official&rdquo; Ubuntu images. The ones it does have are <a href="https://firmware.turingpi.com/turing-rk1/">locked to Ubuntu 22.04</a>, or are <a href="https://github.com/Joshua-Riek/ubuntu-rockchip">a community effort</a>, and reading into it all made me question what I really needed.</p>
+<h2 id="k3s">K3s</h2>
+<p><a href="https://k3s.io/">K3s</a> is an obvious choice for running Kubernetes on low powered machines because it&rsquo;s a stripped back version of Kubernetes, containing only what it needs to run and nothing else.</p>
+<p>I like the sound of this approach; it&rsquo;s made me wonder if I really need Ubuntu for this.</p>
+<h2 id="talos">Talos</h2>
+<p>Enter <a href="https://www.talos.dev/">Talos</a>, a secure, immutable, minimal OS that just runs Kubernetes.</p>
+<p>Instead of the almost 3,000 binaries included in Ubuntu, Talos has only 12, and with those you can run a distributed Kubernetes cluster on bare metal.</p>
+<p>There&rsquo;s even an <a href="https://github.com/siderolabs/sbc-rockchip">official &ldquo;overlay&rdquo; that adds Rockchip support</a>, which includes my RK1s.</p>
+<p>Sure, it won&rsquo;t all be plain sailing, and there will be plenty of things to learn along the way, but the reasons mentioned above are why I&rsquo;m currently re-flashing my RK1s from Ubuntu to use Talos instead.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/13/kinda-excited-for-apple-containerization.html" class="u-url"><time class="dt-published" datetime="2025-06-13 11:29:21 &#43;0000">Jun 13, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Kinda excited for <a href="https://developer.apple.com/videos/play/wwdc2025/346/">Apple Containerization</a>, Apple&rsquo;s approach to running containers on macOS, even if it&rsquo;s more about the open source contribution than the tool itself.</p>
+<p>I was going to use <a href="https://github.com/abiosoft/colima">colima</a> to replace Docker Desktop on my Mac, maybe I won&rsquo;t need it.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/12/cat-sitting-for-a-friend.html" class="u-url"><time class="dt-published" datetime="2025-06-12 09:04:17 &#43;0000">Jun 12, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Cat sitting for a friend this week.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/06/04/microblogging-attempt-ive-updated-my.html" class="u-url"><time class="dt-published" datetime="2025-06-04 21:01:54 &#43;0000">Jun 4, 2025</time></a>
+
+		<div class="e-content">
+			 <p>microblogging attempt + 1</p>
+<p>I&rsquo;ve updated my <a href="https://paultibbetts.uk/now">/now</a> page with what I&rsquo;m up to during my break from work.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/04/04/unstuck.html">Unstuck</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/04/04/unstuck.html" class="u-url"><time class="dt-published" datetime="2025-04-04 13:41:01 &#43;0000">Apr 4, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Today is my last day working at Stickee, after which I will be &ldquo;unstuck&rdquo;.</p>
+<p>I&rsquo;d like to thank all of the wonderful people I&rsquo;ve worked with over the last six years. I&rsquo;m grateful for everything I&rsquo;ve learned and the opportunities I was given, which I&rsquo;ll carry into the next stage of my career.</p>
+<p>Though leaving is never easy, especially from the longest job I&rsquo;ve ever had, it&rsquo;s exciting to step out into the unknown and challenge myself with new experiences.</p>
+<p>Here&rsquo;s to new beginnings, thanks to you, the people that helped me get there.</p>
+<ul>
+<li>stickeePaul</li>
+</ul>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/01/03/pc-games-i-liked-in.html">PC Games I liked in 2024</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/01/03/pc-games-i-liked-in.html" class="u-url"><time class="dt-published" datetime="2025-01-03 20:02:46 &#43;0000">Jan 3, 2025</time></a>
+
+		<div class="e-content">
+			 <p>This isn&rsquo;t &ldquo;The Game Awards&rdquo; because I didn&rsquo;t play every game that came out, even though I tried to.</p>
+<p>I&rsquo;ll be using the same categories as <a href="https://store.steampowered.com/steamawards/2024?snr=1_4_661_">the Steam Awards</a>.</p>
+<h2 id="game-of-the-year-helldivers-2">Game of the Year: Helldivers 2</h2>
+<p><a href="https://store.steampowered.com/app/553850/HELLDIVERS_2/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/553850/header.jpg?t=1734382355" alt="Helldivers 2"></a></p>
+<p>I didn&rsquo;t play the first game so this one came out of nowhere for me, finding out about it from all the news coverage it generated when it came out, which is always a good start.</p>
+<p>It didn&rsquo;t take long before I was calling this the best 4 player co-op game since Left for Dead 2.</p>
+<p>There&rsquo;s countless videos about it, and I&rsquo;m pretty certain this isn&rsquo;t the first time you&rsquo;re hearing about it, so I&rsquo;ll be brief:</p>
+<p>This game is better than the cutscenes in other games.</p>
+<p>It&rsquo;s also a better Starship Troopers game than the official Starship Troopers game.</p>
+<h2 id="vr-game-of-the-year-half-life-alyx">VR Game of the Year: Half Life: Alyx</h2>
+<p><a href="https://store.steampowered.com/app/546560/HalfLife_Alyx/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/546560/header.jpg?t=1673391297" alt="Half Life: Alyx"></a></p>
+<p>I bought a PSVR2 this year because it went on sale at the same time I found I had store credit at Game.</p>
+<p>I really haven&rsquo;t used it much since then.</p>
+<p>I bought some games for the PS5, like Horizon Zero Dawn: Call of the Mountain, which I enjoyed, but then I plugged it into my PC and tried Half Life: Alyx and was blown away by the level of detail.</p>
+<p>So even if it didn&rsquo;t come out this year, HL:A wins it for me.</p>
+<p>The winner of the Steam Awards was Metro Awakening VR and as a fan of the Metro series I guess I&rsquo;ll have to try it some time.</p>
+<h2 id="labour-of-love-dying-light">Labour of Love: Dying Light</h2>
+<p><a href="https://store.steampowered.com/app/239140/Dying_Light/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239140/header.jpg?t=1728908613" alt="Dying Light"></a></p>
+<p>I know they&rsquo;re all amazing games but I haven&rsquo;t played any of the finalists for this category on the Steam Awards, so I had to check my own library.</p>
+<p>When a friend bought a new PC, Dying Light was an easy choice to welcome him back to PC gaming. It came out over a decade ago and has been supported ever since, meaning it holds up to this day.</p>
+<h2 id="best-game-on-steam-deck">Best Game on Steam Deck</h2>
+<p>I don&rsquo;t own a Steam Deck so I&rsquo;m not qualified to answer this.</p>
+<p><a href="https://store.steampowered.com/app/2322010/God_of_War_Ragnark/">God of War: Ragnarok</a>&rsquo;s a good game and I haven&rsquo;t tried the other finalists so I&rsquo;ll go with that.</p>
+<p>My friend liked playing <a href="https://store.steampowered.com/app/1817070/Marvels_SpiderMan_Remastered/">Spiderman</a> but to me that&rsquo;s a big screen game.</p>
+<p>Actually so is God of War.</p>
+<p>This is why I don&rsquo;t own a Steam Deck.</p>
+<h2 id="better-with-friends-space-marine-2">Better with Friends: Space Marine 2</h2>
+<p><a href="https://store.steampowered.com/app/2183900/Warhammer_40000_Space_Marine_2/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2183900/header_alt_assets_3.jpg?t=1734021429" alt="Warhammer 40K: Space Marine 2"></a></p>
+<p>All multiplayer games are better with friends, but the biggest difference is in Space Marine 2.</p>
+<p>I don&rsquo;t want to play it on my own. I don&rsquo;t want to play it with randoms.</p>
+<p>I want to be facing the swarm knowing my brother&rsquo;s got my back.</p>
+<p>For the Emperor!</p>
+<h2 id="outstanding-visual-style-age-of-mythology-retold">Outstanding Visual Style: Age of Mythology: Retold</h2>
+<p><a href="https://store.steampowered.com/app/1934680/Age_of_Mythology_Retold/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1934680/header.jpg?t=1732647825" alt="Age of Mythology: Retold"></a></p>
+<p>I&rsquo;m bending the rules for this one.</p>
+<p>Whilst any of the games on this list look outstanding I&rsquo;m awarding this to AoM:R because when the original game came out I lent it to a friend, on a CD(!), and didn&rsquo;t get it back, so Retold has given me a chance to see what I missed.</p>
+<p>The graphics have been brought up to date and the quality of life improvements make this a solid remaster.</p>
+<h2 id="most-innovative-gameplay-enshrouded">Most Innovative Gameplay: Enshrouded</h2>
+<p><a href="https://store.steampowered.com/app/1203620/Enshrouded/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1203620/header.jpg?t=1734454279" alt="Enshrouded"></a></p>
+<p>Enshrouded was a gamble that my friends and I took when one of them bought a gaming PC and wanted to try something new and different.</p>
+<p>At first I couldn&rsquo;t quite put my finger on it, but as we carried on I realised the fact this game is powered by a voxel based engine unlocked new gameplay opportunities.</p>
+<p>In most games throwing an explosive at someone on a ledge might knock them off. In Enshrouded, it destroys the ledge itself, bringing your enemy down to you.</p>
+<p>🤯</p>
+<h2 id="best-game-you-suck-at-the-finals">Best Game You Suck At: The Finals</h2>
+<p><a href="https://store.steampowered.com/app/2073850/THE_FINALS/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2073850/header.jpg?t=1734012054" alt="The Finals"></a></p>
+<p>This could have also won the most innovative gameplay award because of it&rsquo;s <a href="https://www.gdcvault.com/play/1034307/Engineering-Mayhem-Technical-Deep-Dive">server-based destruction system</a>, but it&rsquo;s the best game I suck at, even if I don&rsquo;t want to admit that.</p>
+<h2 id="best-soundtrack-frostpunk-2">Best Soundtrack: Frostpunk 2</h2>
+<p><a href="https://store.steampowered.com/app/1601580/Frostpunk_2/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1601580/header.jpg?t=1734708918" alt="Frostpunk 2"></a></p>
+<p>I loved the original Frostpunk and had to get the sequel. I don&rsquo;t remember it for its soundtrack, but it kept me company the many times I was rejected as leader and thrown out into the snow.</p>
+<h2 id="outstanding-story-rich-game-red-dead-redemption-2">Outstanding Story-Rich Game: Red Dead Redemption 2</h2>
+<p><a href="https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1720558643" alt="Red Dead Redemption 2"></a></p>
+<p>Apparently I didn&rsquo;t play many story rich games this year. I was and still am very excited for <a href="">Stalker 2</a> , which has a heartbreaking behind-the-scenes story to go with it, but I haven&rsquo;t tried it yet.</p>
+<p>For the Christmas break this year I found myself continuing on from where I left Arthur and the gang the last time I played this, so RDR2 wins this category for me.</p>
+<h2 id="sit-back-and-relax-dave-the-diver">Sit Back and Relax: Dave the Diver</h2>
+<p><a href="https://store.steampowered.com/app/1868140/DAVE_THE_DIVER/"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1868140/header.jpg?t=1734352338" alt="Dave the Diver"></a></p>
+<p>This award almost went to <a href="https://store.steampowered.com/app/2294130/Goobies/">Goobies</a>, which helps me turn my brain off, but it gets beaten by Dave the Diver for that moment you unlock a new sushi recipe for your restaurant and the music plays and then the fish looks at the camera.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/01/02/getting-my-own-domain.html">Getting my own domain</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/01/02/getting-my-own-domain.html" class="u-url"><time class="dt-published" datetime="2025-01-02 15:42:25 &#43;0000">Jan 2, 2025</time></a>
+
+		<div class="e-content">
+			 <p>The first step to <a href="https://indieweb.org/Getting_Started">getting on the IndieWeb</a> is to have your own domain.</p>
+<p>This is an easy step for me because I&rsquo;ve already got one, so I thought I&rsquo;d explain how I got it.</p>
+<h2 id="ruler">Ruler</h2>
+<p>Years ago I registered my name as my domain.</p>
+<p>I&rsquo;m not a company, so I didn&rsquo;t want <code>.com</code>, but there weren&rsquo;t many options, and so to make me &ldquo;Paul Tibbetts from the UK&rdquo; I went with <code>.co.uk</code>.</p>
+<p>Some time later <code>.uk</code> was made available and to make it fair to the <code>.co.uk</code> owners who wanted to drop the <code>.co</code> you had to also own the <code>.co.uk</code> version to register it, so for a while I owned both.</p>
+<p>This was all before the newer extensions like <code>.blog</code> and <code>.dev</code> came out. When they did I considered changing but decided against it.</p>
+<h2 id="registrar">Registrar</h2>
+<p>I registered my domain with <a href="https://www.heartinternet.uk/">Heart Internet</a> because that&rsquo;s who we used at work and I didn&rsquo;t have any kind of preference.</p>
+<p>They don&rsquo;t expose my personal data when you run a <a href="https://www.whois.com/whois/paultibbetts.uk">whois query on the domain</a> so I haven&rsquo;t found a reason to move away from them.</p>
+<p>Renewals are £9.99 per year.</p>
+<h2 id="management">Management</h2>
+<p>For a while I managed the domain using the interface on Heart Internet but since then I&rsquo;ve moved it to <a href="https://www.cloudflare.com/">Cloudflare</a>.</p>
+<p>To do this I changed the nameservers that the domain uses from Heart Internet&rsquo;s to Cloudflare&rsquo;s.</p>
+<h2 id="records">Records</h2>
+<p>There aren&rsquo;t that many records right now.</p>
+<h3 id="heading">@</h3>
+<p>The apex domain, as in the bare one without any subdomains (<code>https://paultibbetts.uk</code>), points to a really small landing page I made for myself.</p>
+<p>I&rsquo;ll be redoing this soon so I won&rsquo;t talk about it yet.</p>
+<h3 id="www">www</h3>
+<p>I <strong>don&rsquo;t</strong> use the <code>www</code> subdomain.</p>
+<p>I know there are people who think this is wrong but growing up sharing links with others the moment I discovered you could get rid of it I did and haven&rsquo;t looked back.</p>
+<p>Maybe one day I will revisit this.</p>
+<h3 id="micro">micro</h3>
+<p><code>micro.paultibbetts.uk</code> is powered by <a href="https://micro.blog">Micro.blog</a>.</p>
+<p>I <em>could</em> run my main domain with Micro.blog but I want to have a go at doing that myself.</p>
+<p>I followed <a href="https://help.micro.blog/t/custom-domain-names/53">the Micro.blog guide to set up a custom domain</a> and used a <code>CNAME</code> on my domain to point <code>micro</code> to <code>https://paultibbetts.micro.blog</code>.</p>
+<h2 id="emails">Emails</h2>
+<p>Once upon a time I hosted my own email server.</p>
+<p>The company I worked at, Sixth Story, had an email address <code>iwanttowork @ sixthstory</code> that I thought was clever, so I wanted <code>hire @ paultibbetts</code> for myself. Applying for jobs as a web developer I thought it would help me stand out.</p>
+<p>Even after all the work though I still found myself using my regular Apple email address because I knew it was more stable, and less likely to get marked as spam, so when Apple announced <a href="https://support.apple.com/en-us/102540">you can use custom domains with iCloud mail</a> I got rid of my email server and used Apple&rsquo;s instead.</p>
+<p>This means I have some <code>MX</code> and <code>TXT</code> records to allow that to work.</p>
+<h2 id="in-review">In review</h2>
+<p>I have always been jealous of others with better domains than me.</p>
+<h3 id="difficult-to-spell">Difficult to spell</h3>
+<p>I have trouble getting people to spell my surname correctly.</p>
+<p>I don&rsquo;t blame them, there&rsquo;s lots of Bs and Ts, and saying &ldquo;technically there&rsquo;s 3 Ts&rdquo; isn&rsquo;t helpful when they&rsquo;re typing the double T towards the end.</p>
+<h4 id="potential-fix">Potential fix</h4>
+<p>Aral&rsquo;s <code>ar.al</code> domain is much better than mine. It&rsquo;s short and easy to spell.</p>
+<p>Maybe I could find a short domain and set it up to redirect?</p>
+<p>Time for another disappointing trip to <a href="https://iwantmyname.com/">IWantMyName</a> to see all the good domains have been taken.</p>
+<h3 id="did-you-mean-the-other-one">Did you mean the other one?</h3>
+<p>I share a name with someone way more famous than me.</p>
+<p>It&rsquo;s spelt a little different but search engines will assume you meant the other Paul.</p>
+<h4 id="potential-fix-1">Potential fix</h4>
+<p>There are a few ways I can improve my search engine rankings.</p>
+<p>I&rsquo;m going to try writing lots of content to go on my domain, hoping that does it.</p>
+<p>I will <strong>not</strong> do what the other guy did.</p>
+<h3 id="dot-uk">dot UK</h3>
+<p>My <code>.uk</code> address works whilst I live here but it wouldn&rsquo;t if I moved.</p>
+<h4 id="potential-fix-2">Potential fix</h4>
+<p>I don&rsquo;t have any immediate plans to move abroad so I&rsquo;m not too concerned with this.</p>
+<p>If I ever did I can setup redirects.</p>
+<h3 id="not-a-cool-internet-name">Not a cool internet name</h3>
+<p>Jeremy Keith&rsquo;s <code>adactio.com</code> domain regularly reminds me I&rsquo;m not creative enough to come up with a cool internet name.</p>
+<h4 id="potential-fix-3">Potential fix</h4>
+<p>Maybe another decade of thinking about it will help.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/01/02/the-plan.html">The plan</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/01/02/the-plan.html" class="u-url"><time class="dt-published" datetime="2025-01-02 12:10:33 &#43;0000">Jan 2, 2025</time></a>
+
+		<div class="e-content">
+			 <p>I was stuck on a problem at work, I forget what, and I was on someone&rsquo;s blog reading their post about it. By the end of it they&rsquo;d helped me solve my problem and I could move on.</p>
+<p>But before I did I clicked around the rest of the site to read their other posts and was pleasantly surprised to find I already knew the rest.</p>
+<p>And then it hit me.</p>
+<p>This person was only two steps ahead of me. They&rsquo;d already solved the problem I had, which was one step. The second was having all these other solutions written up and shared online.</p>
+<p>Working on the web for so long I&rsquo;ve developed an urge to share and give back to others in my position.</p>
+<p>So in an effort to replicate that I&rsquo;m going to work on posting more.</p>
+<h2 id="about">About</h2>
+<p>I&rsquo;ve been working on the web for over a decade now. My first few years in the industry were spent building blogs and landing pages for businesses.</p>
+<p>And yet I still don&rsquo;t have one for myself.</p>
+<h3 id="paultibbettsuk">paultibbetts.uk</h3>
+<p>My domain will be the main entry point for me online.</p>
+<p>For now its only goal is to cover the basics, because right now it isn&rsquo;t even doing that, then afterwards I can review.</p>
+<p>The end goal is to make it compatible with the <a href="https://indieweb.org/">IndieWeb</a> but there&rsquo;s a lot to do.</p>
+<p>I&rsquo;m going to start from the beginning and narrate my choices and decisions along the way. I&rsquo;m hoping <a href="https://www.manton.org/2018/12/11/days-of-microblogging.html">building in public</a> like this can be beneficial for others, even if they are already online.</p>
+<p>This will give me plenty of opportunities to cover all the different aspects of building for the web that I want published on my own domain.</p>
+<h3 id="micropaultibbettsuk">micro.paultibbetts.uk</h3>
+<p>Updates will come from here on my microblog.</p>
+<p>The posts will probably be way more nerdy from now on.</p>
+<p><strong>You have been warned.</strong></p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2025/01/01/my-blog-in.html">My blog in 2024</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/01/01/my-blog-in.html" class="u-url"><time class="dt-published" datetime="2025-01-01 16:58:52 &#43;0000">Jan 1, 2025</time></a>
+
+		<div class="e-content">
+			 <p>A retrospective on blogging in 2024.</p>
+<h2 id="what-went-well">What went well</h2>
+<p>Let&rsquo;s start on a positive note.</p>
+<h3 id="microblog">Micro.blog</h3>
+<p>2024 was the year I signed up to <a href="https://micro.blog">Micro.blog</a> and actually posted something online.</p>
+<p>This isn&rsquo;t the first time I&rsquo;ve made an attempt at blogging, and spoiler alert: it didn&rsquo;t last very long, but it was the most blogging I&rsquo;ve done in over a decade and so it deserves a <!-- raw HTML omitted -->teeny tiny<!-- raw HTML omitted --> amount of appreciation.</p>
+<h3 id="p-in-the-wild">P in the Wild</h3>
+<p>I also started an outdoors blog called <a href="https://pinthewild.micro.blog">P in the Wild</a> to share my outdoor activities.</p>
+<p>The blog itself isn&rsquo;t much but it gave me a space to share my trip to Scotland where I walked <a href="https://pinthewild.micro.blog/categories/west-highland-way">The West Highland Way</a>, which I <em>am</em> proud of.</p>
+<h2 id="what-didnt-go-well">What didn&rsquo;t go well</h2>
+<p>Now for the hard part, the things that could have gone better.</p>
+<h3 id="microblogging">microblogging</h3>
+<p>I didn&rsquo;t stick to blogging, and the longer you leave it the harder it is to jump back in, so you don&rsquo;t.</p>
+<h4 id="weeknotes">Weeknotes</h4>
+<p>The downfall for me was writing weeknotes.</p>
+<p>Originally my weeknotes were an attempt at sharing things that I didn&rsquo;t post at the time they were happening. I&rsquo;d say this is a bad reason to write weeknotes and instead I should have put more effort into sharing individual posts instead of letting them pile up.</p>
+<p>I mention this because I missed a post one week and didn&rsquo;t catch up. I invented these imaginary rules for how I would write and share what I was up to, like using weeknotes to link to individual posts, which meant I suddenly had a lot more posts to write, just so I could reference them.</p>
+<p>This turned posting into a chore, and it became boring writing posts like <a href="https://micro.paultibbetts.uk/2024/07/04/on-cycling-miles.html">why I cycled 100 miles in a week</a> just so I could reference them in my weeknotes. This started a backlog of posts I felt I should write just to catch up.</p>
+<p>I lost interest in writing them, so I didn&rsquo;t.</p>
+<h4 id="outdoors-blog">Outdoors blog</h4>
+<p>Having a second blog made things more complicated than I expected. I intentionally wanted a separate outlet to cater to a different audience, but it didn&rsquo;t take long for me to realise that doing so made my main blog worse, as now it was missing interesting content.</p>
+<h4 id="professional-blog">Professional blog</h4>
+<p>Being confused about a second blog made it impossible to start a third one. I liked the idea of having a shorter domain that was easier to spell and so claimed <a href="https://devoops.micro.blog">devoops.micro.blog</a> before anyone else could. I thought it could be the home to all my content about working on the web, before I realised that the whole point of sharing this content was to have my name attached to it.</p>
+<h2 id="what-to-do-going-forward">What to do going forward</h2>
+<p>Keep it simple.</p>
+<p>And maybe revisit weeknotes at a later date.</p>
+<p>The plan is to use <a href="https://micro.paultibbetts.uk">Micro.blog</a> for everything. It&rsquo;ll be my social outlet that links to everything else, wherever that is.</p>
+<p>There will be a few posts on the outdoors blog, and then I&rsquo;ll link to it from my main one. I might be double posting to the timeline but I don&rsquo;t expect it to happen often.</p>
+<p>As for content, I don&rsquo;t know exactly what I&rsquo;ll end up writing about.</p>
+<p>I&rsquo;ve got a rough plan but it isn&rsquo;t all worked out yet.</p>
+<p>And I&rsquo;m ok with that.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2025/01/01/happy-new-year-i-will.html" class="u-url"><time class="dt-published" datetime="2025-01-01 16:20:05 &#43;0000">Jan 1, 2025</time></a>
+
+		<div class="e-content">
+			 <p>Happy New Year 🥳</p>
+<p>I will be posting more in 2025.</p>
+<p>That&rsquo;s not a resolution, just a coincidence.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/07/04/weeknotes.html">weeknotes 003</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/04/weeknotes.html" class="u-url"><time class="dt-published" datetime="2024-07-04 11:51:56 &#43;0000">Jul 4, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I cycled 50 miles for weeknotes 003.</p>
+<p>And that was pretty much all I did. You can see the evidence <a href="https://micro.paultibbetts.uk/2024/05/31/coffee-and-my.html">on my blog</a>. I also wrote up what it meant for me <a href="https://micro.paultibbetts.uk/2024/07/04/on-cycling-miles.html">here</a>.</p>
+<p>I wasn&rsquo;t actively fishing for replies, or maybe I was, but I was nonetheless grateful to the commenters who left messages when I completed it.</p>
+<p>The experience was such a shock to my system that I didn&rsquo;t have the brainpower to be very productive doing anything else, and that was ok with me.</p>
+<p>My new tent arrived on the Saturday and I had a go at setting it up before I took it for a real test on the Sunday.</p>
+<p>I had meant to write these weeknotes there at camp in my new tent but there&rsquo;s something about getting out into nature, away from screens, that makes it very difficult to instead look at a smaller screen than you normally would.</p>
+<p>I opted for no screens and so weeknotes were postponed.</p>
+<p>I didn&rsquo;t think it would take this long to write them though.</p>
+<!-- raw HTML omitted -->
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/07/04/on-cycling-miles.html">on cycling 50 miles in a week</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/04/on-cycling-miles.html" class="u-url"><time class="dt-published" datetime="2024-07-04 11:43:42 &#43;0000">Jul 4, 2024</time></a>
+
+		<div class="e-content">
+			 <p>50 miles in a week isn&rsquo;t much of a cycling achievement.</p>
+<p>Most cyclists are training for 100 miles in one go.</p>
+<h2 id="challenge">Challenge</h2>
+<p>I was playing a game with my roadie friend when I mentioned we hadn&rsquo;t gone on our bikepacking trip yet, and he mentioned I hadn&rsquo;t done any training for it.</p>
+<p>The route we&rsquo;ve got planned is 50 miles there, camp, and then 50 miles back. Neither of us know if I can even do that, hence the training.</p>
+<p>He recommended splitting it up over several days so I could ease myself into it. He was more interested in me getting time on the bike and knowing I would get back in the saddle day after day, even if I was feeling sore.</p>
+<h2 id="result">Result</h2>
+<p>I was very sore. I had to iron out the wrinkles in my cycling muscles and that took a few days to happen. I even built up the confidence to swap my flat pedals for the clipless ones I&rsquo;d bought and was a bit intimidated by.</p>
+<p>The only downside to my week had been my eyes. It was sunny so I went out each day in my cycling sunglasses, instead of my prescription spectacles. I thought an hour at a time would be ok for me but by the fourth day I was getting splitting headaches from the strain I was putting myself under.</p>
+<h2 id="next">Next</h2>
+<p>The solution is either prescription sunglasses, but they don&rsquo;t sell them in the full face covering style I want, or that I need to get contact lenses sorted out to continue using my current sunglasses.</p>
+<p>Then I need to get back on the bike.</p>
+<p>50 in a day is the next target, although I&rsquo;m switching from imperial to metric, so it&rsquo;ll have to be in kilometers.</p>
+<p>Then can we book that bikepacking trip?</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/07/03/on-microblogging-a.html">on microblogging a trip</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/03/on-microblogging-a.html" class="u-url"><time class="dt-published" datetime="2024-07-03 16:14:21 &#43;0000">Jul 3, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I&rsquo;m still working out blogging, micro or not.</p>
+<h2 id="what-went-well">What went well</h2>
+<p>Microblogging worked best when I was microblogging. Like when I had a photo I wanted to share. I would use my phone to take the photo, add the right filter and then post it online. Easy.</p>
+<p>I was hiking in the Scottish Highlands for a week and didn&rsquo;t want to use up all the data on my phone. If I took a photo there could be 3 or 4 different apps I&rsquo;d need to use to send it to people that might be interested in it.</p>
+<p>If I only uploaded the photo once, to my blog, and then shared the link I could cut down my internet usage.</p>
+<h2 id="what-didnt">What didn&rsquo;t</h2>
+<p>Proper blogging didn&rsquo;t work out so well.</p>
+<p>On the first evening I found myself with wifi and a few hours to spare. Here I was able to write and publish <a href="https://pinthewild.micro.blog/2024/06/29/west-highland-way.html">a summary of the day</a> using my phone. It was much more difficult and time consuming than capturing things live. Apparently I&rsquo;m not one of those people that&rsquo;s super productive on such a small screen.</p>
+<p>I also wasn&rsquo;t sure how much data I was using and decided to wait until I reached wifi to post again. Yet when I did find wifi I was tired. I had come on my trip to hike, not to write, so it was difficult to spare the time to edit the summaries and gave up.</p>
+<p>The day logs have been much easier to write at home on my laptop. I was also able to edit the videos I took and trim them to the right length to fit onto Micro.blog. They aren&rsquo;t anything special but it was fun to add a bit more character to my words and relive the trip a little now that I&rsquo;m back and rested.</p>
+<p>The first of those is <a href="https://pinthewild.micro.blog/2024/06/29/150957.html">day 2</a>, which features 9 seconds of birds singing in a forest.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/03/the-easiest-way.html" class="u-url"><time class="dt-published" datetime="2024-07-03 12:29:50 &#43;0000">Jul 3, 2024</time></a>
+
+		<div class="e-content">
+			 <p>The easiest way to avoid mistakes whilst blogging is to not post anything, but that&rsquo;s also a mistake.</p>
+<p>I hit publish on <a href="https://micro.paultibbetts.uk/2024/07/03/bad-at-blogging.html">bad at blogging</a> and <a href="https://micro.paultibbetts.uk/2024/07/03/dont-follow-me.html">don&rsquo;t follow me</a> to acknowledge the gap in content and give myself permission to make more blogging mistakes.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/07/03/dont-follow-me.html">don&#39;t follow me</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/03/dont-follow-me.html" class="u-url"><time class="dt-published" datetime="2024-07-03 12:22:36 &#43;0000">Jul 3, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I genuinely don&rsquo;t think you should be following me.</p>
+<p>It&rsquo;s a bit weird.</p>
+<h2 id="another-outlet">Another outlet</h2>
+<p>I&rsquo;ve started a second blog for one of my hobbies.</p>
+<p>It&rsquo;s for the people that I go camping with, the hiking friends I made on the West Highland Way, and random internet strangers who stumble across it and are into that sort of thing.</p>
+<p>Which leaves my original blog for&hellip; what exactly?</p>
+<h2 id="intended-audience">Intended audience</h2>
+<p>Years ago I was using a certain tool to write CSS, the styling part of making a website. It doesn&rsquo;t matter what it was called or who made it. I wanted to know about any updates that were released so I followed the creator on Twitter and for a while everything was fine.</p>
+<p>Then one day they posted a very explicit photo of a woman in lingerie. It wasn&rsquo;t the end of the world but it wasn&rsquo;t what I followed them for.</p>
+<p>I wasn&rsquo;t the only person to feel this way and a few people got in touch and shortly after the creator made a second account to post photos from. Sorted.</p>
+<p>Except it left me very confused about blogging.</p>
+<h2 id="microblog">Micro.blog</h2>
+<p>So far I&rsquo;m really liking <a href="https://micro.blog">Micro.blog</a>. It blurs the line between proper blogging and just posting a photo of the thing you&rsquo;re looking at. It&rsquo;s Twitter, Wordpress and Instagram all in one, which seems ideal for a hiking and camping blog.</p>
+<p>Except as a second blog in my Micro.blog account all the posts to the timeline are still going out as me.</p>
+<p>And that&rsquo;s what I was trying to avoid in the first place.</p>
+<p>I can&rsquo;t imagine someone following me for my tech opinions and then seeing a photo of a tent. It&rsquo;s not quite the lingerie example but it&rsquo;s not what they followed me for.</p>
+<h2 id="dont-follow-me">Don&rsquo;t follow me</h2>
+<p>So my general advice is don&rsquo;t follow me.</p>
+<p>I&rsquo;m still finding my feet when it comes to blogging, the content is all over the place and my writing style is still taking shape.</p>
+<p>But even on the day I get my shit together I still don&rsquo;t think you should follow &ldquo;me&rdquo;.</p>
+<h2 id="subscribe-maybe">Subscribe maybe?</h2>
+<p>I&rsquo;ll be creating a new page after this goes out with all the topics you could subscribe to.</p>
+<p>It&rsquo;ll be a short list.</p>
+<h3 id="hiking-and-camping">Hiking and camping</h3>
+<p>My outdoors content goes on my new blog, <a href="https://pinthewild.micro.blog">P in the wild</a>.</p>
+<p>You can follow that by adding the <a href="https://pinthewild.micro.blog/feed.xml">RSS feed</a> to your feed reader.</p>
+<h3 id="me">Me</h3>
+<p>I post shorter content on my microblog.</p>
+<p>You can follow this account <a href="https://micro.blog/paultibbetts">on Micro.blog</a> or with <a href="https://micro.paultibbetts.uk/feed.xml">RSS</a>.</p>
+<p>I don&rsquo;t have that many categories right now so it&rsquo;s all or nothing.</p>
+<p>Photos of food, opinions on tech, problems with blogging.</p>
+<p><strong>Anything</strong> that comes to mind that needs posting there and then.</p>
+<h3 id="proper-blog">Proper blog</h3>
+<p>Which means I need a place for my &ldquo;proper&rdquo; blog, with &ldquo;better writing&rdquo; and &ldquo;good content&rdquo;.</p>
+<p>As a web developer I have this overwhelming urge to write the code for this myself. As a blogger I&rsquo;d like the content to not be shit. So for now this is still being worked on.</p>
+<p>I&rsquo;ll start posting updates on it when I&rsquo;ve got something to share.</p>
+<p>And won&rsquo;t see them, because you aren&rsquo;t going to follow me, right?</p>
+<p>That&rsquo;d be a bit weird.</p>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/07/03/bad-at-blogging.html">bad at blogging</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/07/03/bad-at-blogging.html" class="u-url"><time class="dt-published" datetime="2024-07-03 12:18:43 &#43;0000">Jul 3, 2024</time></a>
+
+		<div class="e-content">
+			 <ul>
+<li>blogs are meant to be written in paragraphs
+<ul>
+<li>but I write my notes as lists
+<ul>
+<li>I like lists</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>fell off the blogging wagon a few weeks ago
+<ul>
+<li>hard to restart the streak
+<ul>
+<li>do I need to post an acknowledgement?</li>
+</ul>
+</li>
+<li>went camping with the intention of catching up
+<ul>
+<li>enjoyed the peace and quiet too much to spend the evening on my phone</li>
+<li>how does anyone edit blogs on their phone?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>don&rsquo;t want to over-share
+<ul>
+<li>embarrassing
+<ul>
+<li>have done that before</li>
+</ul>
+</li>
+<li>security concerns?
+<ul>
+<li>will someone work out where I live?
+<ul>
+<li>do I have any active enemies right now?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>nobody will follow you if you post crap
+<ul>
+<li>need to practise somehow</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>don&rsquo;t want to under-share
+<ul>
+<li>need to post something
+<ul>
+<li>what?
+<ul>
+<li>hobbies
+<ul>
+<li>what about my intended audience?</li>
+<li>who is my intended audience?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>prove you can do hard things
+<ul>
+<li>the whole reason for getting into blogging</li>
+<li>good for career
+<ul>
+<li>if done well</li>
+</ul>
+</li>
+<li>good for self-esteem
+<ul>
+<li>but everyone else blogs about harder things?
+<ul>
+<li>am I making myself look worse in comparison?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>it takes courage to post about mistakes and weaknesses
+<ul>
+<li>that sounds scary
+<ul>
+<li>social anxiety makes it hard to hit publish on those posts</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>make new blogs for different audiences
+<ul>
+<li>Micro.blog posts everything from the same account
+<ul>
+<li>did not achieve aim of segregating content and intended audience</li>
+<li>post about how to follow me with RSS?
+<ul>
+<li>it would be easier to tell people to not follow me
+<ul>
+<li>defeats the point of blogging?</li>
+<li>less scary this way?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TODO press publish</li>
+</ul>
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/20/finished-the-west.html" class="u-url"><time class="dt-published" datetime="2024-06-20 21:38:30 &#43;0000">Jun 20, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Hiked the West Highland Way.</p>
+<p>96 miles from Milngavie to Fort William.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/20/rested-showered-and.html" class="u-url"><time class="dt-published" datetime="2024-06-20 07:59:59 &#43;0000">Jun 20, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Rested, showered and caffeinated.</p>
+<p>Ready for day 7.</p>
+<p>25km to Fort William.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/19/made-it-to.html" class="u-url"><time class="dt-published" datetime="2024-06-19 20:03:44 &#43;0000">Jun 19, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Made it to Kinlochleven.</p>
+<p>Should have eaten more than just Skittles and Scottish Tablet for lunch.</p>
+<p>Tired.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/19/day-involves-breakfast.html" class="u-url"><time class="dt-published" datetime="2024-06-19 11:23:25 &#43;0000">Jun 19, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Day 6 involves breakfast at Glencoe mountain resort, Kingshouse Inn, and dealing with a low phone battery.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/18/misty-mountain-wild.html" class="u-url"><time class="dt-published" datetime="2024-06-18 21:05:34 &#43;0000">Jun 18, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Misty mountain wild camp.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/18/day-and-id.html" class="u-url"><time class="dt-published" datetime="2024-06-18 08:55:31 &#43;0000">Jun 18, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Day 5 and I’d hoped for a massive day, doing 2 stages in one go to bring the total down from 8 days to 7, but I’ve woken up feeling a bit run down.</p>
+<p>Hoping the walking fixes it, instead of making it worse.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/18/day-summaries-have.html" class="u-url"><time class="dt-published" datetime="2024-06-18 08:54:24 &#43;0000">Jun 18, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Day summaries have been postponed until after the trip. They take too long to write on a phone and I have walking to do.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/17/haggis-neeps-and.html" class="u-url"><time class="dt-published" datetime="2024-06-17 18:43:14 &#43;0000">Jun 17, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Haggis, Neeps and Tatties at the Tyndrum Inn.</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/17/even-later-start.html" class="u-url"><time class="dt-published" datetime="2024-06-17 10:34:50 &#43;0000">Jun 17, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Even later start to day 4 but I treated myself to a full Scottish breakfast.</p>
+<p>19km today. Apparently days 2 and 3 are the toughest walking sections so I should be a bit faster today.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/made-it-to.html" class="u-url"><time class="dt-published" datetime="2024-06-16 20:38:19 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Made it to Beinglas in time for dinner.</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/loch-lomond.html" class="u-url"><time class="dt-published" datetime="2024-06-16 16:26:46 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Loch Lomond</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/youre-not-allowed.html" class="u-url"><time class="dt-published" datetime="2024-06-16 11:09:36 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>You’re not allowed to camp at this perfect little camp spot and then sit on the perfectly located bench beside it because it’s on this side of the sign.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/breakfast-banana-from.html" class="u-url"><time class="dt-published" datetime="2024-06-16 10:50:43 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Breakfast banana from Bocsa Bean in Rowardennan.</p>
+<p>And a coffee of course.</p>
+<p>I was impressed that the whole trailer’s powered by the electric car parked next to it and only uses 2% of the battery.</p>
+<p>🥾</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/todays-just-as.html" class="u-url"><time class="dt-published" datetime="2024-06-16 09:34:24 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Today’s just as long as yesterday and yet I’m setting off an hour later 🥴</p>
+<p>Should still make it before sunset.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/16/morning-day-summary.html" class="u-url"><time class="dt-published" datetime="2024-06-16 08:33:00 &#43;0000">Jun 16, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Morning.</p>
+<p>Day 2 summary needs to wait until I find WiFi.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/15/a-long-and.html" class="u-url"><time class="dt-published" datetime="2024-06-15 20:25:23 &#43;0000">Jun 15, 2024</time></a>
+
+		<div class="e-content">
+			 <p>A long and undulating second day.</p>
+<p>Cheers!</p>
+<p>⛺️</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/15/sandwich-stop-in.html" class="u-url"><time class="dt-published" datetime="2024-06-15 13:40:45 &#43;0000">Jun 15, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Sandwich stop in Balmaha.</p>
+<p>Which is a fantastic word to shout in a bad Scottish accent.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/15/loch-lomond-from.html" class="u-url"><time class="dt-published" datetime="2024-06-15 12:11:05 &#43;0000">Jun 15, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Loch Lomond from Conic Hill.</p>
+<p>Half way through today’s route.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/15/these-aloe-vera.html" class="u-url"><time class="dt-published" datetime="2024-06-15 08:36:04 &#43;0000">Jun 15, 2024</time></a>
+
+		<div class="e-content">
+			 <p>These Aloe Vera ear plugs blocked out most of the snoring and noisy sleeping pads at the camp site last night.</p>
+<p>Nothing could stop the 4:30 alarm from the birds though.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/14/well-this-is.html" class="u-url"><time class="dt-published" datetime="2024-06-14 18:41:02 &#43;0000">Jun 14, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Well this is a first.</p>
+<p>Night 1 of the West Highland Way for me is a stay at <a href="https://drymencamping.co.uk/">Drymen Camping</a>, eating pizza in my tent.</p>
+<p>🍕⛺️</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/14/off-to-a.html" class="u-url"><time class="dt-published" datetime="2024-06-14 13:16:50 &#43;0000">Jun 14, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Off to a very damp start.</p>
+<p>3rd time doing the rain jacket on and then off again dance.</p>
+<p>92 miles to go.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/14/im-walking-the.html" class="u-url"><time class="dt-published" datetime="2024-06-14 12:18:57 &#43;0000">Jun 14, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I’m walking The West Highland Way.</p>
+<p>Almost 100 miles, should take about a week, so this is now a hiking and camping micro blog.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/14/the-late-week.html" class="u-url"><time class="dt-published" datetime="2024-06-14 12:15:24 &#43;0000">Jun 14, 2024</time></a>
+
+		<div class="e-content">
+			 <p>The 2 late week notes are delayed yet again. I’d hoped to write them on the train but the views heading to Scotland were too good to ignore.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/03/at-least-i.html" class="u-url"><time class="dt-published" datetime="2024-06-03 10:30:11 &#43;0000">Jun 3, 2024</time></a>
+
+		<div class="e-content">
+			 <p>At least I can see the way down.</p>
+<p>⛰️ Moel Siabod</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/06/03/i-climbed-metres.html" class="u-url"><time class="dt-published" datetime="2024-06-03 09:16:52 &#43;0000">Jun 3, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I climbed 872 metres for these views.</p>
+<p>⛰️Moel Siabod</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/31/coffee-and-my.html" class="u-url"><time class="dt-published" datetime="2024-05-31 16:00:51 &#43;0000">May 31, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Coffee and my first ever I-cycled-50-miles-in-a-week-biscuit.</p>
+<p><a href="https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html">Day 5/5 complete.</a></p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/30/found-a-secret.html" class="u-url"><time class="dt-published" datetime="2024-05-30 16:49:13 &#43;0000">May 30, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Found a secret beach.</p>
+<p>It&rsquo;s on Komoot and is pretty well sign-posted from the path, but it&rsquo;s a secret.</p>
+<p><a href="https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html">Day 4/5 complete.</a></p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/29/i-climbed-a.html" class="u-url"><time class="dt-published" datetime="2024-05-29 17:06:28 &#43;0000">May 29, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I climbed a 10% hill.</p>
+<p>I then had to bask in the glory of my accomplishment for a minute.</p>
+<p><a href="https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html">Day 3/5 complete.</a></p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/28/coach-asked-if.html" class="u-url"><time class="dt-published" datetime="2024-05-28 16:10:44 &#43;0000">May 28, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Coach asked if a photo every day was necessary?</p>
+<p>I&rsquo;m undecided.</p>
+<p><a href="https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html">Day 2/5 complete.</a></p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/27/bank-holiday-by.html" class="u-url"><time class="dt-published" datetime="2024-05-27 19:23:41 &#43;0000">May 27, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Bank holiday by the sea.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/27/coach-says-if.html" class="u-url"><time class="dt-published" datetime="2024-05-27 13:49:32 &#43;0000">May 27, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Coach says if I want to cycle 50 miles in a day I must first cycle 50 miles.</p>
+<p>So I’ve split it over 5 days.</p>
+<p>Day 1/5 complete.</p>
+<p>🚲</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/27/got-any-tips.html" class="u-url"><time class="dt-published" datetime="2024-05-27 10:54:58 &#43;0000">May 27, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Got any tips for getting started with RSS readers?</p>
+<p>I&rsquo;ve installed <a href="https://netnewswire.com/">NetNewsWire</a> on my phone and laptop and they sync from <a href="https://freshrss.org/">FreshRSS</a> which is running in my homelab.</p>
+<p>Which feeds do you recommend?</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/05/26/weeknotes.html">Weeknotes 002</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/26/weeknotes.html" class="u-url"><time class="dt-published" datetime="2024-05-26 21:14:32 &#43;0000">May 26, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Another missed opportunity to photograph my food.
+Another weeknotes.</p>
+<p>I fixed my bike this week. All it needed was the tyres pumping up, but I didn&rsquo;t have the right pump because my new bike uses Presta valves and I&rsquo;d never even heard of them before.</p>
+<p>More money later and my bike&rsquo;s road worthy again. Went out for a short ride to celebrate and now I&rsquo;m all achey. Planning on getting out more next week.</p>
+<p>Met up with the Recommend.li team at <a href="https://www.colmoretap.co.uk/">The Colmore</a> in Birmingham, which is a great after work spot in the city centre with a ridiculous amount of beers on tap. I had an anchovy pizza and once again forgot about needing content for my blog whilst eating it.</p>
+<p>Planned and booked <a href="https://www.westhighlandway.org/">The West Highland Way</a> for June after watching <a href="https://youtu.be/z015CycR2pA?si=j_7OWsxhMWsndL2b">Paul Messner&rsquo;s series</a>. Bought some new gear in preparation. Going to microblog the trip. Can&rsquo;t let good content keep going to waste.</p>
+<!-- raw HTML omitted -->
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/05/20/setting-up-my.html">Setting up my Micro.blog sub-domain using IaC, Terraform and Cloudflare</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/20/setting-up-my.html" class="u-url"><time class="dt-published" datetime="2024-05-20 14:50:42 &#43;0000">May 20, 2024</time></a>
+
+		<div class="e-content">
+			 <p>The last step to setting up my new <a href="https://micro.blog">Micro.blog</a> was to use it from my own domain.</p>
+<p>I debated using it exclusively at <code>paultibbetts.uk</code> but I want to work on my own blog for that address.</p>
+<p>So I&rsquo;m going to use Micro.blog as&hellip; my microblog&hellip; at <code>micro.paultibbetts.uk</code>.</p>
+<p>Instead of doing it by hand on Cloudflare&rsquo;s website I wrote it down as code.</p>
+<h2 id="infrastructure-as-code">Infrastructure as Code</h2>
+<p>Writing down your infrastructure as code has a lot of benefits:</p>
+<ul>
+<li>it&rsquo;s in one central place instead of spread out in different UIs on different sites</li>
+<li>it can be version controlled</li>
+<li>it can be readable by robots as well as other humans</li>
+</ul>
+<p>You can use tools like <a href="https://www.terraform.io/">Terraform</a>, <a href="https://opentofu.org/">OpenTofu</a> or <a href="https://www.pulumi.com/">Pulumi</a> to do this.</p>
+<h2 id="terraform">Terraform</h2>
+<p>I&rsquo;m using Terraform at the moment. I might look into Pulumi in the future.</p>
+<p>Terraform uses <a href="https://developer.hashicorp.com/terraform/language/syntax/configuration">HCL</a> for its configuration.</p>
+<h3 id="maintf"><code>main.tf</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">terraform</span> {
+  <span style="color:#66d9ef">required_providers</span> {
+    cloudflare <span style="color:#f92672">=</span> {
+      source  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cloudflare/cloudflare&#34;</span>
+      version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;~&gt; 4.0&#34;</span>
+    }
+  }
+}
+</code></pre></div><p>My domain is managed by Cloudflare so at the start of my code I tell Terraform to use the <code>cloudflare/cloudflare</code> provider. This means I can manage different things in Cloudflare using a few settings.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;cloudflare&#34;</span> {
+  api_token <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">cloudflare_api_token</span>
+}
+</code></pre></div><p>Next I tell the Cloudflare provider to use a variable for my API token.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;cloudflare_zone&#34; &#34;paultibbetts_dot_uk&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;paultibbetts.uk&#34;</span>
+}
+</code></pre></div><p>Originally I asked ChatGPT how to do this, and it was technically correct, but it wanted me to go on the Cloudflare site, go to my domain, and copy the <code>zone_id</code> to pass in as a variable. Which is missing the point of doing this with code.</p>
+<p>Instead, using <code>data</code>  means this block is a data source, called <code>paultibbetts_dot_uk</code>, which uses Cloudflare&rsquo;s <code>cloudflare_zone</code> module to get a zone (domain) with a name of <code>paultibbetts.uk</code>.</p>
+<p>I don&rsquo;t know or care what the ID is and I can automate the process of finding it out.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_record&#34; &#34;microblog&#34;</span> {
+  zone_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">cloudflare_zone</span>.<span style="color:#66d9ef">paultibbetts_dot_uk</span>.<span style="color:#66d9ef">id</span>
+  name    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;micro&#34;</span>
+  type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CNAME&#34;</span>
+  value   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;paultibbetts.micro.blog&#34;</span>
+  ttl     <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+}
+</code></pre></div><p>When I create a <code>cloudflare_record</code> resource, called <code>microblog</code>, I can use the data source to get the ID of the zone for which domain the <code>CNAME</code> record should be added to.</p>
+<h3 id="varstf"><code>vars.tf</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;cloudflare_api_token&#34;</span> {
+  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
+  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;api token&#34;</span>
+}
+</code></pre></div><p>Because I don&rsquo;t want to write down my API token in my code I set it up as a variable.</p>
+<p>I can now pass in the token when I run Terraform:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">terraform apply <span style="color:#ae81ff">\ </span>
+-var cloudflare_api_token<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;********&#34;</span> <span style="color:#ae81ff">\ </span>
+</code></pre></div><p>but I prefer loading it in as an environment variable.</p>
+<p>You can do this by prefixing the variable with <code>TF_VAR</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># secrets.sh</span>
+export TF_VAR_cloudflare_api_token<span style="color:#f92672">=</span>********
+</code></pre></div><p>and remembering to source this file before you run Terraform commands</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">source secrets.sh
+terraform apply
+</code></pre></div><h3 id="apply">apply</h3>
+<p>Now I can run <code>terraform apply</code>, confirm the proposed changes, and Terraform will use the Cloudlfare API to add the CNAME to my domain for me.</p>
+<p>After <a href="https://help.micro.blog/t/custom-domain-names/53/24">making a quick change in Micro.blog</a> I&rsquo;m live at my own domain 🥳</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/05/19/weeknotes.html">Weeknotes 001</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/19/weeknotes.html" class="u-url"><time class="dt-published" datetime="2024-05-19 22:39:48 &#43;0000">May 19, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Weeknotes are for when you&rsquo;re eating sushi and forget to take a photo and then later you decide you should tell people about it because it was excellent.</p>
+<p>Loved the food at <a href="http://sushimarvel.co.uk/">Sushi Marvel</a> in Manchester. I was too busy eating to take many photos but I paused before tackling the chicken karaage rice bowl so there&rsquo;s at least one of that. I&rsquo;ve recently started a regular pilgrimage to Manchester&rsquo;s food scene and so far Sushi Marvel&rsquo;s been my favourite for food.</p>
+<p>Lots of walking this week. Inspired by <a href="https://youtu.be/z015CycR2pA?si=-moWIT457QNHY4pb">Paul Messner&rsquo;s recent trip to Scotland</a> I&rsquo;m now thinking of walking The West Highland Way.</p>
+<p>Made a proper start on the app I&rsquo;m working on with my friends. I need to learn what&rsquo;s new in React to work on the frontend.</p>
+<p>Decided to redo my Neovim config and make it work the way I want it to. This deserves its own post next week.</p>
+<p>Subscribed to Micro.blog 🥳 I&rsquo;ve decided to use <a href="https://micro.paultibbetts.uk">micro.paultibbetts.uk</a> for the domain and I wrote that DNS setting down as Terraform code instead of doing it by hand. Don&rsquo;t ask how much longer that took me.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/05/13/what-im-doing.html">What I&#39;m doing right now</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/13/what-im-doing.html" class="u-url"><time class="dt-published" datetime="2024-05-13 14:14:20 &#43;0000">May 13, 2024</time></a>
+
+		<div class="e-content">
+			 <!-- raw HTML omitted -->
+<h2 id="sabbatical">Sabbatical</h2>
+<p>I&rsquo;m currently on a three month sabbatical from work.</p>
+<p>I&rsquo;ve been there for over five years and wanted a little break to work on my own things.</p>
+<h2 id="personal">Personal</h2>
+<p><strong>Touch typing</strong> - I&rsquo;m learning to touch type. You&rsquo;ll see me post about <a href="https://paultibbetts.micro.blog/categories/keyboards">typing and keyboards</a> more than I normally would.</p>
+<p><strong>Setting up my Mac</strong> - I&rsquo;ve just bought an M3 Macbook Pro and I&rsquo;m reviewing the apps I use.</p>
+<p><strong>Blogging</strong> - regularly. I&rsquo;m viewing this as a project because it&rsquo;s new to me, but I&rsquo;d like it to become a normal everyday thing.</p>
+<p><strong>Getting back into fitness</strong> - running and cycling</p>
+<h3 id="hobbies">Hobbies</h3>
+<p><strong>Bikepacking</strong> - I bought a gravel bike to go bikepacking last year and I still haven&rsquo;t been! I need to fix that.</p>
+<p><strong>Hiking</strong> - I&rsquo;m always thinking about the next destination</p>
+<h3 id="gaming">Gaming</h3>
+<p><a href="https://store.steampowered.com/app/553850/HELLDIVERS_2/">Helldivers 2</a> - for co-op</p>
+<p><a href="https://www.reachthefinals.com/">The Finals</a> - for competitive PVP</p>
+<p><a href="https://mintrocketgames.com/en/DaveTheDiver">Dave the Diver</a> - for relaxing</p>
+<h2 id="projects">Projects</h2>
+<h3 id="dev">Dev</h3>
+<p><strong>Recommend.li</strong> - over seven years ago my colleagues and I wanted an app to send recommendations to each other, and we still haven&rsquo;t found the right one, so now we&rsquo;re making it ourselves.</p>
+<p><strong>Learning Go</strong> - because it looks better suited for the DevOps work I do nowadays.</p>
+<h3 id="ops">Ops</h3>
+<p><strong>Homelab</strong> - now I&rsquo;ve got dedicated time to work on it I&rsquo;m making more progress on my homelab than I have since I started it.</p>
+<h2 id="reading">Reading</h2>
+<h3 id="non-fiction">Non-fiction</h3>
+<p><a href="https://micro.blog/books/9781455586660?title=Deep+Work&amp;author=Cal+Newport&amp;cover_id=161982">Deep Work</a> - I read this years ago and taking some time off to get some work done seemed like a perfect time to reread it.</p>
+<p><a href="https://micro.blog/books/9781942788072">DevOps Handbook</a> - I really like this. I got to the part about &ldquo;starting a DevOps movement in your company&rdquo; and then started my sabbatical, so for now I&rsquo;m reading the other books. I&rsquo;ll finish it before I go back to work.</p>
+<p><a href="https://micro.blog/books/9780988820241">The Art of Monitoring</a> - is helping to unravel the mysteries of monitoring web applications.</p>
+<h3 id="fiction">Fiction</h3>
+<p><a href="https://micro.blog/books/9798837991578?title=Arisen&amp;author=Michael+Stephen+Fuchs&amp;cover_id=161975">Arisen Raiders: The Last Raid</a> 🧟 - I don&rsquo;t like the look of that title!</p>
+<h2 id="blog">Blog</h2>
+<p>I&rsquo;ve recently signed up to <a href="https://micro.blog">Micro.blog</a> and it has a lot more features than my previous blog, so for now it&rsquo;s my home on the internet.</p>
+<p>I&rsquo;m planning on using it for general updates and <a href="https://paultibbetts.micro.blog/2024/05/02/japanesestyle-sandwich-bread.html">photos of bread</a> of course, like any good blog, but also for recording design decisions in my development work, updates to my homelab and other nerdy things.</p>
+<p>I&rsquo;d like to make some progress on my own blogging system, and then these things can go there instead, but I don&rsquo;t have that yet, so I&rsquo;ll use Micro.blog to track my progress working towards that.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://micro.paultibbetts.uk/2024/05/08/one-week-of.html">One week of touch typing ⌨️</a></h1>
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/08/one-week-of.html" class="u-url"><time class="dt-published" datetime="2024-05-08 14:33:40 &#43;0000">May 8, 2024</time></a>
+
+		<div class="e-content">
+			 <p>I thought I knew how to type.</p>
+<p>For years I&rsquo;ve been able to type without looking at the keys and I could get used to a new keyboard in hours, if not minutes.</p>
+<p>Then <a href="https://paultibbetts.micro.blog/2024/05/02/its-new-keyboard.html">I bought a new keyboard</a> that looks like this:</p>
+<!-- raw HTML omitted -->
+<p>and realised how wrong I was.</p>
+<h2 id="hunter-pecker">Hunter Pecker</h2>
+<p>It turns out I&rsquo;d become extremely proficient at hunting for keys and pecking at them with my index fingers. My hands knew where all the keys were but I primarily used my index fingers to push the buttons.</p>
+<p>Maybe the button was far enough away from the centre and I&rsquo;d use my <del>swearing</del> middle finger. Or it was right on the edge of the keyboard and I&rsquo;d use my ring finger. </p>
+<p>It worked for me for years, adapting from keyboard to keyboard and I could type at around 100 words per minute.</p>
+<h2 id="using-100-of-my-brain">Using 100% of my brain</h2>
+<p>When I got my new keyboard I decided to learn it properly. </p>
+<p>I&rsquo;d watch the videos, follow the guides and use the many different training apps available.</p>
+<p>And I&rsquo;d use my little fingers if I had to.</p>
+<p>I considered switching to a more modern keyboard layout, one that was designed for better efficiency, but I wanted to learn the new keyboard first.</p>
+<p>A new layout can come later, then I&rsquo;ll be using 100% of my brain.</p>
+<h2 id="training-regime">Training regime</h2>
+<p>I got my new keyboard on the 2nd of May and each day I would practise typing on <a href="https://www.keybr.com/">keybr</a>. </p>
+<p>It&rsquo;s important to not overdo it, so I would spend about 30 minutes of typing and leave it for a few hours before having another go. I set the timer on keybr to 2 hours per day, the highest it would go, and stopped when I hit it.</p>
+<p>Or I&rsquo;d stop way before then.</p>
+<p>Typing was painful!</p>
+<p>It wasn&rsquo;t a sharp pain, and it wasn&rsquo;t severe, but years of only using 2 or 3 fingers to type had to be unlearnt and my little fingers had more buttons to press than ever before.</p>
+<p>Some days it felt like I wasn&rsquo;t getting any better and I would never learn how to do it, but each morning I would find my fingers a little stronger and that my muscle memory had adapted a little bit more.</p>
+<p>Apart from that one time I went to type on my Macbook and I glitched.</p>
+<p>Hands hovering above the keyboard my brain couldn&rsquo;t find the relevant instructions to function and my whole body froze until it did.</p>
+<h2 id="keybr">keybr</h2>
+<p>I settled on <a href="https://www.keybr.com/">keybr</a> over the others because the guided lessons limited the keys I had to press and only unlocked the next key when it thought I was ready to progress.</p>
+<p>Which was a bit weird, because my fingers knew where the next unlocked key would be before my brain told them where it was.</p>
+<p>I felt like an octopus the way my hands moved without my brain ever telling them where to go.</p>
+<!-- raw HTML omitted -->
+<p>In total I&rsquo;ve spent 12 hours doing 730 lessons on keybr. The graph above shows my typing speed in green, accuracy in orange and the purple line shows the amount of keys unlocked. </p>
+<p>You can see the day I thought I knew what I was doing and then found out quickly that I didn&rsquo;t.</p>
+<p>Sometimes unlocking a new key would throw everything off balance and I&rsquo;d have to adjust what I was doing. Or sometimes the new key would put something familiar on the map for my hands to anchor around.</p>
+<p>After 12 hours of practising I&rsquo;ve unlocked all the alpha keys on keybr and my brain&rsquo;s adapted to the new layout. </p>
+<p>I was even able to type this blog post with my new keyboard!</p>
+<h2 id="room-for-improvement">Room for improvement</h2>
+<p>I&rsquo;m not very fast at typing right now though.</p>
+<p>This is where the other apps come in.</p>
+<ul>
+<li><a href="https://monkeytype.com/">monkeytype</a> is for whole-word training</li>
+<li><a href="https://type-fu.com/">type-fu</a> is another app for whole-word training</li>
+<li><a href="https://ranelpadon.github.io/ngram-type">ngram</a> is for typing ngrams (sequences of characters) to reinforce muscle memory</li>
+</ul>
+<p>I&rsquo;ll probably cut down my 2 hours of dedicated training to something more manageable but I&rsquo;m going to need to keep at it. </p>
+<p>It&rsquo;d be a bit embarrassing sharing my screen at work right now with me typing so slow and making so many mistakes.</p>
+<p>Even worse is that I&rsquo;m a programmer and I haven&rsquo;t yet learnt where all my symbols are?!</p>
+<h2 id="stats">Stats</h2>
+<p>Day 0: 100 WPM on my regular keyboard</p>
+<p>Day 1: 15 WPM on my new keyboard</p>
+<p>Days 1-7: practising on keybr for 2 hours per day</p>
+<p>Day 8: 60 WPM on my new keyboard</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/02/its-new-keyboard.html" class="u-url"><time class="dt-published" datetime="2024-05-02 16:18:56 &#43;0000">May 2, 2024</time></a>
+
+		<div class="e-content">
+			 <p>It&rsquo;s new keyboard day!</p>
+<p>I ordered a <a href="https://www.moergo.com/collections/glove80-keyboards/products/glove80-split-ergonomic-keyboard-revision-2?variant=47282998739217">Glove80</a> with Red switches from <a href="https://www.moergo.com/">MoErgo</a> on the 23rd of April and got it in the UK 10 days later.</p>
+<p>It&rsquo;s going to take some getting used to. I haven&rsquo;t used a keyboard like this before.</p>
+<p>⌨️</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/05/02/japanesestyle-sandwich-bread.html" class="u-url"><time class="dt-published" datetime="2024-05-02 13:45:48 &#43;0000">May 2, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Japanese-style sandwich bread 🍞</p>
+<p>The recipe&rsquo;s from <a href="https://micro.blog/books/9781784885700">JapanEasy Bowls &amp; Bento</a> by Tim Anderson 📚</p>
+<p>Most definitely not authentic and not very pretty but it&rsquo;s my first attempt and I&rsquo;m not a baker. It tastes good, so I&rsquo;m happy with it.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/04/25/the-kailh-choc.html" class="u-url"><time class="dt-published" datetime="2024-04-25 15:41:04 &#43;0000">Apr 25, 2024</time></a>
+
+		<div class="e-content">
+			 <p>The <a href="https://chosfox.com/products/kailh-choc-switches-tester">Kailh Choc switches</a> I ordered from China finally arrived.</p>
+<p>Pro Red (right) seemed too light so I&rsquo;ve gone for Red (left) for my new keyboard.</p>
+<p>Now begins the long wait for that to be delivered.</p>
+<p>⌨️</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/04/21/hello-microblog-my.html" class="u-url"><time class="dt-published" datetime="2024-04-21 10:09:35 &#43;0000">Apr 21, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Hello, micro.blog!</p>
+<p>My name&rsquo;s Paul. I&rsquo;m a DevOps Engineer - whatever that means.</p>
+<p>I backed Micro.blog on Kickstarter all that time ago but I&rsquo;m only just setting things up.</p>
+<p>👋</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://micro.paultibbetts.uk/2024/04/21/hello-world.html" class="u-url"><time class="dt-published" datetime="2024-04-21 09:59:03 &#43;0000">Apr 21, 2024</time></a>
+
+		<div class="e-content">
+			 <p>Hello, World! 👋</p>
 
 		</div>
 	  </div>
